@@ -1,25 +1,38 @@
 import * as React from "react";
-import { graphql } from "gatsby";
-const linkStyle = {
-  padding: "5rem 10rem",
-};
+import { graphql, PageProps } from "gatsby";
+import Layout from "../../components/layout";
+interface Props {
+  data: {
+    markdownRemark: {
+      frontmatter: {
+        title: string;
+        tags: string[];
+        date: string;
+      };
+      html: string;
+    };
+  };
+}
 export default function BlogPostTemplate({
   data, // this prop will be injected by the GraphQL query below.
-}: any) {
-  console.log(data);
-  const { markdownRemark } = data; // data.markdownRemark holds your post data
+}: Props) {
+  // data.markdownRemark holds your post data
+  const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
   return (
-    <div>
-      <div style={linkStyle}>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+    <Layout title="blog">
+      <div className="px-8  my-20 ">
+        <div
+          className="prose max-w-none prose-code:before:content-none prose-code:after:content-none"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </div>
-    </div>
+    </Layout>
   );
 }
 
 export const pageQuery = graphql`
-  query ($id: String!) {
+  query($id: String!) {
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
