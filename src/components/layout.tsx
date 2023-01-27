@@ -2,14 +2,13 @@ import React, { ReactNode } from "react";
 import Nav from "components/nav";
 interface LayoutProps {
   children: ReactNode;
-  title: string;
+  location?: string;
 }
-export default function Layout({ children, title }: LayoutProps) {
+export default function Layout({ children, location }: LayoutProps) {
   return (
-    <div className="mx-auto w-full max-w-4xl">
-      <title>{title}</title>
-      <Nav />
-      <div>{children}</div>
+    <div className="px-14">
+      <Nav location={location} />
+      <div className="mx-auto w-full max-w-5xl mt-20">{children}</div>
     </div>
   );
 }

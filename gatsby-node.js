@@ -9,6 +9,7 @@ exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
         pages: path.resolve(__dirname, "src/pages"),
         hooks: path.resolve(__dirname, "src/hooks"),
         libs: path.resolve(__dirname, "src/libs"),
+        assets: path.resolve(__dirname, "/static/assets"),
       },
     },
   });

@@ -1,7 +1,9 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
 import Layout from "../../components/layout";
+import Seo from "components/Seo";
 interface Props {
+  location: any;
   data: {
     markdownRemark: {
       frontmatter: {
@@ -15,12 +17,13 @@ interface Props {
 }
 export default function BlogPostTemplate({
   data, // this prop will be injected by the GraphQL query below.
+  location,
 }: Props) {
   // data.markdownRemark holds your post data
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
   return (
-    <Layout title="blog">
+    <Layout location={location.pathname}>
       <div className="px-8  my-20 ">
         <div
           className="prose max-w-none prose-code:before:content-none prose-code:after:content-none"
@@ -43,3 +46,4 @@ export const pageQuery = graphql`
     }
   }
 `;
+export const Head = () => <Seo title="Blog" />;

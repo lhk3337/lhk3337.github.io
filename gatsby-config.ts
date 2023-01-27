@@ -3,7 +3,7 @@ import type { GatsbyConfig } from "gatsby";
 const config: GatsbyConfig = {
   pathPrefix: "/my_tech_blog",
   siteMetadata: {
-    title: `My tech Blogs`,
+    title: `HOLIMBLOG`,
     siteUrl: `https://www.yourdomain.tld`,
     description: `Record my knowledge of development`,
   },
