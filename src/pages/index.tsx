@@ -1,17 +1,12 @@
-import * as React from "react";
-import { PageProps } from "gatsby";
-import { cls } from "../libs/cls";
-import { useSiteMetadata } from "../hooks/use-site-metadata";
-import Layout from "../components/layout";
-const IndexPage: React.FC<PageProps> = () => {
-  const { title, description } = useSiteMetadata();
-
+import Layout from "components/layout";
+import Seo from "components/Seo";
+import React from "react";
+export default function IndexPage({ location }: any) {
   return (
-    <Layout>
-      <h1 className={cls("text-3xl font-bold")}>{title}</h1>
-      <h2>{description}</h2>
+    <Layout location={location.pathname}>
+      <div>Blog main</div>
     </Layout>
   );
-};
+}
 
-export default IndexPage;
+export const Head = () => <Seo title="Blog" />;

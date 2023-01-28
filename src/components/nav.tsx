@@ -46,7 +46,7 @@ export default function Nav({ location }: Props) {
 
   return (
     <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl mt-4 relative">
-      <Link to="/blog" className="flex items-center space-x-10">
+      <Link to="/" className="flex items-center space-x-10">
         <img src={logos} alt="logos" className="w-12 h-12 rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
       </Link>
@@ -84,11 +84,11 @@ export default function Nav({ location }: Props) {
         <ul className={cls(isMenu ? "space-y-6" : "flex space-x-10 text-xl")}>
           <li
             className={cls(
-              location?.substring(0, 6) === "/blog/" ? "border-b-4 border-b-black font-bold rounded-none" : "",
+              location?.substring(0, 6) === "/" ? "border-b-4 border-b-black font-bold rounded-none" : "",
               isMenu ? "hover:bg-gray-100 py-3 px-5 rounded-lg border-none" : ""
             )}
           >
-            <Link to="/blog">BlOG</Link>
+            <Link to="/">BlOG</Link>
           </li>
           <li
             className={cls(
