@@ -14,14 +14,7 @@ interface mainProps {
 export default function IndexPage({ location, data }: mainProps) {
   const { search } = location;
   const [_, query] = search.split("=");
-  const selectedCategory = query === undefined ? "All" : query;
-  // console.log(
-  //   data.allMarkdownRemark.edges.filter(
-  //     (value) => value.node.frontmatter.categories[0].toLowerCase() === selectedCategory
-  //   )
-  // );
-
-  // console.log(data.allMarkdownRemark.edges.map((value) => value)); //All 조건
+  const selectedCategory = query === undefined ? "all" : query;
 
   return (
     <Layout location={location.pathname}>
@@ -35,16 +28,25 @@ export default function IndexPage({ location, data }: mainProps) {
         </ul>
       </menu>
       <div className="mt-20">
-        {data.allMarkdownRemark.edges
-          .filter((value) => value.node.frontmatter.categories[0].toLowerCase() === selectedCategory)
-          .map((item) => {
-            const { title, date, slug } = item.node.frontmatter;
-            return (
-              <Link to={`/blog${slug}`}>
-                <h1 className="text-lg">{title}</h1>
-              </Link>
-            );
-          })}
+        {selectedCategory === "all"
+          ? data.allMarkdownRemark.edges.map((value, i) => {
+              const { title, date, slug } = value.node.frontmatter;
+              return (
+                <Link to={`/blog${slug}`} key={i}>
+                  <h1 className="text-lg">{title}</h1>
+                </Link>
+              );
+            })
+          : data.allMarkdownRemark.edges
+              .filter((value) => value.node.frontmatter.categories[0].toLowerCase() === selectedCategory)
+              .map((item, i) => {
+                const { title, date, slug } = item.node.frontmatter;
+                return (
+                  <Link to={`/blog${slug}`} key={i}>
+                    <h1 className="text-lg">{title}</h1>
+                  </Link>
+                );
+              })}
       </div>
     </Layout>
   );
