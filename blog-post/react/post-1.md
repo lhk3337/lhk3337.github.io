@@ -2,6 +2,7 @@
 slug: "/deep-dive/1"
 date: "2022-11-24"
 title: "deep dive 5 표현식과 문"
+categories: ["React"]
 ---
 
 <div style="margin-bottom:41px"></div>
