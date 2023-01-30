@@ -3,7 +3,9 @@ import { graphql, PageProps } from "gatsby";
 import Layout from "../../components/layout";
 import Seo from "components/Seo";
 interface Props {
-  location: any;
+  location: {
+    pathname: string;
+  };
   data: {
     markdownRemark: {
       frontmatter: {
@@ -25,7 +27,7 @@ export default function BlogPostTemplate({
   } = data;
   return (
     <Layout location={location.pathname}>
-      <div className="px-8  my-20 ">
+      <div className="my-20">
         <div
           className="prose max-w-none prose-code:before:content-none prose-code:after:content-none"
           dangerouslySetInnerHTML={{ __html: html }}

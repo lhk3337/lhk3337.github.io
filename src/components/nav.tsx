@@ -1,7 +1,7 @@
 import { Link, useStaticQuery } from "gatsby";
 import { graphql } from "gatsby";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import logos from "assets/logos.png";
 import { cls } from "libs/cls";
 import { useEffect } from "react";
@@ -90,7 +90,7 @@ export default function Nav({ location }: Props) {
               isMenu ? "hover:bg-gray-100 py-3 px-5 rounded-lg border-none" : ""
             )}
           >
-            <Link to="/">BlOG</Link>
+            <Link to="/">BLOG</Link>
           </li>
           <li
             className={cls(
