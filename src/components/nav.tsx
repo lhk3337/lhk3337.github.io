@@ -84,7 +84,9 @@ export default function Nav({ location }: Props) {
         <ul className={cls(isMenu ? "space-y-6" : "flex space-x-10 text-xl")}>
           <li
             className={cls(
-              location?.substring(0, 6) === "/" ? "border-b-4 border-b-black font-bold rounded-none" : "",
+              location === "/" || location?.substring(0, 6) === "/blog/"
+                ? "border-b-4 border-b-black font-bold rounded-none"
+                : "",
               isMenu ? "hover:bg-gray-100 py-3 px-5 rounded-lg border-none" : ""
             )}
           >

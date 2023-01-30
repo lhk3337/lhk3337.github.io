@@ -20,8 +20,9 @@ export default function BlogPostTemplate({
   location,
 }: Props) {
   // data.markdownRemark holds your post data
-  const { markdownRemark } = data;
-  const { frontmatter, html } = markdownRemark;
+  const {
+    markdownRemark: { html },
+  } = data;
   return (
     <Layout location={location.pathname}>
       <div className="px-8  my-20 ">
@@ -46,4 +47,12 @@ export const pageQuery = graphql`
     }
   }
 `;
-export const Head = () => <Seo title="Blog" />;
+export const Head = ({ data }: Props) => {
+  const {
+    markdownRemark: {
+      frontmatter: { title },
+    },
+  } = data;
+
+  return <Seo title={title} />;
+};

@@ -1,23 +1,15 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { useSiteMetadata } from "hooks/use-site-metadata";
 import React from "react";
 interface Props {
   title: string;
 }
-export default function Seo({ title }: Props) {
-  const { site } = useStaticQuery<Queries.SeoDataQuery>(graphql`
-    query SeoData {
-      site {
-        siteMetadata {
-          title
-          siteUrl
-          description
-        }
-      }
-    }
-  `);
+export default function Seo({ title: pageTitle }: Props) {
+  const { title: siteTitle } = useSiteMetadata();
+
   return (
     <title>
-      {title} | {site?.siteMetadata?.title}
+      {pageTitle} | {siteTitle}
     </title>
   );
 }
