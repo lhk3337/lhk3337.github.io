@@ -1,16 +1,20 @@
+import CategoryMenu from "components/categoryMenu";
 import Layout from "components/layout";
 import Seo from "components/Seo";
 import { graphql, Link, PageProps } from "gatsby";
-import { categoryList } from "libs/category";
 import React from "react";
-interface mainProps {
+
+export interface mainProps {
   location: PageProps["location"];
   data: {
     allMarkdownRemark: {
+      totalCount: number;
       edges: [{ node: { frontmatter: { categories: [string]; date: Date; slug: string; title: string } } }];
+      group: [{ totalCount: number; fieldValue: string }];
     };
   };
 }
+
 export default function IndexPage({ location, data }: mainProps) {
   const { search } = location;
   const [_, query] = search.split("=");
@@ -18,14 +22,8 @@ export default function IndexPage({ location, data }: mainProps) {
 
   return (
     <Layout location={location.pathname}>
-      <menu className="bg-[#F3F3F3]">
-        <ul>
-          {categoryList.map((caterory) => (
-            <li key={caterory.id}>
-              <Link to={`?category=${caterory.queryUrl}`}>{caterory.name}</Link>
-            </li>
-          ))}
-        </ul>
+      <menu className="bg-[#F3F3F3] p-5 sm:px-5 sm:py-3">
+        <CategoryMenu data={data} location={location} />
       </menu>
       <div className="mt-20">
         {selectedCategory === "all"
@@ -55,6 +53,7 @@ export default function IndexPage({ location, data }: mainProps) {
 export const query = graphql`
   query CategoryList {
     allMarkdownRemark {
+      totalCount
       edges {
         node {
           frontmatter {
@@ -64,6 +63,10 @@ export const query = graphql`
             categories
           }
         }
+      }
+      group(field: { frontmatter: { categories: SELECT } }) {
+        totalCount
+        fieldValue
       }
     }
   }

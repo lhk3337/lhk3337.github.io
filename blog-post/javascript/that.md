@@ -1,11 +1,11 @@
 ---
-slug: "/js/this"
+slug: "/js/that"
 date: "2023-01-25"
 title: "that"
 categories: ["Javascript"]
 ---
 
-# this
+# that
 
 함수를 호출하는 객체
 
