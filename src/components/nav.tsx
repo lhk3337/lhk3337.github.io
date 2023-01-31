@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 import React, { useState } from "react";
 import logos from "assets/logos.png";
 import { cls } from "libs/cls";
-import { useEffect } from "react";
+import useInnerWidth from "hooks/useInnerWidth";
 
 interface Props {
   location?: string;
@@ -12,7 +12,6 @@ interface Props {
 // 640px < window.innerWidth
 export default function Nav({ location }: Props) {
   const [isMenu, setIsMenu] = useState(false); // side menu button handler
-  const [windowWidth, setWindowWidth] = useState(0); // window width size
   const data = useStaticQuery<Queries.BlogTitleQuery>(graphql`
     query BlogTitle {
       site {
@@ -24,22 +23,9 @@ export default function Nav({ location }: Props) {
       }
     }
   `);
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      const handleWindowResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
 
-      window.addEventListener("resize", handleWindowResize);
-      // tailwind responsive sm size가 640px
-      if (windowWidth > 641) {
-        setIsMenu(false);
-      }
-      return () => {
-        window.removeEventListener("resize", handleWindowResize);
-      };
-    }
-  }, [windowWidth]);
+  useInnerWidth(() => setIsMenu(false));
+
   const onClickNav = () => {
     setIsMenu((prev) => !prev);
   };
