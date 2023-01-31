@@ -45,7 +45,7 @@ export default function Nav({ location }: Props) {
   };
 
   return (
-    <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl mt-4 relative">
+    <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl relative">
       <Link to="/" className="flex items-center space-x-10">
         <img src={logos} alt="logos" className="w-12 h-12 rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
