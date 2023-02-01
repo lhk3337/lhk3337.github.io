@@ -2,9 +2,9 @@ import { Link, useStaticQuery } from "gatsby";
 import { graphql } from "gatsby";
 
 import React, { useState } from "react";
-import logos from "assets/logos.png";
 import { cls } from "libs/cls";
 import useInnerWidth from "hooks/useInnerWidth";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 interface Props {
   location?: string;
@@ -21,6 +21,12 @@ export default function Nav({ location }: Props) {
           description
         }
       }
+      file(name: { eq: "logos" }) {
+        childImageSharp {
+          gatsbyImageData(width: 50, height: 50)
+        }
+        publicURL
+      }
     }
   `);
 
@@ -33,7 +39,7 @@ export default function Nav({ location }: Props) {
   return (
     <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl relative">
       <Link to="/" className="flex items-center space-x-10">
-        <img src={logos} alt="logos" className="w-12 h-12 rounded-full" />
+        <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
       </Link>
       <button className="sm:hidden" onClick={onClickNav}>
