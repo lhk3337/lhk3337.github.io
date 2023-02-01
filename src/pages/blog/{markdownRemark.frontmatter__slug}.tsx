@@ -12,6 +12,7 @@ interface Props {
         title: string;
         tags: string[];
         date: string;
+        categories: string[];
       };
       html: string;
     };
@@ -23,11 +24,20 @@ export default function BlogPostTemplate({
 }: Props) {
   // data.markdownRemark holds your post data
   const {
-    markdownRemark: { html },
+    markdownRemark: {
+      html,
+      frontmatter: { date, title, categories },
+    },
   } = data;
   return (
     <Layout location={location.pathname}>
-      <div className="my-20">
+      <div className="my-20 space-y-10">
+        <div className="space-y-10">
+          <span className="bg-slate-100 rounded-lg p-2 text-xl font-bold text-black">{categories.join()}</span>
+
+          <h1 className="text-4xl font-bold">{title}</h1>
+          <h2 className="text-lg text-gray-400">{date}</h2>
+        </div>
         <div
           className="prose max-w-none prose-img:m-0 prose-p:m-0 prose-figcaption:text-center prose-code:before:content-none prose-code:after:content-none"
           dangerouslySetInnerHTML={{ __html: html }}
@@ -42,9 +52,10 @@ export const pageQuery = graphql`
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "YYYY.MM.DD")
         slug
         title
+        categories
       }
     }
   }
