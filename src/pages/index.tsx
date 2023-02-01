@@ -1,5 +1,6 @@
 import CategoryMenu from "components/categoryMenu";
 import Layout from "components/layout";
+import CategoryList from "components/categoryList";
 import Seo from "components/Seo";
 import { graphql, Link, PageProps } from "gatsby";
 import React from "react";
@@ -25,35 +26,14 @@ export default function IndexPage({ location, data }: mainProps) {
       <menu className="bg-[#F3F3F3] p-5 sm:px-5 sm:py-3">
         <CategoryMenu data={data} location={location} />
       </menu>
-      <div className="mt-20">
-        {selectedCategory === "all"
-          ? data.allMarkdownRemark.edges.map((value, i) => {
-              const { title, date, slug } = value.node.frontmatter;
-              return (
-                <Link to={`/blog${slug}`} key={i}>
-                  <h1 className="text-lg">{title}</h1>
-                </Link>
-              );
-            })
-          : data.allMarkdownRemark.edges
-              .filter((value) => value.node.frontmatter.categories[0].toLowerCase() === selectedCategory)
-              .map((item, i) => {
-                const { title, date, slug } = item.node.frontmatter;
-                return (
-                  <Link to={`/blog${slug}`} key={i}>
-                    <h1 className="text-lg">{title}</h1>
-                  </Link>
-                );
-              })}
-      </div>
+      <CategoryList data={data} selectedCategory={selectedCategory} />
     </Layout>
   );
 }
 
 export const query = graphql`
   query CategoryList {
-    allMarkdownRemark {
-      totalCount
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
       edges {
         node {
           frontmatter {
@@ -68,6 +48,7 @@ export const query = graphql`
         totalCount
         fieldValue
       }
+      totalCount
     }
   }
 `;
