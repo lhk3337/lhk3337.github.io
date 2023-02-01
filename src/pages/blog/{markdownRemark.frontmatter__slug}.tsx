@@ -29,7 +29,7 @@ export default function BlogPostTemplate({
     <Layout location={location.pathname}>
       <div className="my-20">
         <div
-          className="prose max-w-none prose-code:before:content-none prose-code:after:content-none"
+          className="prose max-w-none prose-img:m-0 prose-p:m-0 prose-figcaption:text-center prose-code:before:content-none prose-code:after:content-none"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
@@ -38,7 +38,7 @@ export default function BlogPostTemplate({
 }
 
 export const pageQuery = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
