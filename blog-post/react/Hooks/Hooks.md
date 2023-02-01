@@ -24,6 +24,8 @@ setState((prevState) => ({ ...prevState, loading: true }));
 
 # useRef
 
+![123](good.jpeg)
+
 변화는 감지 하지만, 그 변화가 랜더링이 발생시키면 안되는 어떤 값을 다룰때 사용한다. (리랜더링이 일어나지 않는다.)
 
 ```tsx
@@ -50,8 +52,7 @@ return (
 );
 ```
 
-![ezgif.com-gif-maker.gif](Hooks/ezgif.com-gif-maker.gif)
-<img src ="Hooks/ezgif.com-gif-maker.gif" />
+![ezgif.com-gif-maker.gif](ezgif.com-gif-maker.gif)
 
 DOM 요소에 접근
 
@@ -78,4 +79,4 @@ export default function App() {
 }
 ```
 
-![ezgif.com-gif-maker.gif](Hooks/ezgif.com-gif-maker%201.gif)
+![ezgif.com-gif-maker.gif](ezgif.com-gif-maker1.gif)

@@ -15,22 +15,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `javascript`,
-        path: `${__dirname}/blog-post/javascript`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `react`,
-        path: `${__dirname}/blog-post/react`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `typescript`,
-        path: `${__dirname}/blog-post/typescript`,
+        name: `post`,
+        path: `${__dirname}/blog-post/`,
       },
     },
     {
@@ -49,6 +35,19 @@ const config: GatsbyConfig = {
             options: {
               showLineNumbers: false,
               noInlineHighlight: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 590,
+            },
+          },
+          {
+            resolve: `gatsby-remark-copy-linked-files`,
+            options: {
+              destinationDir: `path/to/dir`,
+              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`],
             },
           },
         ],
