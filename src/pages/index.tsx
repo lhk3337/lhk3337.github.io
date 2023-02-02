@@ -23,9 +23,7 @@ export default function IndexPage({ location, data }: mainProps) {
 
   return (
     <Layout location={location.pathname}>
-      <menu className="bg-[#F3F3F3] p-5 sm:px-5 sm:py-3">
-        <CategoryMenu data={data} location={location} />
-      </menu>
+      <CategoryMenu data={data} location={location} />
       <CategoryList data={data} selectedCategory={selectedCategory} />
     </Layout>
   );
@@ -33,7 +31,7 @@ export default function IndexPage({ location, data }: mainProps) {
 
 export const query = graphql`
   query CategoryList {
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           frontmatter {
