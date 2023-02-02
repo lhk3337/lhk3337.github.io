@@ -36,7 +36,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
   };
 
   return (
-    <menu className="bg-[#F3F3F3] flex items-center relative sm:px-3 rounded-md pt-1">
+    <menu className="bg-[#F3F3F3] flex items-center sm:px-3 rounded-md pt-1">
       <button className="px-1 sm:px-0" onClick={() => slide(-150)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

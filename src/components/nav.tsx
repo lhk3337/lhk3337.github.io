@@ -69,8 +69,8 @@ export default function Nav({ location }: Props) {
       </button>
       <div
         className={cls(
-          isMenu ? "absolute top-20 bg-gray-50 p-5 rounded-xl w-full space-y-5 text-xl" : "hidden",
-          "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto"
+          isMenu ? "absolute z-50 top-20 bg-gray-50 p-5 rounded-xl w-full space-y-5 text-xl" : "hidden",
+          "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto z-50"
         )}
       >
         <ul className={cls(isMenu ? "space-y-6" : "flex space-x-10 text-xl")}>
