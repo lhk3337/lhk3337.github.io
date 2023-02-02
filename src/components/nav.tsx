@@ -39,7 +39,7 @@ export default function Nav({ location }: Props) {
   return (
     <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl relative">
       <Link to="/" className="flex items-center space-x-10">
-        <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
+        <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
       </Link>
       <button className="sm:hidden" onClick={onClickNav}>
