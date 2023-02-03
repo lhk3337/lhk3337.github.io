@@ -55,7 +55,7 @@ export default function Nav({ location }: Props) {
   };
   console.log(preventScroll);
   return (
-    <nav className="w-full h-[60px] py-10 bg-[rgba(255,255,255,0.75)] opacity-100 flex items-center backdrop-blur-sm justify-between mx-auto max-w-5xl sticky top-0 z-50">
+    <nav className="w-full h-[60px] flex items-center justify-between px-6 sm:px-24 py-10 sticky top-0 z-50 bg-[rgba(255,255,255,0.75)] opacity-100 backdrop-blur-sm shadow-navShadow">
       <Link to="/" className="flex items-center space-x-10">
         <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
@@ -87,7 +87,9 @@ export default function Nav({ location }: Props) {
       </button>
       <div
         className={cls(
-          isMenu ? "absolute top-20 bg-gray-50 p-5 rounded-xl w-full space-y-5 text-xl" : "hidden",
+          isMenu
+            ? "absolute top-24 bg-gray-50 rounded-xl p-5 space-y-5 text-xl left-1/2 -translate-x-1/2 w-[92%]"
+            : "hidden",
           "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto"
         )}
       >
@@ -111,7 +113,9 @@ export default function Nav({ location }: Props) {
             <Link to="/about">ABOUT</Link>
           </li>
         </ul>
-        <ul className={cls(isMenu ? "flex justify-between px-10 pt-10" : "flex space-x-5")}>
+        <ul
+          className={cls(isMenu ? "flex px-10 pt-10 justify-between" : "flex space-x-5 border-l-2 border-black pl-5")}
+        >
           <li>
             <a href="https://github.com/lhk3337">
               <svg

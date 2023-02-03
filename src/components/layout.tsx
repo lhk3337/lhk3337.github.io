@@ -6,9 +6,9 @@ interface LayoutProps {
 }
 export default function Layout({ children, location }: LayoutProps) {
   return (
-    <div className="px-6 sm:px-14">
+    <div>
       <Nav location={location} />
-      <div className="mx-auto w-full max-w-5xl mt-20">{children}</div>
+      <div className="mx-auto w-full max-w-5xl mt-20 px-6 sm:px-14">{children}</div>
     </div>
   );
 }
