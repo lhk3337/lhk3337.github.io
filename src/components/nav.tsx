@@ -37,9 +37,9 @@ export default function Nav({ location }: Props) {
   };
 
   return (
-    <nav className="w-full h-[60px] flex items-center justify-between mx-auto max-w-5xl relative">
+    <nav className="w-full h-[60px] py-10 bg-[rgba(255,255,255,0.75)] opacity-100 flex items-center backdrop-blur-sm justify-between mx-auto max-w-5xl sticky top-0 z-50">
       <Link to="/" className="flex items-center space-x-10">
-        <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" />
+        <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
       </Link>
       <button className="sm:hidden" onClick={onClickNav}>
@@ -69,8 +69,8 @@ export default function Nav({ location }: Props) {
       </button>
       <div
         className={cls(
-          isMenu ? "absolute z-50 top-20 bg-gray-50 p-5 rounded-xl w-full space-y-5 text-xl" : "hidden",
-          "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto z-50"
+          isMenu ? "absolute top-20 bg-gray-50 p-5 rounded-xl w-full space-y-5 text-xl" : "hidden",
+          "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto"
         )}
       >
         <ul className={cls(isMenu ? "space-y-6" : "flex space-x-10 text-xl")}>
