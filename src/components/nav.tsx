@@ -1,7 +1,7 @@
 import { Link, useStaticQuery } from "gatsby";
 import { graphql } from "gatsby";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cls } from "libs/cls";
 import useInnerWidth from "hooks/useInnerWidth";
 import { GatsbyImage } from "gatsby-plugin-image";
@@ -12,6 +12,7 @@ interface Props {
 // 640px < window.innerWidth
 export default function Nav({ location }: Props) {
   const [isMenu, setIsMenu] = useState(false); // side menu button handler
+  const [preventScroll, setPreventScroll] = useState(false); // active sm nav menu scroll prevent
   const data = useStaticQuery<Queries.BlogTitleQuery>(graphql`
     query BlogTitle {
       site {
@@ -31,11 +32,28 @@ export default function Nav({ location }: Props) {
   `);
 
   useInnerWidth(() => setIsMenu(false));
+  useInnerWidth(() => setPreventScroll(false));
+
+  useEffect(() => {
+    if (preventScroll) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = "";
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      };
+    }
+  }, [preventScroll]);
 
   const onClickNav = () => {
     setIsMenu((prev) => !prev);
+    setPreventScroll((prev) => !prev);
   };
-
+  console.log(preventScroll);
   return (
     <nav className="w-full h-[60px] py-10 bg-[rgba(255,255,255,0.75)] opacity-100 flex items-center backdrop-blur-sm justify-between mx-auto max-w-5xl sticky top-0 z-50">
       <Link to="/" className="flex items-center space-x-10">
