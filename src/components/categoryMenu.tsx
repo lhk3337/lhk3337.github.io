@@ -57,13 +57,13 @@ export default function CategoryMenu({ data, location }: mainProps) {
           <Link to={`?category=all`} className="p-2 cursor-pointer items-center flex-col flex">
             <div
               className={cls(
-                "h-20 w-20 rounded-full bg-white flex items-center justify-center font-bold mb-2",
+                "w-12 h-12 sm:h-20 sm:w-20 rounded-full bg-white flex items-center justify-center font-bold mb-2",
                 query === undefined || query === "all" ? "border-2 border-[#2E8EFF]" : ""
               )}
             >
-              <span className="text-xl">All</span>
+              <span className=" text-base sm:text-xl">All</span>
             </div>
-            <span className={cls(query === undefined || query === "all" ? "font-bold" : "")}>
+            <span className={cls("text-sm sm:text-base", query === undefined || query === "all" ? "font-bold" : "")}>
               All ({data.allMarkdownRemark.totalCount})
             </span>
           </Link>
@@ -77,13 +77,18 @@ export default function CategoryMenu({ data, location }: mainProps) {
               >
                 <div
                   className={cls(
-                    "h-20 w-20 bg-white rounded-full flex justify-center items-center mb-2",
+                    "w-12 h-12 sm:h-20 sm:w-20 bg-white rounded-full flex justify-center items-center mb-2",
                     query === caterory.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
                   )}
                 >
                   {caterory[caterory.fieldValue]}
                 </div>
-                <span className={cls(query === caterory.fieldValue.toLowerCase() ? "font-bold" : "")}>
+                <span
+                  className={cls(
+                    "text-sm sm:text-base",
+                    query === caterory.fieldValue.toLowerCase() ? "font-bold" : ""
+                  )}
+                >
                   {caterory.fieldValue} ({caterory.totalCount})
                 </span>
               </Link>
