@@ -55,7 +55,7 @@ export default function Nav({ location }: Props) {
   };
   console.log(preventScroll);
   return (
-    <nav className="w-full h-[60px] flex items-center justify-between px-6 sm:px-24 py-10 sticky top-0 z-50 bg-[rgba(255,255,255,0.75)] opacity-100 backdrop-blur-sm shadow-navShadow">
+    <nav className="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-10 opacity-100 shadow-navShadow backdrop-blur-sm sm:px-24">
       <Link to="/" className="flex items-center space-x-10">
         <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
@@ -68,7 +68,7 @@ export default function Nav({ location }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="h-8 w-8"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -79,7 +79,7 @@ export default function Nav({ location }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="h-8 w-8"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
@@ -88,18 +88,18 @@ export default function Nav({ location }: Props) {
       <div
         className={cls(
           isMenu
-            ? "absolute top-24 bg-gray-50 rounded-xl p-5 space-y-5 text-xl left-1/2 -translate-x-1/2 w-[92%]"
+            ? "absolute top-24 left-1/2 w-[92%] -translate-x-1/2 space-y-5 rounded-xl bg-gray-50 p-5 text-xl"
             : "hidden",
-          "sm:justify-between sm:items-center sm:space-x-10 sm:flex sm:w-auto"
+          "sm:flex sm:w-auto sm:items-center sm:justify-between sm:space-x-10"
         )}
       >
         <ul className={cls(isMenu ? "space-y-6" : "flex space-x-10 text-xl")}>
           <li
             className={cls(
               location === "/" || location?.substring(0, 6) === "/blog/"
-                ? "border-b-4 border-b-black font-bold rounded-none"
+                ? "rounded-none border-b-4 border-b-black font-bold"
                 : "",
-              isMenu ? "hover:bg-gray-100 py-3 px-5 rounded-lg border-none" : ""
+              isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100" : ""
             )}
           >
             <Link to="/">BLOG</Link>
@@ -107,14 +107,14 @@ export default function Nav({ location }: Props) {
           <li
             className={cls(
               location === "/about/" ? "border-b-4 border-b-black font-bold" : "",
-              isMenu ? "hover:bg-gray-100 py-3 px-5 rounded-lg border-none" : ""
+              isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100" : ""
             )}
           >
             <Link to="/about">ABOUT</Link>
           </li>
         </ul>
         <ul
-          className={cls(isMenu ? "flex px-10 pt-10 justify-between" : "flex space-x-5 border-l-2 border-black pl-5")}
+          className={cls(isMenu ? "flex justify-between px-10 pt-10" : "flex space-x-5 border-l-2 border-black pl-5")}
         >
           <li>
             <a href="https://github.com/lhk3337">

@@ -36,7 +36,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
   };
 
   return (
-    <menu className="bg-[#F3F3F3] flex items-center sm:px-3 rounded-md pt-1">
+    <menu className="flex items-center rounded-md bg-[#F3F3F3] pt-1 sm:px-3">
       <button className="px-1 sm:px-0" onClick={() => slide(-150)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,20 +44,20 @@ export default function CategoryMenu({ data, location }: mainProps) {
           viewBox="0 0 24 24"
           stroke-width="2.5"
           stroke="currentColor"
-          className="w-6 h-6"
+          className="h-6 w-6"
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
       <ul
         ref={scrollRef}
-        className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide flex space-x-8"
+        className="scroll flex h-full w-full space-x-8 overflow-x-scroll scroll-smooth whitespace-nowrap scrollbar-hide"
       >
         <li>
-          <Link to={`?category=all`} className="p-2 cursor-pointer items-center flex-col flex">
+          <Link to={`?category=all`} className="flex cursor-pointer flex-col items-center p-2">
             <div
               className={cls(
-                "w-12 h-12 sm:h-20 sm:w-20 rounded-full bg-white flex items-center justify-center font-bold mb-2",
+                "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white font-bold sm:h-20 sm:w-20",
                 query === undefined || query === "all" ? "border-2 border-[#2E8EFF]" : ""
               )}
             >
@@ -73,11 +73,11 @@ export default function CategoryMenu({ data, location }: mainProps) {
             <li key={i}>
               <Link
                 to={`?category=${caterory.fieldValue.toLowerCase()}`}
-                className="p-2 cursor-pointer items-center flex-col flex"
+                className="flex cursor-pointer flex-col items-center p-2"
               >
                 <div
                   className={cls(
-                    "w-12 h-12 sm:h-20 sm:w-20 bg-white rounded-full flex justify-center items-center mb-2",
+                    "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white sm:h-20 sm:w-20",
                     query === caterory.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
                   )}
                 >
@@ -103,7 +103,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
           viewBox="0 0 24 24"
           strokeWidth={2.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="h-6 w-6"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
