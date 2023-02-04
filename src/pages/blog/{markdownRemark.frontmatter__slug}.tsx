@@ -31,7 +31,7 @@ export default function BlogPostTemplate({
   } = data;
   return (
     <Layout location={location.pathname}>
-      <div className="my-20 space-y-10">
+      <div className="mt-20 space-y-10 pb-1">
         <div className="space-y-10">
           <span className="rounded-lg bg-slate-100 p-2 text-xl font-bold text-black">{categories.join()}</span>
 
