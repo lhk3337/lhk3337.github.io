@@ -13,6 +13,9 @@ interface Props {
 export default function Nav({ location }: Props) {
   const [isMenu, setIsMenu] = useState(false); // side menu button handler
   const [preventScroll, setPreventScroll] = useState(false); // active sm nav menu scroll prevent
+
+  const [themeIsDark, setThemeIsDark] = useState(false);
+
   const data = useStaticQuery<Queries.BlogTitleQuery>(graphql`
     query BlogTitle {
       site {
@@ -53,38 +56,76 @@ export default function Nav({ location }: Props) {
     setIsMenu((prev) => !prev);
     setPreventScroll((prev) => !prev);
   };
-  console.log(preventScroll);
+
+  const toggleDarkMode = () => {
+    setThemeIsDark((prev) => !prev);
+  };
   return (
     <nav className="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-10 opacity-100 shadow-navShadow backdrop-blur-sm md:px-6 lg:px-24">
       <Link to="/" className="flex items-center space-x-10">
         <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
         <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
       </Link>
-      <button className="sm:hidden" onClick={onClickNav}>
-        {isMenu ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-8 w-8"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-8 w-8"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        )}
-      </button>
+      <div className="flex space-x-6">
+        <button className="block sm:hidden" onClick={toggleDarkMode}>
+          {themeIsDark ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+              />
+            </svg>
+          )}
+        </button>
+        <button className="sm:hidden" onClick={onClickNav}>
+          {isMenu ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-8 w-8"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-8 w-8"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          )}
+        </button>
+      </div>
       <div
         className={cls(
           isMenu
@@ -110,10 +151,46 @@ export default function Nav({ location }: Props) {
               isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100" : ""
             )}
           >
-            <Link to="/about">ABOUT</Link>
+            <Link to="/about" className=" dark:text-zinc-100">
+              ABOUT
+            </Link>
           </li>
         </ul>
+
         <ul className={cls(isMenu ? "flex justify-between px-10" : "flex space-x-5 border-l-2 border-black pl-5")}>
+          <li className="hidden cursor-pointer sm:block" onClick={toggleDarkMode}>
+            {themeIsDark ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                />
+              </svg>
+            )}
+          </li>
           <li>
             <a href="https://github.com/lhk3337">
               <svg
