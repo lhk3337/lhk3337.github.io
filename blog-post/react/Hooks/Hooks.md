@@ -5,8 +5,6 @@ title: "Hooks"
 categories: ["React"]
 ---
 
-# Hooks
-
 # useState
 
 prevState

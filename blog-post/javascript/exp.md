@@ -1,13 +1,9 @@
 ---
-slug: "/deep-dive/1"
+slug: "/js/exp"
 date: "2022-11-24"
-title: "deep dive 5 표현식과 문"
-categories: ["React"]
+title: "표현식과 문"
+categories: ["Javascript"]
 ---
-
-<div style="margin-bottom:41px"></div>
-
-# 05. 표현식과 문
 
 ## 5.1 값
 

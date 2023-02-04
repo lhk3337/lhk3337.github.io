@@ -5,8 +5,6 @@ title: "this"
 categories: ["Javascript"]
 ---
 
-# this
-
 함수를 호출하는 객체
 
 ```jsx
@@ -24,7 +22,7 @@ const circle = {
     bar();
 
     // 콜백 함수
-    setTimeout(function() {
+    setTimeout(function () {
       console.log(this); //window 객체
       console.log(this.value); // 전역 변수 value, 1
     }, 1000);

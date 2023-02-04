@@ -5,8 +5,6 @@ title: "Generic"
 categories: ["Typescript"]
 ---
 
-# Generic
-
 ```tsx
 function identity<T>(arg: T): T {
   return arg;
