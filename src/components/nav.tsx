@@ -56,7 +56,7 @@ export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
     setIsMenu((prev) => !prev);
     setPreventScroll((prev) => !prev);
   };
-  console.log(themeIsDark);
+
   return (
     <>
       <nav className="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-10 opacity-100 shadow-navShadow backdrop-blur-sm dark:bg-slate-700 dark:text-white md:px-6 lg:px-24">
