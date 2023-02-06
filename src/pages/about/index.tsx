@@ -5,7 +5,9 @@ import React from "react";
 export default function About({ location }: PageProps) {
   return (
     <Layout location={location.pathname}>
-      <div>About me</div>
+      <div className="mx-auto mt-16 max-w-6xl px-6 sm:px-14">
+        <span>About me</span>
+      </div>
     </Layout>
   );
 }

@@ -36,7 +36,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
   };
 
   return (
-    <menu className="flex items-center rounded-md bg-[#F3F3F3] pt-1 sm:px-3">
+    <menu className="flex items-center rounded-md bg-[#F3F3F3] pt-1 dark:bg-slate-700/50 sm:px-3">
       <button className="px-1 sm:px-0" onClick={() => slide(-150)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
           <Link to={`?category=all`} className="flex cursor-pointer flex-col items-center p-2">
             <div
               className={cls(
-                "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white font-bold sm:h-20 sm:w-20",
+                "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white font-bold dark:bg-slate-700 sm:h-20 sm:w-20",
                 query === undefined || query === "all" ? "border-2 border-[#2E8EFF]" : ""
               )}
             >
@@ -77,7 +77,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
               >
                 <div
                   className={cls(
-                    "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white sm:h-20 sm:w-20",
+                    "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white dark:bg-slate-700 sm:h-20 sm:w-20",
                     query === caterory.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
                   )}
                 >

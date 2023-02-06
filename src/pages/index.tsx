@@ -23,8 +23,10 @@ export default function IndexPage({ location, data }: mainProps) {
 
   return (
     <Layout location={location.pathname}>
-      <CategoryMenu data={data} location={location} />
-      <CategoryList data={data} selectedCategory={selectedCategory} />
+      <div className="mt-16 px-6 sm:px-14">
+        <CategoryMenu data={data} location={location} />
+        <CategoryList data={data} selectedCategory={selectedCategory} />
+      </div>
     </Layout>
   );
 }

@@ -14,12 +14,12 @@ interface Props {
 
 export default function CategoryList({ data, selectedCategory }: Props) {
   return (
-    <div className="mt-20">
+    <div className="mx-auto mt-20 grid max-w-7xl space-y-10 sm:grid-flow-row sm:gap-8 sm:space-y-0 md:grid-cols-2 lg:grid-cols-3">
       {selectedCategory === "all"
         ? data.allMarkdownRemark.edges.map((value, i) => {
             const { title, date, slug } = value.node.frontmatter;
             return (
-              <Link to={`/blog${slug}`} key={i}>
+              <Link to={`/blog${slug}`} key={i} className="rounded-lg border-2 border-b-white">
                 <h1 className="text-lg">{title}</h1>
               </Link>
             );
@@ -29,7 +29,7 @@ export default function CategoryList({ data, selectedCategory }: Props) {
             .map((item, i) => {
               const { title, date, slug } = item.node.frontmatter;
               return (
-                <Link to={`/blog${slug}`} key={i}>
+                <Link to={`/blog${slug}`} key={i} className="rounded-lg border-2 border-b-white">
                   <h1 className="text-lg">{title}</h1>
                 </Link>
               );
