@@ -58,7 +58,9 @@ export default function Nav({ location }: Props) {
   };
 
   const isDarkClick = () => {
-    return themeToggler();
+    if (typeof themeToggler === "function") {
+      return themeToggler();
+    }
   };
 
   return (

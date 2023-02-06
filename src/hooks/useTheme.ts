@@ -19,7 +19,7 @@ const useTheme = () => {
     };
   }, []);
 
-  return [theme, themeToggler] as const;
+  return [theme, themeToggler];
 };
 
 export default useTheme;
