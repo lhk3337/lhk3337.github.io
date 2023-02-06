@@ -43,3 +43,8 @@ exports.onRenderBody = ({ setPreBodyComponents }) => {
     }),
   ]);
 };
+/* 
+  현재 pc에 설정된 다크 모드 및 라이트 모드의 현재값을 localStorage 초기값으로 저장
+  toggle 클릭 상태에 따라 body className에 dark 및 light로 변경, localStorage도 dark, light로 저장
+  설정된 값은 useTheme의 useEffect에서 실행 된다.
+*/

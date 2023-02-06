@@ -5,16 +5,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { cls } from "libs/cls";
 import useInnerWidth from "hooks/useInnerWidth";
 import { GatsbyImage } from "gatsby-plugin-image";
+import useTheme from "hooks/useTheme";
 
 interface Props {
   location?: string;
-  themeIsDark: any;
-  setThemeIsDark: any;
 }
 // 640px < window.innerWidth
-export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
+export default function Nav({ location }: Props) {
   const [isMenu, setIsMenu] = useState(false); // side menu button handler
   const [preventScroll, setPreventScroll] = useState(false); // active sm nav menu scroll prevent
+  const [theme, themeToggler] = useTheme();
 
   const data = useStaticQuery<Queries.BlogTitleQuery>(graphql`
     query BlogTitle {
@@ -57,17 +57,21 @@ export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
     setPreventScroll((prev) => !prev);
   };
 
+  const isDarkClick = () => {
+    return themeToggler();
+  };
+
   return (
     <>
-      <nav className="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-10 opacity-100 shadow-navShadow backdrop-blur-sm dark:bg-slate-700 dark:text-white md:px-6 lg:px-24">
+      <nav className="nav_menu">
         <Link to="/" className="flex items-center space-x-10">
           <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
           <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
         </Link>
         {/* sm screen menu buttons */}
         <div className="flex space-x-6">
-          <button className="block sm:hidden" onClick={setThemeIsDark}>
-            {themeIsDark === "dark" ? (
+          <button className="block sm:hidden" onClick={isDarkClick}>
+            {theme === "dark" ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -138,9 +142,9 @@ export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
             <li
               className={cls(
                 location === "/" || location?.substring(0, 6) === "/blog/"
-                  ? "rounded-none border-b-4 border-b-black font-bold dark:border-b-white"
+                  ? "border-b-4 border-b-black font-bold dark:border-b-white"
                   : "",
-                isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100" : ""
+                isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100 hover:dark:bg-slate-700" : ""
               )}
             >
               <Link to="/">BLOG</Link>
@@ -148,7 +152,7 @@ export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
             <li
               className={cls(
                 location === "/about/" ? "border-b-4 border-b-black font-bold dark:border-b-white" : "",
-                isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100" : ""
+                isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100 hover:dark:bg-slate-700" : ""
               )}
             >
               <Link to="/about" className=" dark:text-zinc-100">
@@ -162,8 +166,8 @@ export default function Nav({ location, setThemeIsDark, themeIsDark }: Props) {
               isMenu ? "flex justify-between px-10" : "flex space-x-5 border-l-2 border-black pl-5 dark:border-white"
             )}
           >
-            <li className="hidden cursor-pointer sm:block" onClick={setThemeIsDark}>
-              {themeIsDark === "dark" ? (
+            <li className="hidden cursor-pointer sm:block" onClick={isDarkClick}>
+              {theme === "dark" ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
