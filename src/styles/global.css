@@ -14,11 +14,11 @@
   @apply text-lg font-bold text-gray-900;
 }
 .markdown_styles {
-  @apply prose max-w-none prose-p:m-0 prose-figcaption:text-center prose-code:before:content-none prose-code:after:content-none prose-img:m-0 dark:text-white prose-headings:dark:text-white prose-a:dark:text-white prose-blockquote:dark:text-white prose-figcaption:dark:text-white prose-strong:dark:text-white;
+  @apply prose max-w-none prose-p:m-0 prose-figcaption:text-center prose-code:before:content-none prose-code:after:content-none prose-img:m-0 dark:text-white prose-headings:dark:text-white prose-a:dark:text-white prose-blockquote:dark:text-white prose-figcaption:dark:text-white prose-strong:dark:text-white prose-li:marker:dark:text-white;
 }
 
 .nav_menu {
-  @apply sticky top-0 z-50 flex h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-10 opacity-100 shadow-navShadow backdrop-blur-sm dark:bg-slate-800 dark:text-white md:px-6 lg:px-24;
+  @apply sticky top-0 z-50 flex  h-[60px] w-full items-center justify-between bg-[rgba(255,255,255,0.75)] px-6 py-8 opacity-100 shadow-navShadow backdrop-blur-sm dark:bg-slate-800 dark:text-white md:px-6 lg:px-24;
 }
 
 .dark {

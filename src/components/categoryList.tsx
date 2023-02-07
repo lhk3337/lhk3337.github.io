@@ -14,7 +14,7 @@ interface Props {
 
 export default function CategoryList({ data, selectedCategory }: Props) {
   return (
-    <div className="mx-auto mt-20 grid max-w-7xl space-y-10 sm:grid-flow-row sm:gap-8 sm:space-y-0 md:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto mt-20 grid max-w-6xl space-y-10 sm:grid-flow-row sm:gap-8 sm:space-y-0 md:grid-cols-2 lg:grid-cols-3">
       {selectedCategory === "all"
         ? data.allMarkdownRemark.edges.map((value, i) => {
             const { title, date, slug } = value.node.frontmatter;

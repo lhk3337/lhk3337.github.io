@@ -2,6 +2,7 @@ import * as React from "react";
 import { graphql, PageProps } from "gatsby";
 import Layout from "../../components/layout";
 import Seo from "components/Seo";
+import Comments from "components/comments";
 interface Props {
   location: {
     pathname: string;
@@ -48,6 +49,7 @@ export default function BlogPostTemplate({
           <h2 className="text-lg text-gray-400">{date}</h2>
         </div>
         <div className="markdown_styles" dangerouslySetInnerHTML={{ __html: html }} />
+        <Comments />
       </div>
     </Layout>
   );
