@@ -3,6 +3,8 @@ slug: "/js/that"
 date: "2023-01-25"
 title: "that"
 categories: ["Javascript"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 함수를 호출하는 객체

@@ -3,6 +3,8 @@ slug: "/js/exp"
 date: "2022-11-24"
 title: "표현식과 문"
 categories: ["Javascript"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 ## 5.1 값

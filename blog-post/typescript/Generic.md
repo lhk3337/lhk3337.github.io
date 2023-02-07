@@ -3,6 +3,8 @@ slug: "/typescript/generic"
 date: "2023-01-31"
 title: "Generic"
 categories: ["Typescript"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 ```tsx

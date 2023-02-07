@@ -3,6 +3,8 @@ slug: "/js/destructuring"
 date: "2023-02-01"
 title: "구조분해 할당 및 펼침 연산자, 깊은 복사"
 categories: ["Javascript"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 ## 구조분해 할당

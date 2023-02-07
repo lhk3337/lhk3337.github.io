@@ -4,13 +4,31 @@ import CategoryList from "components/categoryList";
 import Seo from "components/Seo";
 import { graphql, Link, PageProps } from "gatsby";
 import React from "react";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 
 export interface mainProps {
   location: PageProps["location"];
   data: {
     allMarkdownRemark: {
       totalCount: number;
-      edges: [{ node: { frontmatter: { categories: [string]; date: Date; slug: string; title: string } } }];
+      edges: [
+        {
+          node: {
+            frontmatter: {
+              categories: [string];
+              date: string;
+              slug: string;
+              title: string;
+              desc: string;
+              thumbnail: {
+                childImageSharp: {
+                  gatsbyImageData: IGatsbyImageData;
+                };
+              };
+            };
+          };
+        }
+      ];
       group: [{ totalCount: number; fieldValue: string }];
     };
   };
@@ -23,7 +41,8 @@ export default function IndexPage({ location, data }: mainProps) {
 
   return (
     <Layout location={location.pathname}>
-      <div className="mt-16 px-6 sm:px-14">
+      <div className="mx-auto mt-16 max-w-6xl px-6 sm:px-14">
+        <h1 className="mb-5 text-2xl font-bold">Category</h1>
         <CategoryMenu data={data} location={location} />
         <CategoryList data={data} selectedCategory={selectedCategory} />
       </div>
@@ -41,6 +60,12 @@ export const query = graphql`
             slug
             date(formatString: "YYYY.MM.DD")
             categories
+            desc
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(width: 650, height: 400)
+              }
+            }
           }
         }
       }

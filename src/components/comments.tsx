@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function Comments() {
   const commentRef = useRef<HTMLDivElement>(null);
@@ -16,5 +16,5 @@ export default function Comments() {
       commentRef.current?.appendChild(scriptEl);
     }
   }, []);
-  return <div className="py-10 dark:bg-slate-800" ref={commentRef} />;
+  return <div className="py-10" ref={commentRef} />;
 }

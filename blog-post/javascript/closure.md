@@ -3,6 +3,8 @@ slug: "/js/closure"
 date: "2023-02-01"
 title: "Closure"
 categories: ["Javascript"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 > 클로저는 어떤 함수에서 선언한 변수를 참조하는 내부함수를 외부로 전달할 경우, 함수의 실행 컨텍스트가 종료된 후에도 해당 변수가 사라지지 않는 현상

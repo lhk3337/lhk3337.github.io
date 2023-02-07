@@ -3,6 +3,8 @@ slug: "/react/hooks"
 date: "2023-01-31"
 title: "Hooks"
 categories: ["React"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 # useState

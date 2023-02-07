@@ -3,6 +3,8 @@ slug: "/nextjs/this"
 date: "2023-02-01"
 title: "nextjs란?"
 categories: ["Nextjs"]
+desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+thumbnail: "./thumbnail.png"
 ---
 
 next js는 Server Side Rendering
