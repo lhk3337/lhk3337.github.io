@@ -1,6 +1,6 @@
-import CategoryMenu from "components/categoryMenu";
+import CategoryMenu from "components/categories/categoryMenu";
 import Layout from "components/layout";
-import CategoryList from "components/categoryList";
+import CategoryList from "components/categories/categoryList";
 import Seo from "components/Seo";
 import { graphql, Link, PageProps } from "gatsby";
 import React from "react";

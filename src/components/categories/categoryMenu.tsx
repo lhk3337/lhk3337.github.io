@@ -2,7 +2,7 @@ import { Link } from "gatsby";
 import { cls } from "libs/cls";
 import { mainProps } from "pages/index";
 import React, { useEffect, useRef, useState } from "react";
-import { JsIcons, NextJsIcon, ReactIcon, TailwinIcon, TsIcon } from "./icon";
+import { JsIcons, NextJsIcon, ReactIcon, TailwinIcon, TsIcon } from "./categoryIcon";
 
 interface Values {
   [key: string]: any;
