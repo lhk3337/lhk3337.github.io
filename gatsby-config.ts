@@ -74,6 +74,7 @@ const config: GatsbyConfig = {
         stripQueryString: true,
       },
     },
+    "gatsby-plugin-sitemap",
   ],
 };
 
