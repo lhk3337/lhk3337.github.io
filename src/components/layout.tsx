@@ -33,6 +33,7 @@ export default function Layout({ children, location }: LayoutProps) {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:creator" content="@author_handle" />
         <meta name="twitter:image" content={publicURL} />
+        <html lang="ko" />
       </Helmet>
       <Nav location={location} />
       {children}
