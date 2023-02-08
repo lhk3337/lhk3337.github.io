@@ -4,8 +4,8 @@ const config: GatsbyConfig = {
   pathPrefix: "/my_tech_blog",
   siteMetadata: {
     title: `HOLIMBLOG`,
-    siteUrl: `https://www.yourdomain.tld`,
-    description: `Record my knowledge of development`,
+    siteUrl: `https://lhk3337.github.io`,
+    description: `개발공부 하면서 알게 되었던 지식들을 기록하고 공유하는 공간입니다.`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -67,6 +67,13 @@ const config: GatsbyConfig = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
+    {
+      resolve: "gatsby-plugin-canonical-urls",
+      options: {
+        siteUrl: "<https://lhk3337.github.io/>",
+        stripQueryString: true,
+      },
+    },
   ],
 };
 

@@ -1,11 +1,11 @@
-import { Link, useStaticQuery } from "gatsby";
-import { graphql } from "gatsby";
+import { Link } from "gatsby";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cls } from "libs/cls";
 import useInnerWidth from "hooks/useInnerWidth";
 import { GatsbyImage } from "gatsby-plugin-image";
 import useTheme from "hooks/useTheme";
+import { useSiteMetadata } from "hooks/use-site-metadata";
 
 interface Props {
   location?: string;
@@ -16,24 +16,7 @@ export default function Nav({ location }: Props) {
   const [preventScroll, setPreventScroll] = useState(false); // active sm nav menu scroll prevent
   const [theme, themeToggler] = useTheme();
 
-  const data = useStaticQuery<Queries.BlogTitleQuery>(graphql`
-    query BlogTitle {
-      site {
-        siteMetadata {
-          title
-          siteUrl
-          description
-        }
-      }
-      file(name: { eq: "logos" }) {
-        childImageSharp {
-          gatsbyImageData(width: 50, height: 50)
-        }
-        publicURL
-      }
-    }
-  `);
-
+  const { title: siteTitle, file } = useSiteMetadata();
   useInnerWidth(() => setIsMenu(false));
   useInnerWidth(() => setPreventScroll(false));
 
@@ -67,8 +50,8 @@ export default function Nav({ location }: Props) {
     <>
       <nav className="nav_menu">
         <Link to="/" className="flex items-center space-x-10">
-          <GatsbyImage image={data.file?.childImageSharp?.gatsbyImageData!} alt="logos" className="rounded-full" />
-          <h1 className="text-2xl font-bold">{data.site?.siteMetadata?.title}</h1>
+          <GatsbyImage image={file.childImageSharp.gatsbyImageData} alt="logos" className="rounded-full" />
+          <h1 className="text-2xl font-bold">{siteTitle}</h1>
         </Link>
         {/* sm screen menu buttons */}
         <div className="flex space-x-6">
