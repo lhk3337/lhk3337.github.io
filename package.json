@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@types/prismjs": "^1.26.0",
+    "dracula-owl": "github:petephm/dracula-owl-vscode-theme",
     "gatsby": "^5.4.1",
     "gatsby-plugin-canonical-urls": "^5.6.0",
     "gatsby-plugin-image": "^3.5.0",
@@ -27,6 +28,7 @@
     "gatsby-remark-copy-linked-files": "^6.5.0",
     "gatsby-remark-images": "^7.5.0",
     "gatsby-remark-prismjs": "^7.5.0",
+    "gatsby-remark-vscode": "^3.3.1",
     "gatsby-source-filesystem": "^5.4.0",
     "gatsby-transformer-remark": "^6.4.0",
     "gatsby-transformer-sharp": "^5.5.0",

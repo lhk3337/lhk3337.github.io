@@ -30,10 +30,16 @@ const config: GatsbyConfig = {
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-prismjs`, // 코드 하일라이팅, npm i prismjs 해야 함.
+            resolve: `gatsby-remark-vscode`, // 코드 하일라이팅, npm i prismjs 해야 함.
             options: {
-              showLineNumbers: false,
-              noInlineHighlight: false,
+              theme: {
+                default: "Dracula Owl",
+                parentSelector: {
+                  "body[data-theme=dark]": "Dracula Owl",
+                  "body[data-theme=light]": "Quiet Light",
+                },
+              },
+              extensions: ["dracula-owl"],
             },
           },
           {
