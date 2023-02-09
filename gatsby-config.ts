@@ -1,7 +1,6 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
-  pathPrefix: "/my_tech_blog",
   siteMetadata: {
     title: `HOLIMBLOG`,
     siteUrl: `https://lhk3337.github.io`,
@@ -70,7 +69,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-canonical-urls",
       options: {
-        siteUrl: "<https://lhk3337.github.io/>",
+        siteUrl: "https://lhk3337.github.io",
         stripQueryString: true,
       },
     },

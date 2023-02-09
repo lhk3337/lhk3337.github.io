@@ -1,6 +1,6 @@
 import * as React from "react";
-import { graphql, PageProps } from "gatsby";
-import Layout from "../../components/layout";
+import { graphql } from "gatsby";
+import Layout from "components/layout";
 import Seo from "components/Seo";
 import Comments from "components/comments";
 interface Props {
