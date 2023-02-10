@@ -49,6 +49,13 @@ export default function BlogPostTemplate({
           <h2 className="text-lg text-gray-400">{date}</h2>
         </div>
         <div className="markdown_styles" dangerouslySetInnerHTML={{ __html: html }} />
+        <div className="border-t border-stone-200 pt-10 text-center">
+          <span className="text-xl text-slate-500 dark:text-slate-300 ">
+            이해한 것을 정리하다보니 <br />
+            잘못된 부분이 있을 수도 있습니다. <br />
+            댓글로 잘못된 부분을 알려주세요.
+          </span>
+        </div>
         <Comments />
       </div>
     </Layout>
