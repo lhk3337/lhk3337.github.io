@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmy_tech_blogs=self.webpackChunkmy_tech_blogs||[]).push([[154],{7189:function(e,t,n){n.r(t),n.d(t,{Head:function(){return m},default:function(){return u}});var a=n(7509),c=n(3904),l=n(7294);function u(e){let{location:t}=e;return l.createElement(a.Z,{location:t.pathname},l.createElement("div",{className:"mx-auto mt-16 max-w-6xl px-6 sm:px-14"},l.createElement("span",null,"About me")))}const m=()=>l.createElement(c.Z,{title:"ABOUT"})}}]);
-//# sourceMappingURL=component---src-pages-about-index-tsx-30cc17c8dc42e5ffc397.js.map
