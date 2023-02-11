@@ -111,7 +111,7 @@ const main2 = obj.main;
 main2(); // window 객체 출력, main2()는 전역적으로 호출한 함수
 ```
 
-this는 함수의 위치나 방법에 영향을 받지 않는다 <br />
+this는 함수의 위치나 방법에 영향을 받지 않고, 함수가 어디서 호출되는지에서 결정된다. <br />
 함수를 미리 선언하고 객체의 메서드로 선언해도 해당 객체의 this값을 반환한다.
 
 ```js
@@ -142,6 +142,79 @@ const obj = {
 
 obj.innerMain.main(); // innerMain : {name: 'jsInner', main: ƒ}
 ```
+
+---
+
+## 화살표 함수에서 this
+
+- 화살표 함수의 this는 선언된 시점에서 this가 결정 되고 바뀌지 않는다.
+- 객체의 메서드로 화살표 함수를 사영하게 되면 객체 속성을 접근하지 못하므로 지양해야 한다.
+
+```js
+const obj = {
+  name: "js",
+  main() {
+    console.log(this.name);
+  },
+  mainArrow: () => {
+    // 메서드
+    console.log(this.name);
+  },
+};
+
+obj.mainArrow(); // obj객체가 출력되는 것이 아니라 상위에 있는 window 객체가 출력된다.
+```
+
+호출할때 일반함수와 화살표 함수 비교
+
+```js
+const obj = {
+  name: "js",
+  main() {
+    function innerFunc() {
+      // 일반 함수 일때 window
+      console.log(this);
+    }
+    const arrowFunc = () => {
+      //화살표 함수 일때 obj 객체
+      console.log(this);
+    };
+    innerFunc();
+    arrowFunc();
+  },
+};
+
+obj.main();
+```
+
+- arrowFunc가 선언된 시점이 main이므로 obj의 객체가 된다.
+- 일반함수는 객체로 부터 호출을 받지 않아서 window가 출력 된다.
+
+#### 비동기에서 화살표 함수 this
+
+```js
+const obj = {
+  name: "js",
+  main() {
+    setTimeout(() => {
+      console.log(this); // obj 객체
+    }, 1000);
+    setTimeout(function () {
+      console.log(this);
+    }, 1000); // window 객체,
+  },
+};
+
+obj.main();
+```
+
+setTimeout가 있더라도 화살표 함수는 main에서 선언되었기 떄문에 main이 있는 obj 객체가 된다.
+setTimeout는 브라우저 api이고 일반 함수는 setTimeout의 영향을 받아서 window객체가 된다.
+
+#### 다시 확인 하기
+
+- 객체가 호출할 함수가 없을 경우 일반 함수의 this는 window 객체가 된다.
+- 화살표 함수가 객체의 메서드로 사용될 경우 this는 window 객체가 된다.
 
 ---
 
