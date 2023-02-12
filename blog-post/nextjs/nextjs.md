@@ -1,5 +1,5 @@
 ---
-slug: "/nextjs/this"
+slug: "/nextjs/desc"
 date: "2023-02-01"
 title: "nextjs란?"
 categories: ["Nextjs"]
@@ -17,7 +17,7 @@ next js는 Server Side Rendering
 ### next js 라우팅은 pages폴더의 파일 이름을 경로로 사용한다.
 
 - pages의 index.js만이 root 경로가 된다.
-- pages폴더의 파일이 about.js이면 경로는 `**localhost:3000/about**` 이 된다.
+- pages폴더의 파일이 about.js이면 경로는 **localhost:3000/about** 이 된다.
 
 ### 링크 태그는 a태그 대신 Link태그 사용
 

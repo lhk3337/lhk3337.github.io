@@ -28,7 +28,7 @@ export default function CategoryItem({
       to={`/blog${slug}`}
       className="rounded-lg shadow-md duration-500 ease-in-out hover:scale-[1.01] hover:shadow-xl dark:bg-slate-800"
     >
-      <GatsbyImage image={gatsbyImageData} alt="thumbnail" className=" h-50 rounded-t-lg" />
+      <GatsbyImage image={gatsbyImageData} alt="thumbnail" className=" h-56 rounded-t-lg" />
       <div className=" p-5">
         <span className="rounded-md bg-slate-100 pl-2 pr-2.5 pt-1 text-xl text-slate-700">{categories.join()}</span>
         <h1 className="my-5 text-4xl font-bold">{title}</h1>

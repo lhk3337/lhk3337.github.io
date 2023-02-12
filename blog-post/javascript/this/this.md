@@ -4,7 +4,7 @@ date: "2023-02-09"
 title: "this"
 categories: ["Javascript"]
 desc: "Javascript의 this란?"
-thumbnail: "../thumbnail.png"
+thumbnail: "./thumbnail.png"
 ---
 
 > this는 상황에 따라 가르키는 객체가 달라진다. 그렇기 때문에 this가 있는 코드를 이해하기 쉽지 않다.

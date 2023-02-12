@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Layout from "components/layout";
 import Seo from "components/Seo";
 import Comments from "components/comments";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 interface Props {
   location: {
     pathname: string;
@@ -14,6 +15,11 @@ interface Props {
         tags: string[];
         date: string;
         categories: string[];
+        thumbnail: {
+          childImageSharp: {
+            gatsbyImageData: IGatsbyImageData;
+          };
+        };
       };
       html: string;
     };
@@ -27,17 +33,20 @@ export default function BlogPostTemplate({
   const {
     markdownRemark: {
       html,
-      frontmatter: { date, title, categories },
+      frontmatter: {
+        date,
+        title,
+        categories,
+        thumbnail: {
+          childImageSharp: { gatsbyImageData },
+        },
+      },
     },
   } = data;
   return (
     <Layout location={location.pathname}>
-      <img
-        className="mb-10 aspect-video h-[24rem] w-full"
-        height={200}
-        src="https://images.unsplash.com/photo-1674413146432-3e01d9868828?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
-      />
       {/* example image */}
+      <GatsbyImage className="mb-10 h-[24rem] w-full" alt="" image={gatsbyImageData} />
       <div className="mx-auto mt-20 max-w-6xl space-y-10 px-6 pb-1 sm:px-14">
         <div className="space-y-10">
           <div className="flex h-10 items-center">
@@ -71,6 +80,11 @@ export const pageQuery = graphql`
         slug
         title
         categories
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }

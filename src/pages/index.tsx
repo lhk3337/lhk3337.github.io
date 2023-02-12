@@ -63,7 +63,7 @@ export const query = graphql`
             desc
             thumbnail {
               childImageSharp {
-                gatsbyImageData(width: 650, height: 400)
+                gatsbyImageData
               }
             }
           }
