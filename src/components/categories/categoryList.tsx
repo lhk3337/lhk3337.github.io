@@ -33,7 +33,7 @@ interface Props {
 
 export default function CategoryList({ data, selectedCategory }: Props) {
   return (
-    <div className=" mt-20 grid space-y-10 pb-16 sm:grid-flow-row sm:gap-8 sm:space-y-0 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+    <div className="category_lists">
       {selectedCategory === "all"
         ? data.allMarkdownRemark.edges.map((value, i) => {
             return <CategoryItem {...value.node.frontmatter} key={i} />;

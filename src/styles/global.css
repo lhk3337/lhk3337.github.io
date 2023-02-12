@@ -24,3 +24,7 @@
 .dark {
   @apply bg-[#0D1117] text-[#c9d1d9];
 }
+
+.category_lists {
+  @apply mt-20 grid space-y-10 pb-16 sm:grid-flow-row sm:gap-8 sm:space-y-0 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3;
+}
