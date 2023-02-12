@@ -3,7 +3,7 @@ slug: "/nextjs/desc"
 date: "2023-02-01"
 title: "nextjs란?"
 categories: ["Nextjs"]
-desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+desc: "nextjs에 대해서 알아봅시다"
 thumbnail: "./thumbnail.png"
 ---
 

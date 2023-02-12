@@ -3,7 +3,7 @@ slug: "/typescript/generic"
 date: "2023-01-31"
 title: "Generic"
 categories: ["Typescript"]
-desc: "타입스크립트 Generic이 무엇일까요?"
+desc: "Generic이 무엇일까요?"
 thumbnail: "./thumbnail.png"
 ---
 

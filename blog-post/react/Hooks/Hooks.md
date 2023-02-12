@@ -3,7 +3,7 @@ slug: "/react/hooks"
 date: "2023-01-31"
 title: "Hooks"
 categories: ["React"]
-desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+desc: "React에서 다양한 hooks들"
 thumbnail: "./thumbnail.png"
 ---
 

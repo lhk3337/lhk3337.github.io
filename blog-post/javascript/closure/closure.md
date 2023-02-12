@@ -3,7 +3,7 @@ slug: "/js/closure"
 date: "2023-02-01"
 title: "Closure"
 categories: ["Javascript"]
-desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi aperiam soluta suscipit fuga et."
+desc: "javascript 클로저 개념"
 thumbnail: "./thumbnail.png"
 ---
 
