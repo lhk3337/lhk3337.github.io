@@ -41,7 +41,7 @@ export default function IndexPage({ location, data }: mainProps) {
 
   return (
     <Layout location={location.pathname}>
-      <div className="mx-auto mt-16 max-w-6xl px-6 sm:px-14">
+      <div className="mx-auto mt-16 px-6 sm:px-14 md:max-w-5xl lg:max-w-7xl">
         <h1 className="mb-5 text-2xl font-bold">Category</h1>
         <CategoryMenu data={data} location={location} />
         <CategoryList data={data} selectedCategory={selectedCategory} />
