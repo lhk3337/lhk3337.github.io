@@ -7,6 +7,7 @@ import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 interface Props {
   location: {
     pathname: string;
+    desc: string;
   };
   data: {
     markdownRemark: {
@@ -14,6 +15,7 @@ interface Props {
         title: string;
         tags: string[];
         date: string;
+        desc: string;
         categories: string[];
         thumbnail: {
           childImageSharp: {
@@ -36,6 +38,7 @@ export default function BlogPostTemplate({
       frontmatter: {
         date,
         title,
+        desc,
         categories,
         thumbnail: {
           childImageSharp: { gatsbyImageData },
@@ -55,6 +58,7 @@ export default function BlogPostTemplate({
             </span>
           </div>
           <h1 className="text-4xl font-bold">{title}</h1>
+          <h2>{desc}</h2>
           <h2 className="text-lg text-gray-400">{date}</h2>
         </div>
         <div className="markdown_styles" dangerouslySetInnerHTML={{ __html: html }} />
@@ -79,6 +83,7 @@ export const pageQuery = graphql`
         date(formatString: "YYYY.MM.DD")
         slug
         title
+        desc
         categories
         thumbnail {
           childImageSharp {
@@ -92,9 +97,8 @@ export const pageQuery = graphql`
 export const Head = ({ data }: Props) => {
   const {
     markdownRemark: {
-      frontmatter: { title },
+      frontmatter: { title, desc },
     },
   } = data;
-
-  return <Seo title={title} />;
+  return <Seo title={title} desc={desc} />;
 };
