@@ -124,9 +124,162 @@ localhost:8000 접속
 | `tailwind.config.js`    | tailwind css를 설정할 수 있는 파일                                          |
 | `tsconfig.json`         | typescript를 설정할 수 있는 파일                                            |
 
+<br />
+
 ### nav 메뉴 url에 따라 border 표시하기
 
+```tsx
+// pages/index.tsx
+export default function IndexPage({ location }) { // gatsby에 location을 props에 선언하면 routing의 대한 정보가 출력된다.
+
+......
+
+return (
+    <Layout location={location.pathname}>
+    ....
+    <Layout>
+)
+```
+
+```tsx
+// component/layout.tsx
+export default function Layout({ children, location }: LayoutProps) {
+  return (
+    <main>
+      <Nav location={location} />
+      {children}
+    </main>
+  );
+}
+```
+
+```tsx
+// component/nav/index.tsx
+...
+<MenuBtn location={location} />
+...
+
+// component/nav/menu-btn.tsx
+<li
+  className={cls(
+    location === "/" || location?.substring(0, 6) === "/blog/" // 경로 조건에 해당 하면 border를 표시하도록 설정
+      ? "border-b-4 border-b-black font-bold dark:border-b-white"
+      : "",
+    isMenu ? "rounded-lg border-none py-3 px-5 hover:bg-gray-100 hover:dark:bg-slate-700" : ""
+  )}
+>
+  .....
+</li>
+```
+
 ### 다크모드 라이트 모드
+
+tailwind css를 적용하여 다크모드를 구현하였다.
+
+```js
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    ....
+    darkMode: "class",
+}
+
+```
+
+버튼을 누르면 바뀌고 새로고침해도 유지 하도록 localStorag를 사용
+
+```tsx
+// component/nav/index.tsx
+const isDarkClick = () => {
+  return themeToggler();
+};
+
+<button onClick={isDarkClick} />;
+```
+
+```ts
+// src/hooks/useTheme.ts
+import { useState, useCallback, useEffect } from "react";
+
+const useTheme = () => {
+  const [theme, setTheme] = useState("");
+
+  const themeToggler = useCallback(() => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    window.__setPreferredTheme(nextTheme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTheme(window.__theme);
+    }
+
+    window.__onThemeChange = (newTheme: string) => {
+      setTheme(newTheme);
+    };
+  }, []);
+
+  return [theme, themeToggler] as const;
+};
+
+export default useTheme;
+
+// window 설정한 부분은 gatsby-ssr.ts에 있음
+```
+
+```ts
+const React = require("react");
+
+exports.onRenderBody = ({ setPreBodyComponents }) => {
+  setPreBodyComponents([
+    React.createElement("script", {
+      dangerouslySetInnerHTML: {
+        __html: `
+          (() => {    
+            window.__onThemeChange = function() {};      
+
+            function setTheme(newTheme) {                  
+              window.__theme = newTheme;                  
+              preferredTheme = newTheme;                  
+              document.body.className = newTheme;
+              document.body.dataset.theme = newTheme;                 
+              window.__onThemeChange(newTheme);                
+            }
+
+            let preferredTheme
+
+            try {
+              preferredTheme = localStorage.getItem('theme')
+            } catch (err) {}
+
+            window.__setPreferredTheme = newTheme => {
+              setTheme(newTheme)
+
+              try {
+                localStorage.setItem('theme', newTheme)
+              } catch (err) {}
+            }
+
+            let darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+            darkQuery.addEventListener('change', e => {
+              window.__setPreferredTheme(e.matches ? 'dark' : 'light')
+            })
+
+            setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'))
+          })()
+        `,
+      },
+    }),
+  ]);
+};
+/* 
+  현재 pc에 설정된 다크 모드 및 라이트 모드의 현재값을 localStorage 초기값으로 저장
+  toggle 클릭 상태에 따라 body className에 dark 및 light로 변경, localStorage도 dark, light로 저장
+  설정된 값은 useTheme의 useEffect에서 실행 된다.
+*/
+```
 
 ### 카테고리 메뉴 설정
 
