@@ -1,6 +1,6 @@
 <br />
 <h1 align="center">
-<image src="https://user-images.githubusercontent.com/44824320/215273231-7a7f2058-b4fa-49ea-beae-7cf693b38fb6.png" width="50" /> <br />
+<image src="./docs/icon.png" width="50" /> <br />
 Gatsby로 BLOG 만들기
 </h1>
 
@@ -18,12 +18,14 @@ Gatsby로 BLOG 만들기
 | CSS framework       | <img src="https://img.shields.io/badge/tailwind CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />                                                                                                |
 | Deploy              | <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">                                                                                                             |
 
-## 실행
+## 코드 실행 하기
 
 ```shell
 npm install
 npm start
 ```
+
+localhost:8000 접속
 
 ## 목차
 
@@ -71,3 +73,65 @@ npm start
 | <img src="./docs/posts.gif"  width="390"  /> | <img src="./docs/comments.png" width="750" /> |
 
 ## 구현
+
+### 레이아웃
+
+![](./docs/layout.png)
+
+### 폴더별 구조
+
+```bash
+├── blog-post
+├── public
+├── node_modules
+├── gatsby-browser.ts
+├── gatsby-config.ts
+├── gatsby-node.ts
+├── gatsby-ssr.ts
+├── package.json
+├── postcss.config.js
+├── src
+│   ├── components
+│   ├── gatsby-types.d.ts
+│   ├── hooks
+│   ├── index.d.ts
+│   ├── libs
+│   ├── pages
+│   └── styles
+├── static
+│   └── assets
+├── tailwind.config.js
+└── tsconfig.json
+```
+
+| 폴더                    | 역할                                                                        |
+| ----------------------- | --------------------------------------------------------------------------- |
+| `blog-post`             | 블로그 포스팅에 관련된 content md형식                                       |
+| `public`                | 빌드된 파일을 배포하기 위해 저장                                            |
+| `gatsby-browser.ts`     | Gatsby 브라우저 API 사용 설정 파일                                          |
+| `gatsby-config.ts`      | Gatsby 설정파일, 블로그 정보 설정 및 추가 된 플러그인을 설정 하기 위한 파일 |
+| `gatsby-node.ts`        | Gatsby node api 설정파일                                                    |
+| `gatsby-ssr.ts`         | Gatsby server side rendering api 설정 파일                                  |
+| `src`                   | 대부분의 gatsby 코드가 여기에 속한다                                        |
+| `src/components`        | layout 및 공용으로 사용 할 수 있는 component를 설정                         |
+| `src/hooks`             | 블로그 내에서 사용할 수 있는 hooks를 저장                                   |
+| `src/libs`              | 공통으로 사용 할 수 있는 함수를 저장                                        |
+| `src/pages`             | pages 하위의 디렉토리 이름에 따라 라우팅이 결정                             |
+| `src/styles`            | tailwind 환경에서 css을 사용 할수 있도록 설정한 root css 파일               |
+| `src/gatsby-types.d.ts` | Gatsby graphql query의 타입이 저장                                          |
+| `src/index.d`           | typescript 예외적인 타입을 custom 설정                                      |
+| `static`                | 블로그에 사용할 로컬 이미지 파일을 저장                                     |
+| `tailwind.config.js`    | tailwind css를 설정할 수 있는 파일                                          |
+| `tsconfig.json`         | typescript를 설정할 수 있는 파일                                            |
+
+### nav 메뉴 url에 따라 border 표시하기
+
+### 다크모드 라이트 모드
+
+### 카테고리 메뉴 설정
+
+### 자동 배포 설정
+
+## 이슈
+
+## 블로그 만들면서 배운 점
