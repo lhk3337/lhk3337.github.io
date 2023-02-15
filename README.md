@@ -74,6 +74,17 @@ localhost:8000 접속
 
 ## 구현
 
+### 목차
+
+- [레이아웃](#레이아웃)
+- [폴더별 구조](#폴더별-구조)
+- [routing 설정 하기](#routing-설정-하기)
+- [markdown 설정 하기](#markdown-설정-하기)
+- [nav 메뉴 url에 따라 border 표시하기](#nav-메뉴-url에-따라-border-표시하기)
+- [다크모드 라이트 모드](#다크모드-라이트-모드)
+- [카테고리 메뉴 설정 및 필터링](#카테고리-메뉴-설정-및-필터링)
+- [자동 배포 설정](#자동-배포-설정)
+
 ### 레이아웃
 
 ![](./docs/layout.png)
@@ -123,6 +134,41 @@ localhost:8000 접속
 | `static`                | 블로그에 사용할 로컬 이미지 파일을 저장                                     |
 | `tailwind.config.js`    | tailwind css를 설정할 수 있는 파일                                          |
 | `tsconfig.json`         | typescript를 설정할 수 있는 파일                                            |
+
+<br />
+
+### routing 설정 하기
+
+| Path                              | desc                             |
+| --------------------------------- | -------------------------------- |
+| `/`                               | 메인 홈페이지                    |
+| `/?category=해당 카테고리`        | 메인 메뉴 필터링 페이지 보여주기 |
+| `/blog/해당 포스트 markdown slug` | 해당 블로그 포스트 페이지        |
+| `/about`                          | 소개글 페이지                    |
+
+<br />
+
+### markdown 설정 하기
+
+markdown 정보들을 상위에 설정, 이 정보들은 gatsby graphQL query로 다른 페이지에서 불러와 데이터로 사용할 수 있다.
+
+```
+---
+slug: "/nextjs/desc"
+date: "2023-02-01"
+title: "nextjs란?"
+categories: ["Nextjs"]
+desc: "nextjs에 대해서 알아봅시다"
+thumbnail: "./thumbnail.png"
+---
+```
+
+- `slug` : 블로그 주소를 지정
+- `data` : 언제 포스트 했는지 날짜 지정
+- `title` : 블로그 포스트 제목
+- `category` : 이 포스트의 카테고리 설정
+- `desc` : 포스트의 간단한 설명
+- `thumbnail` : 포스트의 썸네일
 
 <br />
 
@@ -281,10 +327,112 @@ exports.onRenderBody = ({ setPreBodyComponents }) => {
 */
 ```
 
-### 카테고리 메뉴 설정
+### 카테고리 메뉴 설정 및 필터링
+
+메뉴 카테고리 버튼을 클릭하면 url 쿼리에 따라 필터링 설정
+
+```tsx
+// src/pages/index.tsx
+export default function IndexPage({ location, data }) {
+  const { search } = location; // url 쿼리를 출력한다.
+  // "?category=javascript"
+  const [_, query] = search.split("=");
+  // 문자열을 = 기준으로 뒤에 있는 카테고리 이름을 query변수로 만듦
+  const selectedCategory = query === undefined ? "all" : query; // 처음으로 접속하면 all로 default 처리
+
+  return (
+    <CategoryMenu data={data} location={location} />
+    <CategoryList data={data} selectedCategory={selectedCategory} />
+  )
+}
+```
+
+카테고리 메뉴 설정 하기 해당 포스트 마크다운에서 카테고리 설정한 것만 메뉴에 나타내기
+
+```tsx
+// src/components/categories/categoryMenu
+const { search } = location;
+const [_, query] = search.split("="); // url 쿼리가 같으면 버튼이 강조되게 설정
+
+const scrollRef = useRef<HTMLUListElement>(null);
+const [scrollX, setScrollX] = useState(0);
+  const slide = (shift: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += shift;
+    }
+    setScrollX(scrollX + shift);
+  };
+  // horizon scroll 설정
+
+// data는 index.tsx에서 가져온 graph ql query data
+const categoriesData = {
+  ...data.allMarkdownRemark,
+  group: data.allMarkdownRemark.group.map((categoryItem) => {
+    return {
+      ...categoryItem,
+      Javascript: <JsIcons />,  // 해당 component는 svg 태그,
+      React: <ReactIcon />,
+      Typescript: <TsIcon />,
+      Nextjs: <NextJsIcon />,
+      Tailwind: <TailwinIcon />,
+    };
+  }),
+};
+// 기존 data에 icon 항목을 추가하여 새로운 객체를 생성
+
+return (
+...
+<ul  ref={scrollRef}>  horizon scroll 적용
+...
+  {categoriesData.group.map((caterory: Values, i) => {
+          return (
+            <li key={i}>
+              <Link to={`?category=${caterory.fieldValue.toLowerCase()}`}>
+                <div className={cls(
+                    query === caterory.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
+                  )}>
+                  {caterory[caterory.fieldValue]}
+                </div>
+                <span className={cls(query === caterory.fieldValue.toLowerCase() ? "font-bold" : "")}>
+                  {caterory.fieldValue} ({caterory.totalCount})
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+...
+</ul>
+
+)
+```
+
+index에서 url쿼리가 저장된 selectedCategory에 따라 필터링 됨
+
+```tsx
+// scr/components/categories/categoryList.tsx
+
+<div className="category_lists">
+  {selectedCategory === "all"
+    ? // category가 all일때 모든 post가 출력
+      data.allMarkdownRemark.edges.map((value, i) => {
+        return <CategoryItem {...value.node.frontmatter} key={i} />;
+      })
+    : // category가 해당 category일때 해당 post 출력
+      data.allMarkdownRemark.edges
+        .filter((value) => value.node.frontmatter.categories[0].toLowerCase() === selectedCategory)
+        .map((item, i) => {
+          return <CategoryItem {...item.node.frontmatter} key={i} />;
+        })}
+</div>
+```
 
 ### 자동 배포 설정
 
 ## 이슈
 
 ## 블로그 만들면서 배운 점
+
+- layout을 만들면서 React children의 개념을 명확히 이해하게 되었습니다.
+- gatsby의 SSR이 어떻게 구동 되는지 이해 할 수 있었습니다.
+- tailwind를 이용하여 dark 모드를 구현하는 방법을 알게 되었습니다.
+- 구글과 네이버에 블로그를 서치를 등록하면서 SEO를 알게 되었습니다.
