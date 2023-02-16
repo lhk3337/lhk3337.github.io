@@ -38,7 +38,7 @@ export default function Seo({ title: pageTitle, desc }: Props) {
 
       <html lang="ko" />
       <title>
-        {pageTitle} | {siteTitle}
+        {pageTitle} {desc ? `- ${desc}` : ""} | {siteTitle}
       </title>
     </>
   );

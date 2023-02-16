@@ -3,9 +3,11 @@ slug: "/js/variable"
 date: "2023-02-13"
 title: "var, let, const"
 categories: ["Javascript"]
-desc: "var let const 정리하기"
+desc: "var let const"
 thumbnail: "./thumbnail.png"
 ---
+
+# javascript에서 var let const 비교하기
 
 ## Scope
 

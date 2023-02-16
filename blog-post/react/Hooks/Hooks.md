@@ -7,7 +7,7 @@ desc: "React에서 다양한 hooks들"
 thumbnail: "./thumbnail.png"
 ---
 
-# useState
+# React에서 다양한 hooks들
 
 prevState
 

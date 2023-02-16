@@ -58,7 +58,6 @@ export default function BlogPostTemplate({
             </span>
           </div>
           <h1 className="text-4xl font-bold">{title}</h1>
-          <h2>{desc}</h2>
           <h2 className="text-lg text-gray-400">{date}</h2>
         </div>
         <div className="markdown_styles" dangerouslySetInnerHTML={{ __html: html }} />

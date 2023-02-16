@@ -7,9 +7,9 @@ desc: "Javascript의 this란?"
 thumbnail: "./thumbnail.png"
 ---
 
-> this는 상황에 따라 가르키는 객체가 달라진다. 그렇기 때문에 this가 있는 코드를 이해하기 쉽지 않다.
+> javascript this는 상황에 따라 가르키는 객체가 달라진다. 그렇기 때문에 this가 있는 코드를 이해하기 쉽지 않다.
 
-> 그래서 this를 정리하면서 이해 해보기로 하였다.
+> 그래서 javascript this를 정리하면서 이해 해보기로 하였다.
 
 ## 전역적인 this
 
