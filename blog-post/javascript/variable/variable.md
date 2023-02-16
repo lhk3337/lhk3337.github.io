@@ -5,6 +5,7 @@ title: "var, let, const"
 categories: ["Javascript"]
 desc: "var let const"
 thumbnail: "./thumbnail.png"
+topbg: "./topbg.png"
 ---
 
 # javascript에서 var let const 비교하기

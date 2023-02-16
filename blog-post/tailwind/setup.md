@@ -4,6 +4,7 @@ date: "2023-02-02"
 title: "React환경에서 tailwind 설치하기"
 categories: ["Tailwind"]
 desc: "React에 tailwind를 설치하고 적용하기"
+topbg: "./topbg.png"
 thumbnail: "./thumbnail.png"
 ---
 

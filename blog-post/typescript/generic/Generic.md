@@ -4,6 +4,7 @@ date: "2023-01-31"
 title: "Generic"
 categories: ["Typescript"]
 desc: "Generic이 무엇일까요?"
+topbg: "./topbg.png"
 thumbnail: "./thumbnail.png"
 ---
 

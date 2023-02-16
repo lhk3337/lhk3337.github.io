@@ -4,6 +4,7 @@ date: "2023-02-09"
 title: "this"
 categories: ["Javascript"]
 desc: "Javascript의 this란?"
+topbg: "./topbg.png"
 thumbnail: "./thumbnail.png"
 ---
 

@@ -4,6 +4,7 @@ date: "2023-02-01"
 title: "nextjs란?"
 categories: ["Nextjs"]
 desc: "nextjs에 대해서 알아봅시다"
+topbg: "./topbg.png"
 thumbnail: "./thumbnail.png"
 ---
 

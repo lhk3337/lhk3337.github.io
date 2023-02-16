@@ -17,7 +17,7 @@ interface Props {
         date: string;
         desc: string;
         categories: string[];
-        thumbnail: {
+        topbg: {
           childImageSharp: {
             gatsbyImageData: IGatsbyImageData;
           };
@@ -40,7 +40,7 @@ export default function BlogPostTemplate({
         title,
         desc,
         categories,
-        thumbnail: {
+        topbg: {
           childImageSharp: { gatsbyImageData },
         },
       },
@@ -84,7 +84,7 @@ export const pageQuery = graphql`
         title
         desc
         categories
-        thumbnail {
+        topbg {
           childImageSharp {
             gatsbyImageData
           }

@@ -4,6 +4,7 @@ date: "2023-02-01"
 title: "Closure"
 categories: ["Javascript"]
 desc: "javascript 클로저 개념"
+topbg: "./topbg.png"
 thumbnail: "./thumbnail.png"
 ---
 
