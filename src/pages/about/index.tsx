@@ -17,7 +17,7 @@ export default function About({ location, data }: aboutProps) {
   return (
     <Layout location={location.pathname}>
       <div className="mx-auto mt-16 max-w-6xl px-6 sm:px-14">
-        <div className="flex flex-col items-center justify-center space-y-10">
+        <div className="flex flex-col items-center justify-center space-y-8">
           <h1 className="text-2xl font-black sm:text-4xl">About</h1>
           <GatsbyImage image={data.file.childImageSharp.gatsbyImageData} alt="profile" className="rounded-full" />
         </div>
@@ -31,7 +31,7 @@ export const queary = graphql`
   query AboutData {
     file(name: { eq: "profile" }) {
       childImageSharp {
-        gatsbyImageData(width: 300, height: 300)
+        gatsbyImageData(width: 250, height: 250)
       }
       publicURL
     }
