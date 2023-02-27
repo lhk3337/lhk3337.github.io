@@ -36,8 +36,8 @@ export interface mainProps {
 
 export default function IndexPage({ location, data }: mainProps) {
   const { search } = location;
-  const [_, query] = search.split("=");
-  const selectedCategory = query === undefined ? "all" : query;
+  const [params, value] = search.split("=");
+  const selectedCategory = params !== "?category" ? "all" : value;
 
   return (
     <Layout location={location.pathname}>
