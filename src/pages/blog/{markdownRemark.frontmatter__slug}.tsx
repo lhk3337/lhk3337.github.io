@@ -49,7 +49,7 @@ export default function BlogPostTemplate({
   return (
     <Layout location={location.pathname}>
       {/* example image */}
-      <GatsbyImage className="mb-10 h-[24rem] w-full" alt="" image={gatsbyImageData} />
+      <GatsbyImage className="mb-10 h-[24rem] w-full" alt="topbg" image={gatsbyImageData} />
       <div className="mx-auto mt-20 max-w-6xl space-y-10 px-6 pb-1 sm:px-14">
         <div className="space-y-10">
           <div className="flex h-10 items-center">
