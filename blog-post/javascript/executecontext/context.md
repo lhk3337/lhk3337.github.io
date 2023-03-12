@@ -1,6 +1,6 @@
 ---
 slug: "/js/context"
-date: "2023-02-26"
+date: "2023-03-12"
 title: "javascript 실행 컨텍스트(execute context)"
 categories: ["Javascript"]
 desc: "js에서 코드들이 어떻게 실행되는지 동작방식 알아보기"
@@ -46,6 +46,44 @@ Fun1();
 ```
 
 ![실행 컨텍스트 실행 순서](stack.png)
+
+### 렉시컬 환경
+
+렉시컬 환경은 스코프를 구분하여 식별자를 등록하고 관리하는 저장소 역할
+
+타입 종류에는 **Environment Record**와 **Outer Lexical Enviroment Reference** 가 있다.
+
+![전역 렉시컬 환경의 컴포넌트](lexical.png)
+
+- Environment Record : 스코프에 포함된 식별자를 등록하고 등록된 식별자에 바인딩된 값을 관리하는 저장소
+- Outer Lexical Environment Reference : 외부 렉시컬 환경에 대한 참조는 상위 스코프를 가리킴
+
+![함수 렉시컬 환경](funcLexical.png)
+
+### 실행 컨텍스트 과정
+
+```js
+var g1 = 1;
+const c1 = 2;
+
+function gfn(x) {
+  var v1 = 3;
+  const c2 = 4;
+  g1 = 11;
+  function fn(y) {
+    const c2 = 5;
+    console.log(x + v1 + c2 + g1 + c2 + y);
+  }
+  fn(6);
+}
+gfn(100);
+if (g1 > 10) {
+  let g1 = 100;
+}
+console.log(g1);
+```
+
+![실행 컨텍스트 렉시컬 과정](procedure.jpeg)
 
 ## reference
 

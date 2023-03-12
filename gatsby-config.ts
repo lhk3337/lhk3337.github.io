@@ -46,6 +46,7 @@ const config: GatsbyConfig = {
             resolve: `gatsby-remark-images`,
             options: {
               showCaptions: true,
+              maxWidth: 1000,
             },
           },
           {
@@ -65,7 +66,7 @@ const config: GatsbyConfig = {
         defaults: {
           formats: ["auto", "webp"],
           quality: 100,
-          placeholder: "blurred",
+          // placeholder: "blurred",
         },
       },
     },
