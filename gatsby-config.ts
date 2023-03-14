@@ -86,6 +86,12 @@ const config: GatsbyConfig = {
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        icon: "static/assets/favicon.png",
+      },
+    },
   ],
 };
 
