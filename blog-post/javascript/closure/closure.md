@@ -1,7 +1,7 @@
 ---
 slug: "/js/closure"
-date: "2023-02-01"
-title: "Closure"
+date: "2023-03-14"
+title: "Javascript Closure"
 categories: ["Javascript"]
 desc: "javascript 클로저 개념"
 topbg: "./topbg.png"
@@ -10,75 +10,60 @@ thumbnail: "./thumbnail.png"
 
 > javascript 클로저는 어떤 함수에서 선언한 변수를 참조하는 내부함수를 외부로 전달할 경우, 함수의 실행 컨텍스트가 종료된 후에도 해당 변수가 사라지지 않는 현상
 
-```jsx
-function plusFactory(init) {
-  function plus(number) {
-    return init + number; // init가 Closure
-  }
-  return plus;
+## lexical Scope
+
+```js
+const x = 1;
+function Outer() {
+  const x = 10;
+  Inner();
 }
-
-let plus1 = plusFactory(1);
-console.log(plus1(1));
-console.log(plus1(2));
-
-let plus2 = plusFactory(2);
-console.log(plus2(1));
-console.log(plus2(2));
+function Inner() {
+  console.log(x); // 1
+}
+Outer();
 ```
 
-클로저 문제 : 스코프, 비동기, var
+- Outer 함수안에 Inner함수를 호출하는 부분이 있지만 Inner 함수의 변수 x값은 전역변수의 x값을 출력하였다.
+- 함수내부에 **Inner 함수를 호출**하는 부분이 있더라도 상위 스코프를 결정하지 못하고, Outer 함수도 접근하지 못한다.
 
-클로저가 문제가 아님
-
-클로저를 사용해서 해결하는 문제
-
-for문(반복문)과 비동기를 함께 사용하면 종종 발생
-
-문제 : var와 for와 비동기의 환상적 콜라보
-
-### 해결별
-
-- var 유지하려면 → 즉시실행함수로 클로저 생성
-- var를 let으로 수정
-
-```jsx
-function a() {
-  for (var i = 0; i < 5; i++) {
-    setTimeout(() => {
-      console.log(i);
-    }, i * 1000);
+```js
+const x = 1;
+function Outer() {
+  const x = 10;
+  function Inner() {
+    console.log(x); // 10
   }
+  Inner();
 }
-
-a();
-// 5 5 5 5 5
+Outer();
 ```
 
-```jsx
-function a() {
-  for (var i = 0; i < 5; i++) {
-    (function (j) {
-      setTimeout(() => {
-        console.log(j);
-      }, i * 1000);
-    })(i);
-  }
+**함수를 선언한 위치**에 따라 상위 하위 스코프가 나눠진다.
+
+- 중첩된 함수아기 때문에 Inner함수에서 Outer함수로 접근이 가능하고 상위 스코프로 Outer함수가 만들어 진다.
+
+## 클로저
+
+다음과 같이 아래 코드를 살펴 보면
+
+```js
+function outer(init) {
+  const x = 10;
+  const inner = function (number) {
+    return x + init + number; // 상위 스코프 x와 outer의 매겨 변수인 init를 참조 하고 있다.
+  };
+  return inner;
 }
 
-a();
-
-function a() {
-  for (let i = 0; i < 5; i++) {
-    setTimeout(() => {
-      console.log(i);
-    }, i * 1000);
-  }
-}
-
-a();
-
-// 0 1 2 3 4
+const innerFunc = outer(1);
+console.log(innerFunc(3)); // 10 + 1 + 3 = 14
 ```
 
-## 참조 : CORE JavaScript, 생활 코딩, 제로초
+- outer가 실행컨텍스트에 의해 pop이 되면 outer의 x값도 사라져야 하는데, 사라지지 않고 계속 남아 있는 것을 볼 수 있다.
+- 그리고 outer가 pop이 되었지만 inner 함수는 pop 되지 않고, 남아 있기 때문에 return된 값이 출력 된것을 볼 수 있다.
+- 이때 중첩된 inner함수를 클로저라 부름
+
+## reference
+
+- javascript deep dive : 클로저
