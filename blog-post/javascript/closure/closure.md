@@ -64,6 +64,61 @@ console.log(innerFunc(3)); // 10 + 1 + 3 = 14
 - 그리고 outer가 pop이 되었지만 inner 함수는 pop 되지 않고, 남아 있기 때문에 return된 값이 출력 된것을 볼 수 있다.
 - 이때 중첩된 inner함수를 클로저라 부름
 
+### 클로저 조건이 아닌 경우
+
+상위 스코프의 식별자를 참조하지 않을 경우
+
+```js
+function outer() {
+  const x = 1;
+  const y = 2;
+
+  function inner() {
+    const z = 3;
+    console.log(z);
+  }
+  return inner;
+}
+const innerFunc = outer();
+innerFunc();
+```
+
+상위 스코프의 식별자를 참조 하였지만 중첩 함수인 inner함수가 먼저 종료된 경우
+
+```js
+function outer() {
+  const x = 1;
+
+  function inner() {
+    console.log(x);
+  }
+  inner();
+}
+outer();
+```
+
+상위 스코프의 식별자를 참조하면서 inner 함수가 먼저 종료 되지 않을때
+
+```js
+function outer() {
+  const x = 1;
+
+  function inner() {
+    console.log(x);
+  }
+  return inner;
+}
+
+const innerFunc = outer();
+innerFunc();
+```
+
+![실행 과정](closure.png)
+
+- outer 함수가 실행 컨텍스트 스택에 의해 pop이 되었지만, 렉시컬 환경까지 없어지지 않는다.
+- 그리고 inner function object의 Environment에 참조할 상위 스코프의 렉시컬 환경을 저장한다.
+- [[Environment]]가 상위 렉시컬 환경을 참조하고 있기 때문에, outer가 없어졌다 할지라도 x값이 존재한다.
+
 ## reference
 
 - javascript deep dive : 클로저
