@@ -2,7 +2,7 @@ import { Link } from "gatsby";
 import { cls } from "libs/cls";
 import { mainProps } from "pages/index";
 import React, { useEffect, useRef, useState } from "react";
-import { JsIcons, NextJsIcon, ReactIcon, TailwinIcon, TsIcon } from "./categoryIcon";
+import { JsIcons, NextJsIcon, ReactIcon, TailwinIcon, TsIcon, WebIcon } from "./categoryIcon";
 
 interface Values {
   [key: string]: any;
@@ -31,6 +31,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
         Typescript: <TsIcon />,
         Nextjs: <NextJsIcon />,
         Tailwind: <TailwinIcon />,
+        Web: <WebIcon />,
       };
     }),
   };
