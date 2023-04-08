@@ -40,6 +40,10 @@
 <p>웹에서 사용자 인증 방법은 웹 사이트나 애플리케이션에서 사용자의 신원을 확인하고 인증, 사용자 인증은 보안과 관련이 있으며, 비인가자가 해당 서비스에 접근하는 것을 방지하기 위해 필요하다</p>
 <h2>종류</h2>
 <h3>1. 세션 방식</h3>
+<ul>
+<li>세션 방식은 서버 측에서 사용자 정보를 저장하고, 클라이언트 측에서는 세션 ID를 쿠키 또는 URL 파라미터로 담아서 보냄</li>
+<li>클라이언트가 요청을 보낼 때마다 세션 ID를 서버에 전달하여 인증하고, 성공 시 세션 ID와 연관된 유저 정보를 검색하여 요청하여 처리</li>
+</ul>
 <h4>세션 동작 방식</h4>
 <p><figure class="gatsby-resp-image-figure" style="">
     <span
@@ -82,7 +86,7 @@
 <li>웹 서버는 입력받은 아이디와 비밀번호를 검증하여, 사용자가 인증되었다면 세션 ID를 발급</li>
 <li>세션 ID는 서버 측에서 유지되며, 클라이언트(브라우저)에는 쿠키(Cookie) 형태로 저장</li>
 <li>사용자가 다른 페이지에 접속할 때, 브라우저는 서버로 세션 ID를 전송</li>
-<li>서버는 전송받은 세션 ID를 검증하여, 해당 사용자가 로그인한 상태인지 확인</li>
+<li>서버는 전송받은 세션 ID를 검증하고 타당하면 클라이언트에게 응답을 보낸다.</li>
 </ol>
 <h4>장점</h4>
 <ul>
@@ -96,6 +100,148 @@
 <li>과부화를 해결하기 위해 서버를 확장해야 하므로 비용적인 측면에서 경제적 부담이 발생할 수 밖에 없다.</li>
 <li>세션 ID를 쿠키에 저장하기 때문에, 쿠키가 조작될 가능성이 많음.</li>
 </ul>
+<h3>2. 토큰 방식</h3>
+<ul>
+<li>토큰 방식은 인증된 사용자에게 발급된 토큰을 사용하여 인증 처리</li>
+<li>토큰은 JWT(JSON Web Token)형식으로 발급,</li>
+<li>클라이언트는 HTTP request 헤더나 URL 파라미터에 토큰을 포함하여 서버에 전달</li>
+<li>서버는 해당 토큰을 검증하고, 인증이 성공하면 해당 토큰에 포함된 정보를 사용하여 처리</li>
+</ul>
+<h4>토큰 동작 방식</h4>
+<p><figure class="gatsby-resp-image-figure" style="">
+    <span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1000px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d18077d7ac17d4b547a1d5fbc4952afe/3fdca/token.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 72.39999999999999%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsTAAALEwEAmpwYAAACEklEQVR42m2TS07jQBCGs+I2nIczcAc2HIAFt+ACCLEaFlkjoUyIwozBjxjMxO5H7MSx2/Y36gZHNlBSubqryr/r8XsC0HWdNWit2e/3DH1fpffXdU1Zlt/8k/4gpWQ6nfLw8OCSfwK19953c3PD2dmZy7fStq2LTezByv39PUmS4Ps+y+VylPQVzPpPTk44Ojri/Pzc+ZqmGQMuFguurq64vb11wEPAofYvn56ecnx8zMXFxbjCYeL19TXz+bxv8KcJHvx3d7+4vLxkNpuNOpj0XzTGOGtlFSVEYeJskmS8vq5J14q66pyW24+ualOTpime57HZbD6WYh95nrul2OCu3BOGGVEkiGOF1i1KNWx0S1HgVKuOsmzJsvQw936Ro5alUpiqgtpSp6Xa5qRvMeL9DbV+R67facottLWLCym/sWAypIcD3O/psoxOKRohMGmGyQRNJhC+j/ADUs+j1Bql9WFMIx72F6WUK10XOessRShF62r50ObLooQQ9Cw5AI4qlNItx1SGZ8/ncb7gxfP58+TxtPzL79kjUbBiFb3Stp3L7wF/bFkpSV0btqU9d2TCIESDVHZeDXGcE4YS71lS5B1KfxYwYMgI0A65qSqadI0IfWQYoOMVWeCjopAseEGEASoKoK5cvqWL3bRlyDfA3W5HU9d0eYEptphiaAvSOObfakUSBOzynF1Zjv532/J/Stsry5NpOQ8AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="토큰 동작 순서"
+        title=""
+        src="/static/d18077d7ac17d4b547a1d5fbc4952afe/00d43/token.png"
+        srcset="/static/d18077d7ac17d4b547a1d5fbc4952afe/63868/token.png 250w,
+/static/d18077d7ac17d4b547a1d5fbc4952afe/0b533/token.png 500w,
+/static/d18077d7ac17d4b547a1d5fbc4952afe/00d43/token.png 1000w,
+/static/d18077d7ac17d4b547a1d5fbc4952afe/aa440/token.png 1500w,
+/static/d18077d7ac17d4b547a1d5fbc4952afe/e8950/token.png 2000w,
+/static/d18077d7ac17d4b547a1d5fbc4952afe/3fdca/token.png 3111w"
+        sizes="(max-width: 1000px) 100vw, 1000px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span>
+    <figcaption class="gatsby-resp-image-figcaption">토큰 동작 순서</figcaption>
+  </figure></p>
+<ol>
+<li>사용자가 로그인 페이지에 접속하여 아이디와 비밀번호를 입력</li>
+<li>웹 서버는 입력받은 아이디와 비밀번호를 보고, 유효하면 토큰을 만든다.</li>
+<li>서버는 생성한 토크을 클라이언트에게 보내고, 토큰을 저장한다.</li>
+<li>클라이언트가 서버에 요청 시 JWT 토큰 헤더를 서버에 전달</li>
+<li>서버는 클라이언트가 보낸 JWT가 타당하면, 클라이언트에게 응답을 보낸다.</li>
+</ol>
+<h4>장점</h4>
+<ul>
+<li>토큰을 클라이언트에 저장되기 때문에 staeless하고, 서버의 부담이 적고 서버를 확장하기 쉽다.</li>
+</ul>
+<h4>단점</h4>
+<ul>
+<li>보안성이 취약, 만일 토큰을 탈취되면 인증이 가능하므로, 토큰을 안전하게 괸리해야 한다.</li>
+</ul>
+<h4>JWT 구조</h4>
+<p><figure class="gatsby-resp-image-figure" style="">
+    <span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1000px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/dc38c689fbf9e721ecff2e70d8dfb294/0e909/jwt.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 31.2%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA1UlEQVR42oWRYUvDQBBE+///VkERi61Jm5QWEcUqTSNo7pJcctl5gukHFaMLC8MO+1h2ZhITpT8mvy9JYjYKsHdQA3KgSqMOETUNalvkPbQN0URrEEzfWufLRmAP8QZiDv01xI2IKVh+RPka7fZosYDlkns/cFVBXouNF4kXWf0T6KC/hLiGmMBwN5oqSzSfozRFWYatbsE79gEu3kTixMqJbS3q4Sswgr2AFWBHsFKfX1IX0MMjOhxQUaDTCUKgGuApiOcgik689qKzM3AqFE0Y+ieUD4hq08dhl3ZHAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="JWT 구조"
+        title=""
+        src="/static/dc38c689fbf9e721ecff2e70d8dfb294/00d43/jwt.png"
+        srcset="/static/dc38c689fbf9e721ecff2e70d8dfb294/63868/jwt.png 250w,
+/static/dc38c689fbf9e721ecff2e70d8dfb294/0b533/jwt.png 500w,
+/static/dc38c689fbf9e721ecff2e70d8dfb294/00d43/jwt.png 1000w,
+/static/dc38c689fbf9e721ecff2e70d8dfb294/aa440/jwt.png 1500w,
+/static/dc38c689fbf9e721ecff2e70d8dfb294/e8950/jwt.png 2000w,
+/static/dc38c689fbf9e721ecff2e70d8dfb294/0e909/jwt.png 3008w"
+        sizes="(max-width: 1000px) 100vw, 1000px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span>
+    <figcaption class="gatsby-resp-image-figcaption">JWT 구조</figcaption>
+  </figure></p>
+<ul>
+<li>
+<p>Header
+토큰의 타입과 해싱 알고리즘 지정</p>
+<pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-tZ0ymb" data-language="json" data-index="0"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">{</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-5">alg</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">:</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-36 grvsc-tZ0ymb-4">HS256</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">,</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-5">typ</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">:</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-36 grvsc-tZ0ymb-4">JWT</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">}</span></span></span></code></pre>
+<ul>
+<li>lg : 해싱 알고리즘, HMAC SHA256, RSA</li>
+<li>yp : 토큰의 타입,</li>
+</ul>
+</li>
+<li>
+<p>payload</p>
+<p>토큰에 담길 data</p>
+<pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-tZ0ymb" data-language="json" data-index="1"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">{</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-5">sub</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">:</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-36 grvsc-tZ0ymb-4">1234567890</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">,</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-5">name</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">:</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-36 grvsc-tZ0ymb-4">John Doe</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">,</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-5">iat</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">:</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-8 grvsc-tZ0ymb-5">1516239022</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">}</span></span></span></code></pre>
+<ul>
+<li>sub : 토큰 제목, 주로 사용자 id</li>
+<li>name : 사용작 이름</li>
+<li>lat : 토큰 발급 시간</li>
+</ul>
+</li>
+<li>
+<p>signature</p>
+<ul>
+<li>
+<p>토큰의 위변조 여부를 확인 하는데 사용</p>
+</li>
+<li>
+<p>base64로 인코딩된 header와 payload를 합치고, secret의 키를 이용하여 생성된 서명값</p>
+</li>
+</ul>
+<pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-tZ0ymb" data-language="js" data-index="2"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">HMACSHA256</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">base64UrlEncode</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-41 grvsc-tZ0ymb-7">header</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">) </span><span class="grvsc-tDLRAE-3 grvsc-tZ0ymb-6">+</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-17 grvsc-tZ0ymb-4">.</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-3 grvsc-tZ0ymb-6">+</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">base64UrlEncode</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-41 grvsc-tZ0ymb-7">payload</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">)</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">,</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-41 grvsc-tZ0ymb-7">secret</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">)</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">;</span></span></span></code></pre>
+<ul>
+<li>HMACSHA256 : 서명 알고리즘</li>
+<li>base64UrlEncode : URL-safe한 Base64로 인코딩</li>
+<li>header, payload : 각각 header, payload의 값</li>
+<li>secret : 서명에 사용되는 비밀 키</li>
+</ul>
+</li>
+</ul>
 <h2>refrence</h2>
 <ul>
 <li>
@@ -106,6 +252,12 @@
 </li>
 <li>
 <p><a href="https://velog.io/@hyun6ik/%EC%84%B8%EC%85%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D">세션 동작 방식</a></p>
+</li>
+<li>
+<p><a href="https://gorokke.tistory.com/181">JWT토큰이란, 장단점, 구현</a></p>
+</li>
+<li>
+<p><a href="https://jwt.io/">jwt</a></p>
 </li>
 </ul>
 <style class="grvsc-styles">
@@ -197,6 +349,52 @@
     opacity: 0.7;
   }
   
+  .dracula-owl {
+    color: #F8F8F2;
+    background-color: #282A36;
+  }
+  .dracula-owl .grvsc-tDLRAE-1 { color: #D6DEEB; }
+  .dracula-owl .grvsc-tDLRAE-5 { color: #ADDB67; }
+  .dracula-owl .grvsc-tDLRAE-34 { color: #D9F5DD; }
+  .dracula-owl .grvsc-tDLRAE-36 { color: #C789D6; }
+  .dracula-owl .grvsc-tDLRAE-8 { color: #F78C6C; }
+  .dracula-owl .grvsc-tDLRAE-7 { color: #82AAFF; }
+  .dracula-owl .grvsc-tDLRAE-41 { color: #D7DBE0; }
+  .dracula-owl .grvsc-tDLRAE-3 { color: #C792EA; }
+  .dracula-owl .grvsc-tDLRAE-17 { color: #ECC48D; }
+  .dracula-owl .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
+  }
+  body[data-theme=dark] .grvsc-ps-tDLRAE {
+    color: #F8F8F2;
+    background-color: #282A36;
+  }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-1 { color: #D6DEEB; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-5 { color: #ADDB67; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-34 { color: #D9F5DD; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-36 { color: #C789D6; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-8 { color: #F78C6C; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-7 { color: #82AAFF; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-41 { color: #D7DBE0; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-3 { color: #C792EA; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-tDLRAE-17 { color: #ECC48D; }
+  body[data-theme=dark] .grvsc-ps-tDLRAE .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
+  }
+  body[data-theme=light] .grvsc-ps-tZ0ymb { background-color: #F5F5F5; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-b { font-weight: bold; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-6 { color: #777777; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-1 { color: #333333; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-5 { color: #9C5D27; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-4 { color: #448C27; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-9 { color: #AA3731; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-7 { color: #7A3E9D; }
+  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(0, 0, 0, 0.05));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(0, 0, 0, 0.2));
+  }
 </style></div><div class="border-t border-stone-200 pt-10 text-center"><span class="text-xl text-slate-500 dark:text-slate-300 ">이해한 것을 정리하다보니 <br/>잘못된 부분이 있을 수도 있습니다. <br/>댓글로 잘못된 부분을 알려주세요.</span></div><div class="py-10"></div></div><button class="fixed bottom-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F3F3F3] shadow-md dark:text-black md:right-8 md:bottom-8 md:h-14 md:w-14 md:text-2xl"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-6 w-6 md:h-8 md:w-8 "><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5"></path></svg></button></main></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/web/auth/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
           <script
             id="gatsby-chunk-mapping"
