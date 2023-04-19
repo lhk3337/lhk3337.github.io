@@ -116,7 +116,7 @@ thumbnail: "./thumbnail.png"
   - header, payload : 각각 header, payload의 값
   - secret : 서명에 사용되는 비밀 키
 
-## refrence
+## reference
 
 - [[Server] 토큰 기반 인증 VS 서버(세션) 기반 인증](https://mangkyu.tistory.com/55)
 
