@@ -318,9 +318,9 @@ export async function getServerSideProps() {
 
 ## 8. Dynamic Router
 
-- `**/**` 경로는 **pages**폴더의 **index.js**
-- **`/about`** 경로는 **pages**폴더의 **about.js**
-- **`/movies`** 경로만 사용 할 경우 **pages**에 **movies.js**
-- 만일 **`/movies`**와 **`/movies/all`** 경로를 사용할 경우(중첩)
-  - **pages**에 **movies**폴더를 만들고 **index.js**(**`/movies`**), **all.js**(**`/movies/all`**)을 생성하면 됨(pages/movies/index.js || all.js)
-- **`movies/121212`**를 생성하려면 **movies**폴더에 **[id].js**를 만들면 된다.
+- **/** 경로는 **pages**폴더의 **index.js**
+- **/about** 경로는 **pages**폴더의 **about.js**
+- **/movies** 경로만 사용 할 경우 **pages**에 **movies.js**
+- 만일 **/movies**와 **/movies/all** 경로를 사용할 경우(중첩)
+  - **pages**에 **movies**폴더를 만들고 **index.js**(**/movies**), **all.js**(**/movies/all**)을 생성하면 됨(pages/movies/index.js || all.js)
+- **movies/121212**를 생성하려면 **movies**폴더에 **[id].js**를 만들면 된다.
