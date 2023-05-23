@@ -1,0 +1,3 @@
+.grvsc-gutter::before {
+  @apply text-[#282A36] dark:text-[#F8F8F2];
+}
