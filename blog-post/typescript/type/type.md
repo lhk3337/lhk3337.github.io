@@ -10,7 +10,7 @@ thumbnail: "./thumbnail.png"
 
 # 타입스크립트에서 지원하는 type 종류
 
-## 1. 기본 타입
+## 1. 원시 타입
 
 다른 타입의 메소드를 사용하면 에러가 발생한다.
 
@@ -60,7 +60,7 @@ let null1: null = null;
 let unde1: undefined = undefined;
 ```
 
-### 리터럴 타입
+## 2. 리터럴 타입
 
 해당 value를 타입으로 지정하고, 만일 다른 value를 사용하면 에러가 발생한다.
 
@@ -75,7 +75,7 @@ let boolA: true = true;
 boolA = false; // boolean true만 허용
 ```
 
-## 2. 배열, 튜플
+## 3. 배열, 튜플
 
 ### 배열
 
@@ -143,7 +143,51 @@ const users: [string, number][] = [
 ];
 ```
 
+## 3. 객체
+
+### 객체 리터럴 타입
+
+```ts {numberLines}
+let user: { id: number; name: string } = {
+  id: 1,
+  name: "user1",
+};
+```
+
+Typescript는 구조적 타입 시스템
+
+객체 타입을 property기준으로 타입을 결정한다. (Property Based Type System)
+
+### 선택적 property 타입
+
+해당 property에 물음표를 넣게 되면 선택적 property가 된다.
+
+```ts {numberLines}
+let user: { id?: number; name: string } = {
+  id: 1,
+  name: "user1",
+};
+
+user = {
+  name: "user2",
+};
+// 해당 id는 있어도 되고 없어도 에러가 발생하지 않는다.
+```
+
+### readonly
+
+값이 수정될 수 없도록 읽기 전용으로 변경
+
+```ts
+let config: {
+  readonly apiKey: string;
+} = { apiKey: "My Api Key" };
+
+config.apiKey = "modify Api Key"; // 읽기 전용인데 값이 변경 되어 에러 발생시킴
+```
+
 ## referance
 
 - [한입 타입스크립트 - 원시타입과 리터럴타입](https://ts.winterlood.com/3cb27a06-78ac-499d-9270-2ebabe8c769c)
 - [한입 타입스크립트 - 배열과 튜플](https://ts.winterlood.com/43888ee0-9227-4a8d-994e-2336ee78bfcf)
+- [한입 타입스크립트 - 객체](https://ts.winterlood.com/1c336fb6-1a90-4076-8de1-b23810a65163)
