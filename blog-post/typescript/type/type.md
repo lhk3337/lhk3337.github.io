@@ -178,7 +178,7 @@ user = {
 
 값이 수정될 수 없도록 읽기 전용으로 변경
 
-```ts
+```ts {numberLines}
 let config: {
   readonly apiKey: string;
 } = { apiKey: "My Api Key" };
@@ -186,8 +186,169 @@ let config: {
 config.apiKey = "modify Api Key"; // 읽기 전용인데 값이 변경 되어 에러 발생시킴
 ```
 
+## 4. type alias and Index Signature
+
+### type alias
+
+타입을 별도로 지정하여 정의 할 수 있다.
+
+`type type명 = 타입`
+
+```ts {numberLines}
+// type alias 적용 전
+let user1: { id: number; name: string; age: number; bio: string; location: string } = {
+  id: 1,
+  name: "user1",
+  age: 18,
+  bio: "hello",
+  location: "seoul",
+};
+
+let user2: { id: number; name: string; age: number; bio: string; location: string } = {
+  id: 1,
+  name: "user2",
+  age: 18,
+  bio: "hello",
+  location: "seoul",
+};
+```
+
+```ts {numberLines}
+// type alias 적용 후
+type User = {
+  id: number;
+  name: string;
+  age: number;
+  bio: string;
+  location: string;
+};
+
+let user11: User = {
+  id: 1,
+  name: "user1",
+  age: 18,
+  bio: "hello",
+  location: "seoul",
+};
+
+let user22: User = {
+  id: 1,
+  name: "user2",
+  age: 18,
+  bio: "hello",
+  location: "seoul",
+};
+```
+
+type alias의 스코프
+
+```ts {numberLines}
+type User = {
+  id: number;
+  name: string;
+  age: number;
+  bio: string;
+  location: string;
+};
+
+let user11: User = {
+  id: 1,
+  name: "user1",
+  age: 18,
+  bio: "hello",
+  location: "seoul",
+};
+// global scope의 User type
+
+function func() {
+  type User = { id: number; name: string };
+  let funcUser: User = {
+    id: 1,
+    name: "sss",
+  };
+  // 해당 타입은 함수 내의 스코프에서만 사용 가능하다.
+}
+```
+
+### Index Signature(인덱스 시그니처)
+
+- key와 value의 타입의 규칙에 따라 유연하게 타입을 선언하는 문법
+- key와 value의 타입만 일치하면 key와 value의 갯수에 상관없이 추가하거나 삭제해도 에러가 발생하지 않는다.
+
+```ts {numberLines}
+type CountryCodes = {
+  Korea: string;
+  UnitedState: string;
+  UnitedKingdom: string;
+};
+// key type이 string이고 value도 string이 규칙적으로 선언
+
+// index signature
+type CountryCode = {
+  [key: string]: string;
+};
+
+let countrycodes: CountryCode = {
+  Korea: "ko",
+  UnitedState: "us",
+  UnitedKingdom: "uk",
+    ... 프로퍼티를 여러개 추가해도 에러가 발생하지 않는다.
+};
+
+// number index signature
+type CountryNumberCodes = {
+  [key: string]: number;
+};
+
+let countryNumberCodes: CountryNumberCodes = {
+  Korea: 410,
+  UnitedState: 840,
+  UnitedKingdom: 826,
+  ... 프로퍼티를 여러개 추가해도 에러가 발생하지 않는다.
+};
+```
+
+빈 객체로 선언해도 에러가 발생하지 않는다. 아무런 property가 없기 때문에 타입 규칙을 위반하지 않는다.
+
+```ts {numberLines}
+type CountryNumberCodes = {
+  [key: string]: number;
+};
+let countryEmptyNumberCode: CountryNumberCodes = {};
+```
+
+만일 객체에 key와 value를 명시하려면 type에 key와 타입을 선언한다.
+
+```ts {numberLines}
+type CountryNumberCode = {
+  [key: string]: number;
+  Korea: number;
+};
+
+let countryNumberCode: CountryNumberCode = {
+  Korea: 410,
+};
+```
+
+index signature value는 number이고, 추가한 property인 Korea의 value가 string이면 에러가 발생한다.
+
+타입을 number로 일치 시키면 에러가 발생하지 않는다.
+
+```ts {numberLines}
+type CountryNumberAndStringCode = {
+  [key: string]: number;
+  Korea: string; // 에러 발생
+  Korea: number;
+};
+let countryNumberAndStringCode: CountryNumberAndStringCode = {
+  Korea: "ko", // 에러 발생
+  Korea: 410,
+};
+```
+
 ## referance
 
 - [한입 타입스크립트 - 원시타입과 리터럴타입](https://ts.winterlood.com/3cb27a06-78ac-499d-9270-2ebabe8c769c)
 - [한입 타입스크립트 - 배열과 튜플](https://ts.winterlood.com/43888ee0-9227-4a8d-994e-2336ee78bfcf)
 - [한입 타입스크립트 - 객체](https://ts.winterlood.com/1c336fb6-1a90-4076-8de1-b23810a65163)
+- [한입 타입스크립트 - 타입 별칭과 인덱스 시그니쳐](https://ts.winterlood.com/156628c8-e779-4ea9-b40b-a77dd083e214)
