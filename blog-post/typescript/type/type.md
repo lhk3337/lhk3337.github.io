@@ -143,7 +143,7 @@ const users: [string, number][] = [
 ];
 ```
 
-## 3. 객체
+## 4. 객체
 
 ### 객체 리터럴 타입
 
@@ -186,7 +186,7 @@ let config: {
 config.apiKey = "modify Api Key"; // 읽기 전용인데 값이 변경 되어 에러 발생시킴
 ```
 
-## 4. type alias and Index Signature
+## 5. type alias and Index Signature
 
 ### type alias
 
@@ -346,9 +346,100 @@ let countryNumberAndStringCode: CountryNumberAndStringCode = {
 };
 ```
 
+## 6. enum
+
+- enum은 열거형 타입, Typescript에만 있는 타입
+- 여러가지 값들에 각각 이름을 부여해 열거하고 사용하는 타입
+- 열거형은 주로 상수 값들을 그룹화하고 가독성을 높이며 오류를 방지 하기 위해 사용한다.
+
+enum에 값을 입력하지 않으면 자동으로 `0`부터 값을 채워 +1씩 증가 된다.
+
+```ts {numberLines}
+// eum 선언하기
+enum Role {
+  ADMIN,
+  USER,
+  GUEST,
+}
+
+const user1 = {
+  name: "master",
+  role: Role.ADMIN, // 0이 자동으로 삽입
+};
+const user2 = {
+  name: "user1",
+  role: Role.USER, // 1이 자동으로 삽입
+};
+const user3 = {
+  name: "user2",
+  role: Role.GUEST, // 2이 자동으로 삽입
+};
+
+console.log(user1, user2, user3);
+
+/*
+{ name: 'master', role: 0 } 
+{ name: 'user1', role: 1 } 
+{ name: 'user2', role: 2 }
+*/
+```
+
+- 만일 enum 멤버에 값을 직접 할당 가능하다. 그리고 나머지 enum에 값을 할당하지 않으면 자동으로 직접 할당한 값을 기준으로 +1씩 증가 된다.
+
+```ts {numberLines}
+enum Role {
+  ADMIN = 10,
+  USER, // 11
+  GUEST, // 12
+}
+
+const user1 = {
+  name: "master",
+  role: Role.ADMIN, // 10 할당
+};
+const user2 = {
+  name: "user1",
+  role: Role.USER, // 11 할당(자동)
+};
+const user3 = {
+  name: "user2",
+  role: Role.GUEST, // 12 할당(자동)
+};
+```
+
+### 문자열 열거형
+
+enum 멤버에 숫자이외에 문자열도 할당 할 수 있다.
+
+```ts {numberLines}
+enum Language {
+  korean = "ko",
+  english = "en",
+}
+
+enum Role {
+  ADMIN,
+  USER,
+  GUEST,
+}
+
+const user1 = { name: "master", role: Role.ADMIN, language: Language.korean };
+const user2 = { name: "user1", role: Role.USER, language: Language.english };
+const user3 = { name: "user2", role: Role.GUEST, language: Language.korean };
+
+console.log(user1, user2, user3);
+
+/*
+{ name: 'master', role: 0, language: 'ko' } 
+{ name: 'user1', role: 1, language: 'en' }
+ { name: 'user2', role: 2, language: 'ko' }
+*/
+```
+
 ## referance
 
 - [한입 타입스크립트 - 원시타입과 리터럴타입](https://ts.winterlood.com/3cb27a06-78ac-499d-9270-2ebabe8c769c)
 - [한입 타입스크립트 - 배열과 튜플](https://ts.winterlood.com/43888ee0-9227-4a8d-994e-2336ee78bfcf)
 - [한입 타입스크립트 - 객체](https://ts.winterlood.com/1c336fb6-1a90-4076-8de1-b23810a65163)
 - [한입 타입스크립트 - 타입 별칭과 인덱스 시그니쳐](https://ts.winterlood.com/156628c8-e779-4ea9-b40b-a77dd083e214)
+- [한입 타입스크립트 - 열거형 타입](https://ts.winterlood.com/ed2b0365-72ea-4c3e-b646-7e9e22a472aa)
