@@ -79,16 +79,16 @@
 <p><strong>Evnt loop</strong></p>
 <p>콜 스택에 현재 실행 중인 실행 컨텍스트가 있는지, 그리고 태스크 큐에 대기 중인 함수(콜백 함수, 이벤트 핸들러)가 있는지 반복적으로 확인한다.</p>
 <h2>이벤트 루프 실행 순서</h2>
-<pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-tZ0ymb" data-language="jsx" data-index="0"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-7">function</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">foo</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">()</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">{</span></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-7 grvsc-tZ0ymb-b">console</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-tZ0ymb-6">.</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">log</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-17 grvsc-tZ0ymb-4">foo</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">)</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">;</span></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">}</span></span></span>
+<pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-t5WxC3" data-language="jsx" data-index="0"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-14">function</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-9">foo</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-1">()</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> {</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">  </span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-4">console</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1">.</span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-8">log</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">(</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-10">&quot;</span><span class="grvsc-tDLRAE-17 grvsc-t5WxC3-10">foo</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-10">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">);</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">}</span></span></span>
 <span class="grvsc-line"><span class="grvsc-source"></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-7">function</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">bar</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">()</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">{</span></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">  </span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-7 grvsc-tZ0ymb-b">console</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-tZ0ymb-6">.</span><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">log</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-17 grvsc-tZ0ymb-4">bar</span><span class="grvsc-tDLRAE-34 grvsc-tZ0ymb-6">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">)</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">;</span></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">}</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-14">function</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-9">bar</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-1">()</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> {</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">  </span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-4">console</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1">.</span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-8">log</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">(</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-10">&quot;</span><span class="grvsc-tDLRAE-17 grvsc-t5WxC3-10">bar</span><span class="grvsc-tDLRAE-34 grvsc-t5WxC3-10">&quot;</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">);</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">}</span></span></span>
 <span class="grvsc-line"><span class="grvsc-source"></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-5 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">setTimeout</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">(</span><span class="grvsc-tDLRAE-41 grvsc-tZ0ymb-7">foo</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">,</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1"> </span><span class="grvsc-tDLRAE-8 grvsc-tZ0ymb-5">0</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">)</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">;</span></span></span>
-<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-tZ0ymb-9 grvsc-tZ0ymb-b">bar</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-1">()</span><span class="grvsc-tDLRAE-1 grvsc-tZ0ymb-6">;</span></span></span></code></pre>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-8">setTimeout</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">(</span><span class="grvsc-tDLRAE-41 grvsc-t5WxC3-1">foo</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">, </span><span class="grvsc-tDLRAE-8 grvsc-t5WxC3-6">0</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">);</span></span></span>
+<span class="grvsc-line"><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-9">bar</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">();</span></span></span></code></pre>
 <h3>1. setTimeout이 Call Stack에 push됨</h3>
 <p><span
       class="gatsby-resp-image-wrapper"
@@ -555,15 +555,18 @@
     background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
     box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
   }
-  body[data-theme=light] .grvsc-ps-tZ0ymb { background-color: #F5F5F5; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-b { font-weight: bold; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-7 { color: #7A3E9D; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-1 { color: #333333; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-9 { color: #AA3731; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-6 { color: #777777; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-4 { color: #448C27; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-tZ0ymb-5 { color: #9C5D27; }
-  body[data-theme=light] .grvsc-ps-tZ0ymb .grvsc-line-highlighted::before {
+  body[data-theme=light] .grvsc-ps-t5WxC3 {
+    background-color: #FAFAFA;
+    color: #383A42;
+  }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-14 { color: #A626A4; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-1 { color: #383A42; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-9 { color: #4078F2; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-4 { color: #C18401; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-8 { color: #0184BC; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-10 { color: #50A14F; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-t5WxC3-6 { color: #986801; }
+  body[data-theme=light] .grvsc-ps-t5WxC3 .grvsc-line-highlighted::before {
     background-color: var(--grvsc-line-highlighted-background-color, rgba(0, 0, 0, 0.05));
     box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(0, 0, 0, 0.2));
   }
