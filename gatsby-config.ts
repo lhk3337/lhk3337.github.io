@@ -36,10 +36,11 @@ const config: GatsbyConfig = {
                 default: "Dracula Owl",
                 parentSelector: {
                   "body[data-theme=dark]": "Dracula Owl",
-                  "body[data-theme=light]": "Quiet Light",
+                  "body[data-theme=light]": "Atom One Light",
                 },
               },
-              extensions: ["dracula-owl"],
+
+              extensions: ["dracula-owl", "vscode-theme-onelight"],
             },
           },
           {
