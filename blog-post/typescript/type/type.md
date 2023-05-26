@@ -1,6 +1,6 @@
 ---
 slug: "/typescript/type"
-date: "2023-05-24"
+date: "2023-05-26"
 title: "typescript type"
 categories: ["Typescript"]
 desc: "타입스크립트 타입 종류"
@@ -531,10 +531,76 @@ if (typeof unknownVar === "number") {
 - any 타입은 타입 검사를 비활성화하고 모든 작업을 허용하기 때문에 타입 안전성이 떨어질 수 있다.
 - 반면, unknown 타입은 타입 안전성을 유지하면서 타입이 알려지지 않은 값들을 처리하는 유연성을 제공하기때문에 코드를 작성할 때는 any 타입보다는 타입 안전성을 유지할 수 있는 unknown 타입을 사용하는 것이 나을 수 있다.
 
+## 8. void, never
+
+### void
+
+- void 타입은 아무것도 없음을 나타내는 타입이다.
+- 리턴값이 없는 함수에서 사용한다.
+
+```ts {numberLines}
+function func(): void {
+  console.log("hello");
+}
+```
+
+하지만 자바스크립트의 undefined, null이 값이 없는 타입이지만, 함수에서 리턴 타입으로 undefined로 지정하면 함수는 undefined 타입으로 값을 리턴해야 한다.
+
+```ts {numberLines}
+function func(): undefined {
+  console.log("Hello"); // ❌ error
+  // return undefined; // undefined 리턴값이 없으면 에러 발생
+}
+
+function func(): null {
+  return null;
+}
+```
+
+함수가 아닌 변수에 void를 선언하면 변수는 undefined과 null 타입에 할당 할 수 있다.
+
+```ts {numberLines}
+let value: void;
+
+value = "hello"; // ❌ error
+value = 1; // ❌ error
+
+valiue = undefined;
+// "strictNullChecks: false" 일 경우
+value = null;
+```
+
+### never
+
+- 함수가 어떤 값도 반환하지 않거나 절대 끝나지 않는다는 것을 나타 냄
+- 함수의 무한루프는 종료하지 않아 리턴값을 반환할 수 없을 때나 throw를 통한 구문이 있을때 never를 사용한다.
+
+```ts {numberLines}
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+function infiniteLoop(): never {
+  while (true) {
+    console.log("Infinite loop");
+  }
+}
+
+let result: never = throwError("Something went wrong"); // 함수가 예외를 throw하므로 never 타입
+let loop: never = infiniteLoop(); // 함수가 끝나지 않으므로 never 타입
+```
+
+변수에 never 타입을 정의하면 어떠한 타입도 변수에 할당 할 수 없다.
+
+```ts {numberLines}
+let anyVar: any;
+let a: never;
+a = 1; // ❌
+a = null; // ❌
+a = undefined; // ❌
+a = anyVar; // any 타입을 never 타입에 할당 할 수 없다. ❌
+```
+
 ## referance
 
-- [한입 타입스크립트 - 원시타입과 리터럴타입](https://ts.winterlood.com/3cb27a06-78ac-499d-9270-2ebabe8c769c)
-- [한입 타입스크립트 - 배열과 튜플](https://ts.winterlood.com/43888ee0-9227-4a8d-994e-2336ee78bfcf)
-- [한입 타입스크립트 - 객체](https://ts.winterlood.com/1c336fb6-1a90-4076-8de1-b23810a65163)
-- [한입 타입스크립트 - 타입 별칭과 인덱스 시그니쳐](https://ts.winterlood.com/156628c8-e779-4ea9-b40b-a77dd083e214)
-- [한입 타입스크립트 - 열거형 타입](https://ts.winterlood.com/ed2b0365-72ea-4c3e-b646-7e9e22a472aa)
+- [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
