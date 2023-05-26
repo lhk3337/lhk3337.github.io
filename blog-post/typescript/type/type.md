@@ -436,6 +436,101 @@ console.log(user1, user2, user3);
 */
 ```
 
+## 7. Any, Unknown
+
+any와 unknown는 특정 변수가 현재 시점에서 알수 없거나 확인할 수 없을때 사용하는 타입스크립트의 타입이다.
+
+### any
+
+- 모든 타입을 허용한다. (타입검사를 하지 않는다.)
+- 다른 타입의 값을 재할당해도 에러가 발생하지 않는다.
+- 타입검사를 하지 않아 그에 따른 부작용이 발생할 수 있기 때문에 any 타입 사용을 지양해야 한다.
+
+```ts {numberLines}
+let num = 1;
+num = "hello"; // ❌ type error
+```
+
+any로 타입을 선언하면, 타입검사를 하지 않아 에러가 발생하지 않는다.
+
+```ts {numberLines}
+let num = 1;
+num = "hello";
+console.log(num); // hello
+```
+
+```ts {numberLines}
+let value: any = 10;
+value = "hello";
+
+let num: number = 1;
+
+num = value;
+console.log(number1);
+```
+
+### Unknown
+
+- any와 비슷하지만 안전한 타입이다.
+- 변수에 Unknown 타입으로 지정하면, 모든 타입의 값을 할당 받을 수 있다.
+- 하지만 Unknown 타입을 다른 변수에 재할당하거나, 연산 및 메서드에 사용하면 에러가 발생한다.
+
+```ts {numberLines}
+let unknownVar: unknown;
+
+unknownVar = ""; // string 타입 할당
+unknownVar = () => {}; // function 할당
+unknownVar = 1; // number 타입 할당
+```
+
+에러나는 조건
+
+- unknown으로 선언한 변수를 다른 변수에 재할당 할 수 없다.
+
+```ts {numberLines}
+let num: number = 10;
+let unknownVar: unknown;
+
+unknownVar = "";
+unknownVar = () => {};
+unknownVar = 1;
+
+num = unknownVar; // ❌ error
+```
+
+- unknown으로 선언한 변수는 연산을 하거나 메서드를 사용하면 에러가 발생한다.
+
+```ts {numberLines}
+let unknownVar: unknown;
+unknownVar = 1;
+
+console.log(unknownVar.toString()); // ❌ error
+console.log(unknownVar * 2); // ❌ error
+```
+
+만일 unknown 타입의 변수 값을 해당하는 명시적인 타입을 가지기 위해서는 조건문을 이용하면 해결할 수 있다.
+
+```ts {numberLines}
+function printName(person: unknown) {
+  if (typeof person === "string") {
+    console.log(person.toUpperCase()); // OK: 'person'이 'string' 타입일 때만 사용 가능
+  } else {
+    console.log("Unknown name");
+  }
+}
+
+printName("Alice"); // ALICE
+printName(123); // Unknown name
+
+if (typeof unknownVar === "number") {
+  // 이 조건이 참이된다면 unknownVar는 number 타입으로 볼 수 있음
+  unknownVar * 2;
+}
+```
+
+- any 타입은 타입 검사를 비활성화하고 모든 작업을 허용하기 때문에 타입 안전성이 떨어질 수 있다.
+- 반면, unknown 타입은 타입 안전성을 유지하면서 타입이 알려지지 않은 값들을 처리하는 유연성을 제공하기때문에 코드를 작성할 때는 any 타입보다는 타입 안전성을 유지할 수 있는 unknown 타입을 사용하는 것이 나을 수 있다.
+
 ## referance
 
 - [한입 타입스크립트 - 원시타입과 리터럴타입](https://ts.winterlood.com/3cb27a06-78ac-499d-9270-2ebabe8c769c)
