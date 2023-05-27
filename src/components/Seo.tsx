@@ -1,8 +1,7 @@
 import { useSiteMetadata } from "hooks/use-site-metadata";
 import React from "react";
 interface Props {
-  title: string;
-  desc?: string;
+  [key: string]: string;
 }
 export default function Seo({ title: pageTitle, desc }: Props) {
   const {
