@@ -23,14 +23,14 @@ thumbnail: "./thumbnail.png"
 - 그래서 unknown은 모든 타입일 수 있고 unknown타입에 할당 할 수 있다.
 
 ```ts {numberLines}
-let a: unknown = 1; // number -> unknown
-let b: unknown = "hello"; // string -> unknown
-let c: unknown = true; // boolean -> unknown
-let d: unknown = null; // null -> unknown
-let e: unknown = undefined; // undefined -> unknown
-let f: unknown = []; // Array -> unknown
-let g: unknown = {}; // Object -> unknown
-let h: unknown = () => {}; // Function -> unknown
+let a: unknown = 1; // number -> unknown ✅
+let b: unknown = "hello"; // string -> unknown ✅
+let c: unknown = true; // boolean -> unknown ✅
+let d: unknown = null; // null -> unknown ✅
+let e: unknown = undefined; // undefined -> unknown ✅
+let f: unknown = []; // Array -> unknown ✅
+let g: unknown = {}; // Object -> unknown ✅
+let h: unknown = () => {}; // Function -> unknown ✅
 ```
 
 unknown타입을 다른 타입에 할당하면 에러가 발생한다.
@@ -50,13 +50,13 @@ function errorFunc(): never {
   throw new Error();
 }
 
-let neverA: number = errorFunc(); // never -> number
-let neverB: string = errorFunc(); // never -> string
-let neverC: boolean = errorFunc(); // never -> boolean
-let neverD: null = errorFunc(); // never -> null
-let neverE: undefined = errorFunc(); // never -> undefined
-let neverF: [] = errorFunc(); // never -> Array
-let neverG: {} = errorFunc(); // never -> Object
+let neverA: number = errorFunc(); // never -> number ✅
+let neverB: string = errorFunc(); // never -> string ✅
+let neverC: boolean = errorFunc(); // never -> boolean ✅
+let neverD: null = errorFunc(); // never -> null ✅
+let neverE: undefined = errorFunc(); // never -> undefined ✅
+let neverF: [] = errorFunc(); // never -> Array ✅
+let neverG: {} = errorFunc(); // never -> Object ✅
 ```
 
 ```ts {numberLines}
@@ -76,10 +76,10 @@ let g: never = {}; // Object -> never ❌
 ```ts {numberLines}
 let voidVar: void;
 
-voidVar = undefined; // undefined -> void (ok)
+voidVar = undefined; // undefined -> void (ok) ✅
 
 let neverVar: never;
-voidVar = neverVar; // never -> void (ok)
+voidVar = neverVar; // never -> void (ok) ✅
 ```
 
 ### any 타입과의 계층 관계
@@ -92,8 +92,8 @@ voidVar = neverVar; // never -> void (ok)
 let anyValue: any;
 let unknownValue: unknown;
 
-unknownValue = anyValue; // any -> unknown (업 캐스트)
-anyValue = unknownValue; // any <- unknown (다운 캐스트)
+unknownValue = anyValue; // any -> unknown (업 캐스트) ✅
+anyValue = unknownValue; // any <- unknown (다운 캐스트) ✅
 ```
 
 ```ts {numberLines}
@@ -101,11 +101,105 @@ function errorFunc(): never {
   throw new Error();
 }
 let anyVar: any;
-anyVar = errorFunc(); // never -> any
+anyVar = errorFunc(); // never -> any ✅
 errorFunc() = anyVar; // any -> never ❌
 ```
 
 ## 2. 객체 타입의 호환
+
+- 객체 프로퍼티가 적은 쪽이 슈퍼 타입
+
+```ts {numberLines}
+type Animal = {
+  name: string;
+  color: string;
+};
+
+type Dog = {
+  name: string;
+  color: string;
+  breed: string;
+};
+
+let animal: Animal = {
+  name: "기린",
+  color: "yellow",
+};
+
+let dog: Dog = {
+  name: "바둑이",
+  color: "brown",
+  breed: "시고르자브종",
+};
+
+animal = dog; // dog object -> animal object ✅
+dog = animal; // animal object -> dog object ❌
+```
+
+```ts {numberLines}
+type Book = {
+  name: string;
+  price: number;
+};
+
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
+
+let book: Book;
+
+let programmingBook: ProgrammingBook = {
+  name: "JS",
+  price: 10000,
+  skill: "js",
+};
+book = programmingBook; // ProgrammingBook object -> Book object type ✅
+programmingBook = book; //  Book object type ->  ProgrammingBook object ❌
+```
+
+- Book 타입의 프로퍼티가 ProgrammingBook타입의 프로퍼티와 일치하고 ProgrammingBook타입이 추가 프로퍼티가 있다.
+- 그러면 Book타입은 슈퍼 타입이고 ProgrammingBook타입은 서브 타입이 된다.
+
+### 초과 프로퍼티 검사
+- 객체 타입 변수를 초기화 하는 값으로 객체 리터럴을 사용하면 발동하는 기능
+- 타입에 정의된 프로퍼티 외의 다른 초과된 프로퍼티를 갖는 객체를 변수에 할당하면 에러를 발생 시킨다.
+- 변수로 저장한 객체를 초기화 값으로 사용하면 에러가 발생하지 않는다.
+
+```ts {numberLines}
+type Book = {
+  name: string;
+  price: number;
+};
+
+let book2:Book ={
+  name:"Typescript"
+  price:20000
+  skill:"TS" // ❌ 초과된 프로퍼티가 있기 때문에 에러가 발생한다.
+}
+```
+
+```ts {numberLines}
+type Book = {
+  name: string;
+  price: number;
+};
+
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
+
+let programmingBook: ProgrammingBook = {
+  name: "JS",
+  price: 10000,
+  skill: "js",
+};
+
+let book3: Book = programmingBook; // ✅  book3에 저장한 객체 변수인 programmingBook을 할당 하면 에러가 발생하지 않는다.
+```
 
 ## 3. 대수 타입
 
