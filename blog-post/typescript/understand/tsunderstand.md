@@ -163,6 +163,7 @@ programmingBook = book; //  Book object type ->  ProgrammingBook object ❌
 - 그러면 Book타입은 슈퍼 타입이고 ProgrammingBook타입은 서브 타입이 된다.
 
 ### 초과 프로퍼티 검사
+
 - 객체 타입 변수를 초기화 하는 값으로 객체 리터럴을 사용하면 발동하는 기능
 - 타입에 정의된 프로퍼티 외의 다른 초과된 프로퍼티를 갖는 객체를 변수에 할당하면 에러를 발생 시킨다.
 - 변수로 저장한 객체를 초기화 값으로 사용하면 에러가 발생하지 않는다.
@@ -202,6 +203,145 @@ let book3: Book = programmingBook; // ✅  book3에 저장한 객체 변수인 p
 ```
 
 ## 3. 대수 타입
+
+여러개의 타입을 조합하여 새롭게 타입을 정의
+
+### 합집합(Union) 타입
+
+- Union 타입은 `|` 기호를 사용하여 정의한다.
+
+- 일반 타입에서 Union
+
+```ts {numberLines}
+let a: number | string | boolean; // number, string, boolean union type
+a = 1;
+a = "Hello";
+a = true;
+```
+
+- 배열에서 Union
+
+```ts {numberLines}
+let arr: (number | string | boolean)[] = [1, "hi", false];
+```
+
+- 객체에서 Union
+
+```ts {numberLines}
+type Dog = {
+  name: string;
+  color: string;
+};
+
+type Person = {
+  name: string;
+  language: string;
+};
+
+type Union1 = Dog | Person;
+
+let union1: Union1 = {
+  name: "",
+  color: "",
+};
+// ✅
+let union2: Union1 = {
+  name: "",
+  language: "",
+};
+// ✅
+let union3: Union1 = {
+  name: "",
+  color: "",
+  language: "",
+};
+// ✅
+```
+
+- union4는 name만 선언한 프로퍼티에 해당하는 객체 타입이 없어서 에러가 발생
+
+```ts {numberLines}
+type Dog = {
+  name: string;
+  color: string;
+};
+
+type Person = {
+  name: string;
+  language: string;
+};
+
+type Union1 = Dog | Person;
+let union4: Union1 = {
+  name: "", // ❌ error
+};
+```
+
+- 아래와 같이 Person1 타입을 선언하면 union4도 실행 된다.
+
+```ts {numberLines}
+type Dog = {
+  name: string;
+  color: string;
+};
+
+type Person = {
+  name: string;
+  language: string;
+};
+
+type Person1 = {
+  name: string;
+};
+
+type Union1 = Dog | Person | Person1;
+
+let union4: Union1 = {
+  name: "", // ✅
+};
+```
+
+### 교집합(Intersection) 타입
+
+- 여러 타입의 속성을 모두 가지는 타입을 정의한다.
+- Intersection 타입은 `&` 기호를 사용하여 정의한다.
+
+원시 타입을 교집합으로 선언할 경우 never타입으로 변경된다.
+
+```ts {numberLines}
+let variable: number & string;
+```
+
+- 객체 타입의 교집합
+
+```ts {numberLines}
+type InterDog = {
+  name: string;
+  color: string;
+};
+
+type InterPerson = {
+  name: string;
+  language: string;
+};
+
+type Intersection = InterDog & InterPerson;
+
+let Intersection1: Intersection = {
+  name: "",
+  color: "",
+  language: "",
+};
+// ✅
+
+let Intersection2: Intersection = {
+  name: "",
+  color: "",
+  // ❌ language 프로퍼티가 없어서 에러가 발생한다.
+};
+```
+
+![Intersection](./intersection.png)
 
 ## 4. 타입 추론
 
