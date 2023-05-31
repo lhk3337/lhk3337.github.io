@@ -1,3 +1,8 @@
 .grvsc-gutter::before {
   @apply text-[#282A36] dark:text-[#F8F8F2];
 }
+
+code {
+  padding: 0.2em 0.4em;
+  background: #87837826;
+}
