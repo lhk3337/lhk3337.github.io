@@ -345,6 +345,64 @@ let Intersection2: Intersection = {
 
 ## 4. 타입 추론
 
+### 기본 추론
+
+- 초기화 한 값의 타입을 추론한다.
+- 함수는 리턴된 값의 타입을 추론한다.
+
+```ts {numberLines}
+let a = 10; // let a: number
+let b = "hello"; // let b: string
+let c = { name: "HK", age: 20 }; // let c: { name: string; age: number;}
+
+// 구조 분해 할당
+let { name, age } = c; // let name :string,  let age: number
+let [one, two, three] = [1, "hi", true]; // let one :number, let two: string, let three: boolean
+
+// 함수는 리턴 타입에 대한 추론
+
+function func() {
+  return "hello";
+}
+// function func(): string
+
+function func(message = "hi") {
+  // message: string, 매개변수에 대한 타입 추론
+  return "hello";
+}
+```
+
+### 암묵적 any 타입 추론
+
+- 어떤 변수에 초기값을 설정하지 않으면 암묵적으로 그 변수의 타입은 any으로 선언되고 할당한 값의 타입에 따라 변수의 타입도 진화 한다.
+- 할당한 값에 따라 타입이 바뀌기 때문에 쓰지 않는 것이 좋다.
+
+```ts {numberLines}
+let d; // any type
+d = 10; // number type
+d.toFixed(); // number method
+d = "hello"; // string type으로 변경
+d.toUpperCase(); // string method
+d.toFixed(); // ❌ type error
+```
+
+### const 상수 타입 추론
+
+- const로 선언한 상수의 타입은 리터럴 타입으로 추론한다.
+
+```ts {numberLines}
+const num = 10; // const num: 10
+const str = "hello"; // const str: "hello"
+```
+
+### 여러 타입 추론
+
+```ts {numberLines}
+let arr = [1, "hello"]; // let arr: (string | number)[]
+```
+
+const 상수로 선언한 타입은 리터털 타입만 가질 수 있지만, let으로 선언한 타입은 리터럴 타입이 아닌 해당 값의 기본 타입을 가질 수 있어 범용성있는 타입을 가질 수 있게 된다.
+
 ## 5. 타입 단언
 
 ## 6. 타입 좁히기
