@@ -405,6 +405,93 @@ const 상수로 선언한 타입은 리터털 타입만 가질 수 있지만, le
 
 ## 5. 타입 단언
 
+- 타입을 타입스크립트 컴파일러에게 명시적으로 지정, 실제적으로 변수의 타입은 변경하지 않는다.
+- value `as` Type 지정한다.
+
+```ts {numberLines}
+type Person = {
+  name: string;
+  age: number;
+};
+let person = {} as Person;
+// 빈 객체는 Person 타입이 아니기 때문에 에러가 발생하지만,
+// person 객체에 Person 타입을 단언하면 에러가 발생하지 않는다.
+person.name = "hello";
+person.age = 11;
+```
+
+타입단언은 초과 프로퍼티 검사를 피할 수 있다.
+
+```ts {numberLines}
+type Dog = {
+  name: string;
+  color: string;
+};
+
+let dog = {
+  name: "백구",
+  color: "white",
+  breed: "jindo",
+} as Dog;
+```
+
+breed의 추가 프로퍼티가 있지만 Dog타입으로 단언했기 때문에 초과 프로퍼티 검사를 피했다.
+
+### 타입 단언 규칙
+
+- A as B 일때 A가 B의 슈퍼 타입이거나, A가 B의 서브타입 일때만 에러가 발생하지 않는다.
+
+```ts {numberLines}
+let num1 = 10 as never; // number가 never의 슈퍼 타입
+let num2 = 10 as unknown; // number가 unknown의 서브 타입
+let num3 = 10 as string; // ❌ number타입과 string타입과 겹치는 부분이 없기 때문에 에러 발생
+```
+
+### 다중 단언
+
+```ts {numberLines}
+let num4 = 10 as unknown as string; // number -> (슈퍼 타입) unknown -> (서브 타입) string
+// 좋은 방법은 아님
+```
+
+### const 단언
+
+- 타입을 const로 단언하면 변수는 리터럴 타입으로 단언 되고, 객체면 프로퍼티는 readonly 타입으로 단언됨
+
+```ts {numberLines}
+let name4 = 10 as const;
+name4 = 1; // ❌ 리터럴로 타입단언되어 값을 수정하면 에러가 발생한다.
+
+let cat = {
+  name: "cats",
+  color: "yellow",
+} as const;
+cat.name = "dog"; // ❌ 프로퍼티들은 readonly가 되어 값을 수정할 수 없다.
+// let cat: {readonly name: "cats"; readonly color: "yellow";}
+```
+
+### Non Null 단언
+
+- null이나 undefined 타입이 아닐 경우를 단언
+- `!`을 사용하여 선언한다.
+
+```ts {numberLines}
+type Post = {
+  title: string;
+  author?: string;
+};
+
+let post: Post = {
+  title: "title1",
+  author: "user1",
+};
+const len: number = post.author?.length; // ❌
+// author를 선택적 프로퍼티(?)로 지정하면 author는 string | undefined 유니언 타입으로 지정된다.
+// post.author 타입이 undefined도 포함 되어 있어서 length 메서드와 undefined 타입이 일치 하지 않기 때문에 에러가 발생한다.
+// 에러를 수정하기 위해서 author의 undefined타입을 Non Null 단언하여 undefined 타입이 아니라고 단언 한다.
+const len: number = post.author!.length; // ✅
+```
+
 ## 6. 타입 좁히기
 
 ## referance
