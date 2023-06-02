@@ -582,7 +582,7 @@ function func(value: number | string | Date | null | Person) {
   } else if (value instanceof Date) {
     // value가 Date 객체인지 판별
     return value.getTime(); // ✅
-  } else if ("age" in value) {
+  } else if (value && "age" in value) {
     // in 뒤에 타입은 undefined나 null이 올수 없음
     // value가 true 일때 "age" in value 실행
     return `${value.name}은 ${value.age}살 입니다.`;
@@ -593,6 +593,156 @@ console.log(func("hello")); // HELLO
 console.log(func(new Date())); // 1685619342210
 const value = { name: "user1", age: 24 };
 console.log(func(value)); // user1은 24살 입니다.
+```
+
+## 7. 서로소 유니온 타입
+
+- 교집합이 없는 타입으로만 이루어진 유니온 타입 예) number 타입과 string 타입관계
+
+```ts {numberLines}
+type Admin = {
+  name: string;
+  kickCount: number;
+};
+type Member = {
+  name: string;
+  point: number;
+};
+type Guest = {
+  name: string;
+  visitCount: number;
+};
+
+type User = Admin | Member | Guest;
+// Admin -> {name}님 현재까지 {kickCount}명 강퇴했습니다.
+// Member -> {name}님 현재까지 {point}모았습니다.
+// Guest -> {name}님 현재까지 {visitCount}번 오셨습니다.
+
+function login(user: User) {
+  if ("kickCount" in user) {
+    console.log(`${user.name}님 현재까지 ${user.kickCount}명을 강퇴했습니다.`);
+  } else if ("point" in user) {
+    console.log(`${user.name}님 현재까지 ${user.point}모았습니다.`);
+  } else {
+    console.log(`${user.name}님 현재까지 ${user.visitCount}번 오셨습니다.`);
+  }
+}
+```
+
+위의 코드는 복잡하고 직관적이지 않아서 아래와 같이 tag 프로퍼티에 리터털 타입의 string을 선언하면 교집합이 성립하지 않아서 서로소의 집합관계를 가진다.
+
+```ts
+type Admin = {
+  tag: "ADMIN"; // string 리터럴타입
+  name: string;
+  kickCount: number;
+};
+type Member = {
+  tag: "MEMBER"; // string 리터럴타입
+  name: string;
+  point: number;
+};
+type Guest = {
+  tag: "GUEST"; // string 리터럴타입
+  name: string;
+  visitCount: number;
+};
+type User = Admin | Member | Guest;
+
+function login(user: User) {
+  if (user.tag === "ADMIN") {
+    console.log(`${user.name}님 현재까지 ${user.kickCount}명을 강퇴했습니다.`);
+  } else if (user.tag === "MEMBER") {
+    console.log(`${user.name}님 현재까지 ${user.point}모았습니다.`);
+  } else {
+    console.log(`${user.name}님 현재까지 ${user.visitCount}번 오셨습니다.`);
+  }
+  // switch문
+  switch (user.tag) {
+    case "ADMIN":
+      console.log(`${user.name}님 현재까지 ${user.kickCount}명을 강퇴했습니다.`);
+      break;
+    case "MEMBER":
+      console.log(`${user.name}님 현재까지 ${user.point}모았습니다.`);
+      break;
+    case "GUEST":
+      console.log(`${user.name}님 현재까지 ${user.visitCount}번 오셨습니다.`);
+      break;
+  }
+}
+```
+
+### 비동기 처리 할때 서로소 유니온 타입 사용하기
+
+서로소 유니온 타입 적용하지 않을때
+
+```ts
+type AsyncTask = {
+  state: "LOADING" | "FAILED" | "SUCCESS";
+  error?: { message: string };
+  response?: { data: string }; //  LOADING상태일때 error와 response 데이터가 필요하지 않아서 선택적 프로퍼티를 선언한다.
+};
+
+// 로딩 중 -> 콘솔에 로딩중 출력
+// 실패 -> 실패 : 에러메시지 출력
+// 성공 -> 성공 : 데이터 출력
+function processResult(task: AsyncTask) {
+  switch (task.state) {
+    case "LOADING":
+      console.log(task.state);
+      break;
+    case "FAILED":
+      console.log(task.error?.message);
+      break;
+    case "SUCCESS":
+      console.log(task.response?.data);
+      break;
+  }
+}
+
+const loading: AsyncTask = { state: "LOADING" };
+const failed: AsyncTask = { state: "FAILED", error: { message: "error 404" } };
+const success: AsyncTask = { state: "SUCCESS", response: { data: "data" } };
+```
+
+서로소 유니온 타입으로 수정하기
+
+변경하면 타입이 좁아지기 때문에 해당하는 타입 alias부분만 선택할 수 있어서 위의 코드와 같이 선택적 프로퍼티를 선언하지 않아도 된다.
+
+```ts {numberLines}
+type LoadingTask = {
+  state: "LOADING";
+};
+
+type FailedTask = {
+  state: "FAILED";
+  error: { message: string };
+};
+type SuccessTask = {
+  state: "SUCCESS";
+  response: { data: string };
+};
+type AsyncTask = LoadingTask | FailedTask | SuccessTask; // 서로소 유니온 타입
+
+// 로딩 중 -> 콘솔에 로딩중 출력
+// 실패 -> 실패 : 에러메시지 출력
+// 성공 -> 성공 : 데이터 출력
+function processResult(task: AsyncTask) {
+  switch (task.state) {
+    case "LOADING":
+      console.log(task.state);
+      break;
+    case "FAILED":
+      console.log(task.error.message);
+      break;
+    case "SUCCESS":
+      console.log(task.response.data);
+      break;
+  }
+}
+const loading: AsyncTask = { state: "LOADING" };
+const failed: AsyncTask = { state: "FAILED", error: { message: "error 404" } };
+const success: AsyncTask = { state: "SUCCESS", response: { data: "data" } };
 ```
 
 ## referance
