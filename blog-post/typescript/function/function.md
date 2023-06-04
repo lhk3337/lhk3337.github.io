@@ -117,6 +117,92 @@ mul(); // ✅
 mul.name; // ✅
 ```
 
+## 2. 함수 타입의 호환성
+
+- 특정 함수 타입을 다른 함수 타입으로 취급해도 괜찮은가를 판단
+
+### 반환값의 타입이 호환되는지 유무
+
+```ts {numberLines}
+type A = () => number;
+
+type B = () => 10;
+
+let a: A = () => 10; // number type
+let b: B = () => 10; // number literal type
+
+a = b; // ✅ a(number) <- b(number literal type), 업캐스팅
+b = a; // ❌   b(number literal type) <- a(number), 다운캐스팅
+```
+
+### 매개변수의 타입이 호환되는지 유무
+#### 매개변수의 갯수가 같을 때
+
+```ts {numberLines}
+type C = (value: number) => void;
+type D = (value: 10) => void;
+
+let c: C = (value) => {};
+let d: D = (value) => {};
+
+c = d; // ❌ 업캐스팅시 에러
+d = c; // ✅ 다운캐스팅시 허용
+```
+- 매개변수 타입이 업캐스팅 관계에 있을 때, 슈퍼 타입을 매개변수로 요구하는 함수에 서브 타입을 가진 함수를 할당하면 에러발생
+- 이는 서브 타입의 함수가 슈퍼 타입의 함수에 필요한 요구사항을 불충족 
+- 서브 타입은 더 많은 속성이나 동작을 갖고 있을 수 있으므로, 슈퍼 타입을 받는 함수에는 충분한 정보가 전달되지 않을 수 있다.
+
+
+두 함수가의 매개변수 타입이 모두 객체 타입
+```ts {numberLines}
+type Animal = {
+  name: string;
+};
+
+type Dog = {
+  name: string;
+  color: string;
+};
+
+let animalFunc = (animal: Animal) => {
+  console.log(animal.name);
+};
+let dogFunc = (dog: Dog) => {
+  console.log(dog.name);
+  console.log(dog.color);
+};
+
+animalFunc = dogFunc; // ❌ 슈퍼타입 <- 서브타입 (업캐스팅)
+dogFunc = animalFunc; // ✅ 서브타입 <- 슈퍼타입 (다운캐스팅)
+```
+animalFunc = DogFunc을 표현 
+```ts {numberLines}
+let testFunc = (animal: Animal) => {
+  console.log(animal.name); // ❌
+  console.log(animal.color); // ✅
+};
+```
+dogFunc = animalFunc을 표현
+```ts {numberLines}
+let testFunc2 = (dog: Dog) => {
+  console.log(dog.name);
+};
+```
+
+#### 매개변수의 갯수가 다를 때
+- 타입이 같은 매개변수에서 함수의 매개변수가 더 적을때만 호환이 된다.
+```ts {numberLines}
+
+type Func1 = (a: number, b: number) => void;
+type Func2 = (a: number) => void;
+
+let func1: Func1 = (a, b) => {};
+let func2: Func2 = (a) => {};
+func1 = func2; // ✅ 
+func2 = func1; // ❌
+
+```
+
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
