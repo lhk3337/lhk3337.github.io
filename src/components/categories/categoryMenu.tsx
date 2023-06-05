@@ -5,7 +5,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { JsIcons, NextJsIcon, ReactIcon, TailwinIcon, TsIcon, WebIcon } from "./categoryIcon";
 
 interface Values {
-  [key: string]: any;
+  Javascript: React.JSX.Element;
+  React: React.JSX.Element;
+  Typescript: React.JSX.Element;
+  Nextjs: React.JSX.Element;
+  Tailwind: React.JSX.Element;
+  Web: React.JSX.Element;
+  totalCount: number;
+  fieldValue: string;
 }
 
 export default function CategoryMenu({ data, location }: mainProps) {
@@ -69,28 +76,28 @@ export default function CategoryMenu({ data, location }: mainProps) {
             </span>
           </Link>
         </li>
-        {categoriesData.group.map((caterory: Values, i) => {
+        {categoriesData.group.map((category: Values, i) => {
           return (
             <li key={i}>
               <Link
-                to={`?category=${caterory.fieldValue.toLowerCase()}`}
+                to={`?category=${category.fieldValue.toLowerCase()}`}
                 className="flex cursor-pointer flex-col items-center p-2"
               >
                 <div
                   className={cls(
                     "mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white dark:bg-slate-700 sm:h-20 sm:w-20",
-                    query === caterory.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
+                    query === category.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
                   )}
                 >
-                  {caterory[caterory.fieldValue]}
+                  {category[category.fieldValue as keyof Values]}
                 </div>
                 <span
                   className={cls(
                     "text-sm sm:text-base",
-                    query === caterory.fieldValue.toLowerCase() ? "font-bold" : ""
+                    query === category.fieldValue.toLowerCase() ? "font-bold" : ""
                   )}
                 >
-                  {caterory.fieldValue} ({caterory.totalCount})
+                  {category.fieldValue} ({category.totalCount})
                 </span>
               </Link>
             </li>
