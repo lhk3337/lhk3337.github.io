@@ -216,7 +216,7 @@ type Animal1 = {
 };
 
 interface Dog extends Animal1 {
-  isBark: boolean;
+  isBark: boolean; // ✅
 }
 ```
 
@@ -245,7 +245,59 @@ const dogcat: DogCat = {
   isBark: true,
   isScratch: false,
 };
+```
 
+## interface 합치기
+
+- type 별칭은 중복으로 선언하면 에러가 발생
+- interface는 같은 이름으로 중복으로 선언해도 타입이 합쳐 작동하게 된다. 이것을 선언 합침(Declaration Merging)이라 한다.
+
+```ts {numberLines}
+interface Person {
+  name: string;
+}
+
+interface Person {
+  name: number; // ❌ 충돌
+  name: string; // ✅ 똑같은 프로퍼티를 중복 선언하려면 똑같은 타입을 선언해야 하고 해당 타입 리터럴로 선언하면 에러 발생
+  age: number;
+}
+
+const person: Person = {
+  name: "",
+  age: 11,
+};
+```
+
+interface 상속에서는 재정의 시 해당 타입의 리터럴로 선언해도 에러가 발생하지 않는다.
+
+```ts {numberLines}
+interface Person {
+  name: string;
+}
+interface Developer extends Person {
+  name: "hello";
+}
+```
+
+모돌 보강
+
+```ts {numberLines}
+interface Lib {
+  a: number;
+  b: number;
+}
+
+interface Lib {
+  // 2. 중복 interface 추가
+  c: string;
+}
+
+const lib: Lib = {
+  a: 1,
+  b: 2,
+  c: "hello", // 1. c 프로퍼티를 추가 하고 싶으면 중복 interface Lib를 선언하고 프로퍼티 타입을 설정하면 interface 합치기가 작동한다.
+};
 ```
 
 ## referance
