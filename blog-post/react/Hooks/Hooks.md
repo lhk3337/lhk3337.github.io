@@ -4,8 +4,8 @@ date: "2023-01-31"
 title: "Hooks"
 categories: ["React"]
 desc: "React에서 다양한 hooks들"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 # React에서 다양한 hooks들

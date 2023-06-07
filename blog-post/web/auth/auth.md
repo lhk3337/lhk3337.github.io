@@ -4,8 +4,8 @@ date: "2023-04-07"
 title: "사용자 인증"
 categories: ["Web"]
 desc: "웹에서 사용자 인증 방법"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 웹에서 로그인 시 어떻게 인증과정이 이루어지는지 궁금하고, 개념을 명확하게 하고 싶었다.

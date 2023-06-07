@@ -4,8 +4,8 @@ date: "2023-05-28"
 title: "typescript의 이해"
 categories: ["Typescript"]
 desc: "타입스크립트의 원리와 개념을 이해 해보기"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 # 타입스크립트 원리와 개념을 더 이해해 보기

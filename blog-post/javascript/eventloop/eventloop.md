@@ -4,8 +4,8 @@ date: "2023-03-12"
 title: "javascript 이벤트 루프"
 categories: ["Javascript"]
 desc: "싱글 스레드 방식인 javascript가 어떻게 여러 작업을 하는지 알아보기"
-thumbnail: "./thumbnail.png"
-topbg: "./topbg.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 ## 이벤트 루프(브라우저에 내장)

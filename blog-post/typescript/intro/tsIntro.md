@@ -4,8 +4,8 @@ date: "2023-05-23"
 title: "Intro Typescript"
 categories: ["Typescript"]
 desc: "타입스크립트란?"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 ## TypeScript

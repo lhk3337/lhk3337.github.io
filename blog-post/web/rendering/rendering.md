@@ -4,8 +4,8 @@ date: "2023-04-19"
 title: "Web 렌더링 종류와 방식"
 categories: ["Web"]
 desc: " 렌더링 따라 동작 원리 이해"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 ## CSR (Client Side Rendering)

@@ -1,11 +1,11 @@
 ---
 slug: "/typescript/interface"
-date: "2023-06-05"
+date: "2023-06-07"
 title: "Interface"
 categories: ["Typescript"]
 desc: "타입스크립트에서 Interface 선언하기"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 ## Interface

@@ -4,8 +4,8 @@ date: "2023-03-16"
 title: "React Virtual DOM"
 categories: ["React"]
 desc: "React Virtual DOM"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 ### 정의

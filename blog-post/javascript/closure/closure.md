@@ -4,8 +4,8 @@ date: "2023-03-14"
 title: "Javascript Closure"
 categories: ["Javascript"]
 desc: "javascript 클로저 개념"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 > javascript 클로저는 어떤 함수에서 선언한 변수를 참조하는 내부함수를 외부로 전달할 경우, 함수의 실행 컨텍스트가 종료된 후에도 해당 변수가 사라지지 않는 현상

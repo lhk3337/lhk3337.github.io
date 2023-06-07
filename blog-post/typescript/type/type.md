@@ -4,8 +4,8 @@ date: "2023-05-26"
 title: "typescript type"
 categories: ["Typescript"]
 desc: "타입스크립트 타입 종류"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 # 타입스크립트에서 지원하는 type 종류

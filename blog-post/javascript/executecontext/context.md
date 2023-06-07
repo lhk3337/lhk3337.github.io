@@ -4,8 +4,8 @@ date: "2023-03-12"
 title: "javascript 실행 컨텍스트(execute context)"
 categories: ["Javascript"]
 desc: "js에서 코드들이 어떻게 실행되는지 동작방식 알아보기"
-thumbnail: "./thumbnail.png"
-topbg: "./topbg.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 > 실행 컨텍스트(execute context)란? <br />

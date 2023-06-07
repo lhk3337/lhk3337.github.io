@@ -4,8 +4,8 @@ date: "2023-02-13"
 title: "var, let, const"
 categories: ["Javascript"]
 desc: "var let const"
-thumbnail: "./thumbnail.png"
-topbg: "./topbg.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 # javascript에서 var let const 비교하기

@@ -4,8 +4,8 @@ date: "2023-06-03"
 title: "function 타입"
 categories: ["Typescript"]
 desc: "타입스크립트에서 함수의 타입 선언"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 # 타입스크립트에서 함수의 타입 설정하기
@@ -219,12 +219,14 @@ func2 = func1; // ❌
 function func(a: number): void;
 function func(a: number, b: number, c: number): void;
 ```
+
 실제 구현부 -> 구현 시그니쳐
 
- - 하나의 함수 func
- - 모든 매개변수의 타입 number
- - 매개변수가 1개 -> 매개변수에 20을 곱한 값 출력
- - 매개변수가 3개 -> 매개변수들을 다 더한값을 출력
+- 하나의 함수 func
+- 모든 매개변수의 타입 number
+- 매개변수가 1개 -> 매개변수에 20을 곱한 값 출력
+- 매개변수가 3개 -> 매개변수들을 다 더한값을 출력
+
 ```ts {numberLines}
 function func(a: number, b?: number, c?: number) {
   if (typeof b === "number" && typeof c === "number") {
@@ -245,10 +247,12 @@ func(1, 2, 3); // ✅ 오버로딩 시그니쳐 두번째 버전에 따름
 오버로딩 시그니쳐를 선언하게 되면, 구현부의 매개변수 갯수나 타입에 따르지 않고 오버로딩 시그니쳐 버전에 따른다.
 
 ## 4. 사용자 정의 타입가드
+
 true, false를 반환 하는 함수를 이용하여 타입 가드를 선언할 수 있는 문법
 
 타입설정
-``` ts{numberLines}
+
+```ts{numberLines}
 type Dog = {
   name: string;
   isBark: boolean;
@@ -261,10 +265,12 @@ type Cat = {
 
 type Animal = Dog | Cat;
 ```
+
 사용자 정의 타입가드
 
 isDog함수의 리턴값이 true이면 Dog 타입으로 좁혀진다. `animal is Dog`
-``` ts{numberLines}
+
+```ts{numberLines}
 
 function isDog(animal: Animal): animal is Dog {
   return (animal as Dog).isBark !== undefined;
@@ -276,9 +282,9 @@ function isCat(animal: Animal): animal is Cat {
 }
 ```
 
+구현하기
 
-  구현하기
-``` ts{numberLines}
+```ts{numberLines}
 function warning(animal: Animal) {
   if (isDog(animal)) {
     console.log({ ...animal });

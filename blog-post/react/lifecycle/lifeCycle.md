@@ -4,8 +4,8 @@ date: "2023-03-03"
 title: "React Life Cycle"
 categories: ["React"]
 desc: "React에서 생명 주기"
-topbg: "./topbg.png"
-thumbnail: "./thumbnail.png"
+topbg: "../topbg.png"
+thumbnail: "../thumbnail.png"
 ---
 
 리액트에서 component가 생성되고 사라지는 생명주기(life cycle)란?
