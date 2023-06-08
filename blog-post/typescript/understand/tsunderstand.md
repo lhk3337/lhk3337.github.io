@@ -301,6 +301,22 @@ let union4: Union1 = {
 };
 ```
 
+- 유니언 타입의 슈퍼 및 서브 타입 관계
+
+```ts {numberLines}
+type SubDog = {
+  name: string;
+  color: string;
+};
+
+type SuperDog = {
+  name: string | number;
+  color: string;
+};
+const smallDog: SubDog = { name: "puppy", color: "brown" };
+const bigDog: SuperDog = smallDog; // ✅ SubDog가 SuperDog의 서브 타입
+```
+
 ### 교집합(Intersection) 타입
 
 - 여러 타입의 속성을 모두 가지는 타입을 정의한다.
@@ -748,3 +764,4 @@ const success: AsyncTask = { state: "SUCCESS", response: { data: "data" } };
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
+- [Inpa Dev - 유니언 타입 주종 관계](https://inpa.tistory.com/entry/TS-%F0%9F%93%98-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B3%B5%EB%B3%80%EC%84%B1-%EB%B0%98%EA%B3%B5%EB%B3%80%EC%84%B1-%F0%9F%92%A1-%ED%95%B5%EC%8B%AC-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0#thankYou)
