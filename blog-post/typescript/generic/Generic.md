@@ -75,7 +75,7 @@ let bool = func(false); // bool은 boolean
 
 - 명시적으로 정의하는 제네릭
 
-```ts
+```ts {numberLines}
 function func<T>(value: T): T {
   return value;
 }
@@ -83,11 +83,64 @@ function func<T>(value: T): T {
 let num = func(10); // num은 number
 let str = func("string"); // str은 string
 
-let arr = func<[number, number, number]>([1, 2, 3]); // 튜플 정의, <[number, number, number]>이 func<T>에  할당 됨
-let arr = func<[number, number, number]>([1, 2, 3, 4]); // ❌ 튜플 타입과 맞지 않는 요소를 추가하면 에러 발생
+let arr = func<[number, number, number]>([1, 2, 3]);
+// 튜플 정의, <[number, number, number]>이 func<T>에  할당 됨
+let arr = func<[number, number, number]>([1, 2, 3, 4]);
+// ❌ 튜플 타입과 맞지 않는 요소를 추가하면 에러 발생
 ```
 
 ## type variable
+
+### example 1
+
+배열 타입
+
+```ts {numberLines}
+function swap<T, U>(a: T, b: U): (T | U)[] {
+  return [b, a];
+}
+
+const [a, b] = swap("1", 2);
+```
+
+### example 2
+
+배열의 0번째 요소 타입
+
+```ts {numberLines}
+function returnFirstValue<T>(data: T[]): T {
+  return data[0];
+}
+let num = returnFirstValue([0, 1, 2]); // let num: number
+let str = returnFirstValue(["hl", false, "hello", "good"]); // let str: string | boolean
+```
+
+```ts {numberLines}
+function returnFirstValue<T>(data: [T, ...unknown[]]): T {
+  return data[0];
+}
+
+function returnFirstValue<T, U>(data: [T, ...U[]]): T {
+  return data[0];
+}
+
+let num = returnFirstValue([0, 1, 2]); // let num: number
+let str = returnFirstValue(["hl", false, "hello", "good"]); // let str: string
+```
+
+### example 3
+
+타입 변수 조건
+
+```ts {numberLines}
+function getLength<T extends { length: number }>(data: T) {
+  return data.length;
+}
+let var1 = getLength([1, 2, 3]);
+let var2 = getLength("12345");
+let var3 = getLength({ length: 10 });
+let var4 = getLength(10); // ❌ 해당하는 length property가 없기 때문에 에러 발생
+```
 
 ## map, forEach 메서드 타입 정의
 
