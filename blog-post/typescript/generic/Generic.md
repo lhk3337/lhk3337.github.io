@@ -144,6 +144,59 @@ let var4 = getLength(10); // ❌ 해당하는 length property가 없기 때문�
 
 ## map, forEach 메서드 타입 정의
 
+### map()
+
+```ts {numberLines}
+const arr = [1, 2, 3];
+
+function map<T>(arr: T[], callback: (item: T) => T): T[] {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(callback(arr[i]));
+  }
+  return result;
+}
+
+map(arr, (it) => it.toString());
+// ❌ 타입변수 T는 number 타입인데 리턴타입은 string여서 에러가 발생하였다.
+```
+
+map 메서드는 새로운 배열을 리턴하므로 원본 배열과 같은 타입으로 나오지 않을 수도 있다.
+
+```ts {numberLines}
+const arr = [1, 2, 3];
+function map<T, U>(arr: T[], callback: (item: T) => U): U[] {
+  // map 메서드는 인수로 배열의 타입이 콜백함수로 실행되어 리턴 된다.
+  // 이때 새로운 배열 타입으로 될 수 있기 때문에 타입변수 U를 선언하였다.
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(callback(arr[i]));
+  }
+  return result;
+}
+
+map(arr, (it) => it.toUpperCase()); // ✅ ["1", "2", "3"]
+```
+
+### forEach()
+
+```ts {numberLines}
+const arr2 = [1, 2, 3];
+
+function forEach<T>(arr: T[], callback: (item: T) => void) {
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i]);
+  }
+}
+forEach(arr2, (it) => {
+  console.log(it.toFixed());
+});
+
+forEach(["123", "456"], (it) => {
+  console.log(parseInt(it));
+});
+```
+
 ## generic class
 
 ## promise & generic
