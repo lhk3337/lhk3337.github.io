@@ -8,7 +8,7 @@ topbg: "../topbg.png"
 thumbnail: "../thumbnail.png"
 ---
 
-## Generic?
+## 1. Generic?
 
 제네릭이란 함수나 인터페이스등 여러 유형에서 유연하고 재사용이 가능하도록 만들어 주는 타입스크립트의 기능을 말할 수 있다.
 
@@ -89,7 +89,7 @@ let arr = func<[number, number, number]>([1, 2, 3, 4]);
 // ❌ 튜플 타입과 맞지 않는 요소를 추가하면 에러 발생
 ```
 
-## type variable
+## 2. type variable
 
 ### example 1
 
@@ -142,7 +142,7 @@ let var3 = getLength({ length: 10 });
 let var4 = getLength(10); // ❌ 해당하는 length property가 없기 때문에 에러 발생
 ```
 
-## map, forEach 메서드 타입 정의
+## 3. map, forEach 메서드 타입 정의
 
 ### map()
 
@@ -197,9 +197,160 @@ forEach(["123", "456"], (it) => {
 });
 ```
 
-## generic class
+## 4. generic interface & generic type alias
 
-## promise & generic
+### generic interface
+
+```ts {numberLines}
+interface KeyPair<K, V> {
+  key: K;
+  value: V;
+}
+```
+
+- interface KeyPair에 타입변수인 K, V를 선언
+- 해당 프로퍼티에 타입변수를 할당
+
+```ts {numberLines}
+let keyPair: KeyPair<string, number> = {
+  key: "key",
+  value: 0,
+};
+```
+
+- 변수 keyPair 타입에 `KeyPair<string, number>`를 선언
+- string은 KeyPair K에, number는 KeyPair V에 할당 됨.
+
+```ts {numberLines}
+let keyPair2: KeyPair<boolean, string[]> = {
+  key: true,
+  value: ["1"],
+};
+```
+
+- 변수 keyPair2 타입에 `KeyPair<boolean, string[]>`를 선언
+- boolean은 KeyPair K에, string[]은 KeyPair V에 할당 됨.
+
+### Index Signature
+
+- generic 적용 전
+
+```ts {numberLines}
+interface NumberMap {
+  [key: string]: number;
+}
+
+let numberMap1: NumberMap = {
+  key: -1234,
+  key2: 123124,
+};
+```
+
+generic 적용 후
+
+```ts {numberLines}
+interface Map<V> {
+  [key: string]: V;
+}
+let stringMap: Map<string> = {
+  key: "value",
+};
+
+let booleanMap: Map<boolean> = {
+  key: false,
+};
+```
+
+### generic type alias
+
+```ts {numberLines}
+type Map2<V> = {
+  [key: string]: V;
+};
+
+let stringMap2: Map2<string> = {
+  key: "hello",
+};
+```
+
+### generic interface 활용
+
+```ts {numberLines}
+interface Student {
+  type: "student";
+  school: string;
+}
+
+interface Developer {
+  type: "developer";
+  skill: string;
+}
+```
+
+generic 변경 전
+
+```ts {numberLines}
+interface User {
+  name: string;
+  profile: Student | Developer;
+}
+
+function goToSchool(user: User) {
+  if (user.profile.type !== "student") {
+    console.log("여기가 아닙니다.");
+    return;
+  }
+  const school = user.profile.school;
+  console.log(`${school}로 등교 완료`);
+}
+
+const developerUser: User = {
+  name: "user1",
+  profile: {
+    type: "developer",
+    skill: "frontend",
+  },
+};
+const studentUser: User = {
+  name: "user2",
+  profile: {
+    type: "student",
+    school: "highschool",
+  },
+};
+goToSchool(developerUser); //  "여기가 아닙니다."
+```
+
+generic 변경 후
+
+```ts {numberLines}
+interface User<T> {
+  name: string;
+  profile: T;
+}
+
+function goToSchool(user: User<Student>) {
+  const school = user.profile.school;
+  console.log(`${school}로 등교 완료`);
+}
+
+const developerUser: User<Developer> = {
+  name: "user1",
+  profile: {
+    type: "developer",
+    skill: "frontend",
+  },
+};
+const studentUser: User<Student> = {
+  name: "user2",
+  profile: {
+    type: "student",
+    school: "highschool",
+  },
+};
+goToSchool(studentUser); // ✅
+goToSchool(developerUser); // ❌
+```
 
 ## referance
 
