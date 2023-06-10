@@ -352,6 +352,111 @@ goToSchool(studentUser); // ✅
 goToSchool(developerUser); // ❌
 ```
 
+## 5. generic class
+
+### geeric 적용 전
+
+number 배열의 생성자를 생성하고 push, pop, print 메서드를 구현할 수 있는 클래스 선언
+
+```ts {numberLines}
+class NumberList {
+  constructor(private list: number[]) {}
+  push(data: number) {
+    this.list.push(data);
+  }
+  pop() {
+    return this.list.pop();
+  }
+  print() {
+    console.log(this.list);
+  }
+}
+```
+
+```ts {numberLines}
+const numberList = new NumberList([1, 2, 3]);
+numberList.pop(); // [1, 2]
+numberList.push(4); // [1, 2, 4]
+numberList.print(); // [1, 2, 4] 출력
+```
+
+string타입을 가진 배열을 이용하여 pop push하려면 class를 다시 선언해야 한다.
+
+```ts {numberLines}
+class StringList {
+  constructor(private list: string[]) {}
+  push(data: string) {
+    this.list.push(data);
+  }
+  pop() {
+    return this.list.pop();
+  }
+  print() {
+    console.log(this.list);
+  }
+}
+```
+
+```ts {numberLines}
+const stringList = new StringList(["1", "2", "3"]);
+stringList.pop(); // ["1", "2"]
+stringList.push("4"); // ["1", "2", "4"]
+stringList.print(); // ["1", "2", "4"] 출력
+```
+
+- 위의 class를 보면 number타입과 string타입을 구현하려면 중복된 class가 두번 선언되었다.
+
+### geeric 적용 후
+
+- 이것을 해결하기 위해 제네릭을 사용하여 class를 선언하면 된다.
+
+```ts {numberLines}
+class List<T> {
+  constructor(private list: T[]) {}
+  push(data: T) {
+    this.list.push(data);
+  }
+  pop() {
+    this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+```
+
+```ts {numberLines}
+const genericNumberList = new List([1, 2, 3]);
+// number array instance
+const genericStringList = new List(["1", "2", "3"]);
+// string array instance
+
+genericNumberList.pop();
+genericNumberList.push(4);
+genericNumberList.print();
+
+genericStringList.pop();
+genericStringList.push("4");
+genericStringList.print();
+```
+
+### 해당 인스턴스의 타입 변수 생략
+
+```ts {numberLines}
+const genericNumberList = new List([1, 2, 3]);
+const genericStringList = new List(["1", "2", "3"]);
+```
+
+에서 생성자의 인수[1, 2, 3]과 ["1", "2", "3"]이 class의 generic에서 추론되기 떄문에
+
+```ts {numberLines}
+const genericNumberList = new List<number>([1, 2, 3]); // <number> 생략 가능
+const genericStringList = new List<string>(["1", "2", "3"]); // <string> 생략 가능
+```
+
+인스턴스의 타입 변수를 선언하지 않아도 된다.
+
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
