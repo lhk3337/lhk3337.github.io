@@ -457,6 +457,124 @@ const genericStringList = new List<string>(["1", "2", "3"]); // <string> 생략 
 
 인스턴스의 타입 변수를 선언하지 않아도 된다.
 
+## 6. 프로미스와 제네릭
+
+### 프로미스 제네릭 선언하기
+
+- Promise는 비동기 처리를 목적으로 제공되는 자바스크립트의 내장 클래스이며, Promise 생성자에 함수를 전달한다.
+- 이 함수는 실행자 함수 비동기 처리를 실제로 하는 함수를 의미하고 resolve와 reject 인수를 가진다.
+- `resolve`는 비동기가 처리가 성공했을 경우 실행할 함수
+- `reject`는 비동기 처리가 실패했을 경우 실행할 함수
+- resolve나 reject로 호출 후 전달하는 비동기 작업 결과값에 대한 타입을 자동적으로 추론할 수 있는 기능이 없기 떄문에 기본적으로 `unknown`타입으로 지정한다.
+
+```ts {numberLines}
+const promise = new Promise((resolve, reject) => {
+  // resolve: unknown, reject :unknown
+  setTimeout(() => {
+    resolve(20);
+  }, 3000);
+});
+
+promise.then((response) => console.log(response * 10));
+// ❌ resolve의 결과값이 response이어서 response도 unknown타입이 되어 unknown타입에 10을 곱하면 에러가 발생한다.
+```
+
+제네릭 선언
+
+```ts {numberLines}
+const promise = new Promise<number>((resolve, reject) => {
+  setTimeout(() => {
+    resolve(20);
+  }, 3000);
+});
+
+promise.then((response) => console.log(response * 10));
+// ✅ Promise에 해당 타입의 제네릭을 선언하면 결과값의 타입도 같은 타입으로 추론된다.
+```
+
+비동기 처리로 실패한 reject 함수의 리턴값인 실패한 결과값 타입은 정의할 수 없다. 그렇기 때문에 catch문을 사용하려면 타입가드를 사용하여 설정할 수 있다.
+
+```ts {numberLines}
+const promise = new Promise<number>((resolve, reject) => {
+  setTimeout(() => {
+    // resolve(20);
+    reject("failed");
+  }, 3000);
+});
+
+promise.catch((err) => {
+  if (typeof err === "string") {
+    // 타입 가드
+    console.log(err);
+  }
+});
+```
+
+### 프로미스를 반환하는 함수의 타입을 정의
+
+```ts
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+}
+
+function fetchPost() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        id: 1,
+        title: "title",
+        content: "content",
+      });
+    }, 3000);
+  });
+}
+
+const postRequest = fetchPost();
+postRequest.then((post) => {
+  console.log(post.id); // ❌ post가 unknown타입이라 에러발생
+});
+```
+
+- Promise 타입을 지정하면 타입에러가 발생하지 않는다.
+
+```ts {numberLines}
+function fetchPost() {
+  return new Promise<Post>((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        id: 1,
+        title: "title",
+        content: "content",
+      });
+    }, 3000);
+  });
+}
+
+// 함수 리턴 타입에 제네릭 설정, 가동성이 더 좋음
+function fetchPost(): Promise<Post> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        id: 1,
+        title: "title",
+        content: "content",
+      });
+    }, 3000);
+  });
+}
+```
+
+인스턴스 생성하기
+
+```ts {numberLines}
+const postRequest = fetchPost();
+postRequest.then((post) => {
+  console.log(post.id); // 1
+});
+```
+
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
