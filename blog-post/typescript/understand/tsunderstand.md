@@ -411,13 +411,13 @@ const num = 10; // const num: 10
 const str = "hello"; // const str: "hello"
 ```
 
-### 여러 타입 추론
-
+### 최적 공통 타입(Best Common Type)
+- 다양한 타입의 요소를 담은 배열을 변수의 초기값으로 설정하면 최적의 공통 타입으로 추론된다.
 ```ts {numberLines}
 let arr = [1, "hello"]; // let arr: (string | number)[]
 ```
 
-const 상수로 선언한 타입은 리터털 타입만 가질 수 있지만, let으로 선언한 타입은 리터럴 타입이 아닌 해당 값의 기본 타입을 가질 수 있어 범용성있는 타입을 가질 수 있게 된다.
+const 상수로 선언한 타입은 리터털 타입만 가질 수 있지만, let으로 선언한 타입은 리터럴 타입이 아닌 해당 값의 기본 타입(number, string등)을 가질 수 있어 범용성있는 타입을 가질 수 있게 된다.
 
 ## 5. 타입 단언
 
