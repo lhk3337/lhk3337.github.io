@@ -1,6 +1,6 @@
 ---
 slug: "/typescript/typecontrol"
-date: "2023-06-12"
+date: "2023-06-13"
 title: "타입 조작하기"
 categories: ["Typescript"]
 desc: "원래 타입에서 새로운 타입으로 조작하기"
@@ -201,6 +201,94 @@ type Tup = [number, string, boolean];
 type TupNum = Tup[number]; // string | number | boolean의 유니언타입으로 최적의 공통 타입 추출
 ```
 
+
+
+
+
+
+## 3. keyof & typeof 연산자
+객체의 프로퍼티의 모든 key들을 string literal union형태로 추출하는 연산자
+
+```ts {numberLines}
+interface Person {
+  name: string;
+  age: number;
+  locaton: string; // new property
+}
+```
+아래 코드와 같이 선언하면 새로운 프로퍼티를 추가혀면, 함수 매개변수의 key의 타입도 추가해야한다.
+```ts {numberLines}
+function getPropertyKey(person: Person, key: "name" | "age" | "location") { // location 추가됨
+  return person[key];
+}
+```
+
+`keyof`으로 선언하기
+```ts {numberLines}
+function getPropertyKey(person: Person, key: keyof Person) {
+  // keyof Person의 결과값은 "name"|"age"|"location"
+  return person[key];
+}
+
+const person: Person = {
+  name: "user",
+  age: 18,
+  location: "seoul"
+};
+
+getPropertyKey(person, "name");
+```
+keyof 연산자는 오직 타입(type alias, interface, 일반타입)만 올수 있고 변수나 값이 올수 없다.
+```ts {numberLines}
+function getPropertyKey(person: Person, key: keyof person) { // ❌ person의 객체타입의 변수가 대입
+  return person[key];
+}
+
+const person: Person = {
+  name: "user",
+  age: 18,
+  location: "seoul"
+};
+```
+### typeof와 keyof 사용하기
+
+```ts {numberLines}
+type Person = typeof person;
+
+function getPropertyKey(person: Person, key: keyof Person) {
+  return person[key];
+}
+
+const person: Person = {
+  name: "user",
+  age: 18,
+};
+```
+
+typeof 연산자를 이용하여 keyof 사용하기
+```ts {numberLines}
+function getPropertyKey(person: Person, key: keyof typeof person) {
+  return person[key];
+}
+
+const person = {
+  name: "user",
+  age: 18,
+};
+```
+타입 추론 순서
+
+`typeof person`
+```ts {numberLines}
+{
+  name:string;
+  age:number;
+}
+```
+`keyof typeof person`
+```ts {numberLines}
+"name" | "age"
+```
 
 ## referance
 
