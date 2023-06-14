@@ -290,6 +290,103 @@ const person = {
 "name" | "age"
 ```
 
+### keyof가 적용된 이 블로그 커밋
+[keyof 사용한 해당 커밋](https://github.com/lhk3337/lhk3337.github.io/commit/9263ae11f586e12df55ddf435a8020800247f9b8)
+
+
+## 4. 맵드 타입
+기존의 객체 타입을 기반으로 새로운 객체 타입을 만드는 타입 조작 기능입니다.
+
+```ts {numberLines}
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+function fetchUser(): User {
+  return { id: 1, name: "user", age: 18 };
+}
+```
+한명의 유저 정보를 수정할때
+
+```ts {numberLines}
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+// 중복 interface
+interface PartialUser{
+  id?: number;
+  name?: string;
+  age?: number;
+}
+
+
+function updateUser(user: User) {} // ❌
+function updateUser(user: PartialUser) {} // ✅
+
+updateUser({ age: 20 }); // 변경되는 값만 보내고 싶을때
+```
+### 맵드 타입을 이용하면 중복 interface를 선언하지 않아도 된다.
+
+```ts {numberLines}
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type PartialUsers = {
+  [key in "id" | "name" | "age"]?: User[key]; // 선택적 property
+};
+
+function updateUser(user: PartialUser) {} // ✅
+
+updateUser({ age: 20 });
+```
+- property 키가 무엇인지 정의, `key가 "id", "name", "age"`
+- property키들이 어떤 value타입을 가질 것인지 정의, `User["id"] | User["name"] | User["age"]`
+-  `{id :  User["id"]; name :  User["name"]; age :  User["age"]}`
+
+### 만일 프로퍼티의 갯수가 많아지면 `keyof` 연산자를 사용하면 된다.
+
+```ts {numberLines}
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type BooleanUsers = {
+  [key in keyof User]: boolean;
+};
+```
+
+### 반환값이 readonly일 경우
+
+```ts {numberLines}
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type ReadonlyUser = {
+  readonly [key in keyof User]: User[key];
+};
+
+function readonlyUser(): ReadonlyUser {
+  return { id: 1, name: "user", age: 18 };
+}
+const user = readonlyUser();
+user.id = 1; // ❌ 읽기 전용이라 수정할 수 없다.
+
+```
+
+
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
