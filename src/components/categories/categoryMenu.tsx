@@ -77,6 +77,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
           </Link>
         </li>
         {categoriesData.group.map((category: Values, i) => {
+          const { fieldValue } = category;
           return (
             <li key={i}>
               <Link
@@ -89,7 +90,7 @@ export default function CategoryMenu({ data, location }: mainProps) {
                     query === category.fieldValue.toLowerCase() ? "border-2 border-[#2E8EFF]" : ""
                   )}
                 >
-                  {category[category.fieldValue as keyof Values]}
+                  {category[fieldValue as keyof Values]}
                 </div>
                 <span
                   className={cls(
