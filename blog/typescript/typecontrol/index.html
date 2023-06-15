@@ -261,7 +261,10 @@
 <p><a href="https://github.com/lhk3337/lhk3337.github.io/commit/9263ae11f586e12df55ddf435a8020800247f9b8">keyof 사용한 해당 커밋</a></p>
 <h2>4. 맵드 타입</h2>
 <p>[key <code>in</code> "property key의 유니언타입"] : property의 값의 타입</p>
-<p>기존의 객체 타입을 기반으로 새로운 객체 타입을 만드는 타입 조작 기능입니다.</p>
+<ul>
+<li>기존의 객체 타입을 기반으로 새로운 객체 타입을 만드는 타입 조작 기능입니다.</li>
+<li>맵드 타입은 type alias만 선언 가능하다.</li>
+</ul>
 <pre class="grvsc-container dracula-owl grvsc-ps-tDLRAE grvsc-ps-t5WxC3" data-language="ts" data-index="20"><code class="grvsc-code"><span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="1"></span><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-14">interface</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-4">User</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> {</span></span></span>
 <span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="2"></span><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">  id</span><span class="grvsc-tDLRAE-10 grvsc-t5WxC3-8">:</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-8">number</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">;</span></span></span>
 <span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="3"></span><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">  name</span><span class="grvsc-tDLRAE-10 grvsc-t5WxC3-8">:</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-5 grvsc-t5WxC3-8">string</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">;</span></span></span>
@@ -343,6 +346,7 @@
 <span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="14"></span><span class="grvsc-source"><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-14">const</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-7 grvsc-tDLRAE-i grvsc-t5WxC3-6">user</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-3 grvsc-t5WxC3-8">=</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-7 grvsc-t5WxC3-9">readonlyUser</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">();</span></span></span>
 <span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="15"></span><span class="grvsc-source"><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">user</span><span class="grvsc-tDLRAE-3 grvsc-tDLRAE-i grvsc-t5WxC3-1">.</span><span class="grvsc-tDLRAE-10 grvsc-t5WxC3-5">id</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-3 grvsc-t5WxC3-8">=</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1"> </span><span class="grvsc-tDLRAE-8 grvsc-t5WxC3-6">1</span><span class="grvsc-tDLRAE-1 grvsc-t5WxC3-1">; </span><span class="grvsc-tDLRAE-6 grvsc-t5WxC3-7 grvsc-t5WxC3-i">//</span><span class="grvsc-tDLRAE-6 grvsc-tDLRAE-i grvsc-t5WxC3-7 grvsc-t5WxC3-i"> ❌ 읽기 전용이라 수정할 수 없다.</span></span></span>
 <span class="grvsc-line"><span class="grvsc-gutter-pad"></span><span class="grvsc-gutter grvsc-line-number" aria-hidden="true" data-content="16"></span><span class="grvsc-source"></span></span></code></pre>
+<h2>5. 템플릿 리터럴 타입</h2>
 <h2>referance</h2>
 <ul>
 <li><a href="https://ts.winterlood.com/">한입 타입스크립트 핸드북</a></li>
