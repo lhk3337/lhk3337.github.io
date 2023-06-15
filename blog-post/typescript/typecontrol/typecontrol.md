@@ -294,9 +294,11 @@ const person = {
 [keyof 사용한 해당 커밋](https://github.com/lhk3337/lhk3337.github.io/commit/9263ae11f586e12df55ddf435a8020800247f9b8)
 
 
-## 4. 맵드 타입
-기존의 객체 타입을 기반으로 새로운 객체 타입을 만드는 타입 조작 기능입니다.
+## 4. 맵드 타입(Mapped Types)
+[key `in` "property key의 유니언타입"] : property의 값의 타입
 
+- 기존의 객체 타입을 기반으로 새로운 객체 타입을 만드는 타입 조작 기능입니다.
+- 맵드 타입은 type alias만 선언 가능하다.
 ```ts {numberLines}
 interface User {
   id: number;
@@ -360,9 +362,16 @@ interface User {
   age: number;
 }
 
-type BooleanUsers = {
-  [key in keyof User]: boolean;
+type PartialUser = {
+   [key in keyof User]?: User[key];
 };
+
+
+// 제네릭 선언 방식
+type PartialUser<T> = {
+  [key in keyof T]?: T[key];
+};
+function updateUser(user: PartialUser<User>) {}
 ```
 
 ### 반환값이 readonly일 경우
@@ -385,6 +394,8 @@ const user = readonlyUser();
 user.id = 1; // ❌ 읽기 전용이라 수정할 수 없다.
 
 ```
+
+## 5. 템플릿 리터럴 타입
 
 
 ## referance
