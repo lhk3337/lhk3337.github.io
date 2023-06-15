@@ -60,6 +60,15 @@ if (typeof num === "number") {
 ### 제네릭 선언
 
 function func`<타입 변수>`(value: `타입 변수`): `타입 변수` {}
+- 인수를 선언하지 않을 경우
+
+```ts {numberLines}
+function func<T>(value: T) {
+  return value;
+}
+
+func(); // function func<unknown>(value: unknown): unknown
+```
 
 - 인수를 통해 타입이 추론
 
