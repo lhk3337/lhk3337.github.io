@@ -1,6 +1,6 @@
 ---
 slug: "/typescript/typecontrol"
-date: "2023-06-13"
+date: "2023-06-15"
 title: "타입 조작하기"
 categories: ["Typescript"]
 desc: "원래 타입에서 새로운 타입으로 조작하기"
@@ -396,7 +396,23 @@ user.id = 1; // ❌ 읽기 전용이라 수정할 수 없다.
 ```
 
 ## 5. 템플릿 리터럴 타입
+문자열 리터럴 유형을 기반으로 하며 특정 패턴의 문자열 리터럴 타입으로 확장할 수 있습니다.
 
+```ts {numberLines}
+type Color = "red" | "black" | "green";
+type Animal = "dog" | "cat" | "chicken";
+type ColoredAnimal = "red-dog" | "red-cat" | "red-chicken" | "black-dog" | "..........";
+```
+Color타입에 red가 변경되면 ColoredAnimal의 red-dog, red-cat의 red를 하나하나 변경해야 하는 불편함이 발생한다.
+
+백틱을 이용하여 리터럴 타입을 선언하면 된다.
+```ts {numberLines}
+type Color = "red" | "black" | "green";
+type Animal = "dog" | "cat" | "chicken";
+type ColorAnimal = `${Color}-${Animal}`;
+// type ColorAnimal = "red-dog" | "red-cat" | "red-chicken" | "black-dog" | "black-cat" | "black-chicken" | "green-dog" | "green-cat" | "green-chicken"
+const coloredAnimal: ColorAnimal = "red-cat";
+```
 
 ## referance
 
