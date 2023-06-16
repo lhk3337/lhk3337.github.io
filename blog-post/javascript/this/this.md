@@ -149,17 +149,17 @@ obj.innerMain.main(); // innerMain : {name: 'jsInner', main: ƒ}
 ## 화살표 함수에서 this
 
 - 화살표 함수의 this는 선언된 시점에서 this가 결정 되고 바뀌지 않는다.
-- 객체의 메서드로 화살표 함수를 사영하게 되면 객체 속성을 접근하지 못하므로 지양해야 한다.
+- 객체의 메서드로 화살표 함수를 사용하게 되면 객체 속성을 접근하지 못하므로 지양해야 한다.
 
 ```js
 const obj = {
   name: "js",
   main() {
-    console.log(this.name);
+    console.log(this);
   },
   mainArrow: () => {
     // 메서드
-    console.log(this.name);
+    console.log(this);
   },
 };
 
@@ -258,6 +258,10 @@ const mainBindBind = mainBind.bind({ name: "js" }); // mainBindBind의 bind를 �
 mainBindBind(); // {name: 'javascript'}
 ```
 
+
+
+#### 객체 메서드에 bind()선언 하기
+선언 전
 ```js
 const obj = {
   name: "javascript",
@@ -267,9 +271,7 @@ const obj = {
 };
 obj.main(); // {name: 'javascript'}
 ```
-
-#### 객체 메서드에 bind()선언 하기
-
+선언 후
 ```js
 const obj = {
   name: "javascript",
