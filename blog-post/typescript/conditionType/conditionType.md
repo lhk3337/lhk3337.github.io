@@ -115,6 +115,85 @@ let result2 = removeSpace(undefined);
 ```
 
 ## 2. 분산적인 조건부 타입
+조건부 타입 변수에 유니온 타입을 할당하면, 할당된 내부의 모든 타입이 분리된다.
+
+```ts {numberLines}
+type StringNumberSwitch<T> = T extends number ? string : number;
+
+let c: StringNumberSwitch<number | string>;
+```
+- let c는 분리되어 아래와 같이 두가지 유니언 타입을 가지게 된다.
+- StringNumberSwitch<number>
+- StringNumberSwitch<string>
+
+타입의 단계로 살펴보면
+
+```ts {numberLines}
+type StringNumberSwitch<T> = T extends number ? string : number;
+let d: StringNumberSwitch<boolean | number | string>;
+```
+
+#### 1단계
+
+StringNumberSwitch\<boolean\> | <br /> 
+StringNumberSwitch\<number\> | <br /> 
+StringNumberSwitch\<string\>
+
+#### 2단계
+
+ boolean extends number ? string : number => number | <br />
+ number extends number ? string : number => string | <br />
+ string extends number ? string : number => number
+
+#### 결과
+number | string
+
+분산적인 조건 타입을 작동하지 않기 위해 선언하기
+```ts {numberLines}
+type StringNumberSwitch<T> = [T] extends [number] ? string : number;
+let d: StringNumberSwitch<boolean | number | string>;
+```
+let d는 number 타입
+### 또다른 예제
+```ts {numberLines}
+type Exclude<T, U> = T extends U ? never : T;
+type A = Exclude<number | string | boolean, string>;
+```
+
+#### 1단계
+Exclude<number, string> | <br />
+Exclude<string, string> | <br />
+Exclude<boolean, string>
+
+#### 2단계
+
+number | <br />
+never | <br />
+boolean
+
+#### 결과
+- 타입 A의 타입은 number | boolean
+- T와 U가 같은 타입이면 그 타입을 배제 시킨다.
+
+
+```ts {numberLines}
+type Extract<T, U> = T extends U ? T : never;
+
+type B = Extract<number | string | boolean, string>;
+```
+
+#### 1 단계
+Extract<number, string> |
+Extract<string, string> |
+Extract<boolean, string>
+
+#### 2단계
+ never | string | never
+
+#### 결과
+- 타입B의 타입은 string
+- T와 U가 같은 타입이면 그 타입만 추론한다.
+
 
 ## 3. infet
 
