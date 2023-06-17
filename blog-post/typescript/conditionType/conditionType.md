@@ -1,6 +1,6 @@
 ---
 slug: "/typescript/conditiontype"
-date: "2023-06-15"
+date: "2023-06-17"
 title: "typescript 조건부 타입"
 categories: ["Typescript"]
 desc: "조건부 타입 설정하기"
@@ -195,9 +195,56 @@ Extract<boolean, string>
 - T와 U가 같은 타입이면 그 타입만 추론한다.
 
 
-## 3. infet
+## 3. infer
+- inference -> 추론하다
+- 조건부 타입에서 특정 타입을 추론할 수 있는 문법
+
+```ts {numberLines}
+type FuncA = () => string;
+type FuncB = () => number;
+
+type ReturnType<T> = T extends () => string ? string : never;
+
+type A = ReturnType<FuncA>; // string
+type B = ReturnType<FuncB>; // never
+```
+
+FuncA,B의 함수 리턴 타입이 ReturnType 타입의 `extends () => string`의 서브타입이면 조건부 타입에 의해 true면 `string` false면 `never`타입 
+- type A는 ReturnType에 FuncA를 선언하면 조건부 타입에 의해 `string`이 된다.
+
+- type B는 ReturnType에 FuncA를 선언하면 조건부 타입에 의해 `never`가 된다.
+
+type A와 type B의 리턴 타입이 FuncA와 FuncB의 타입과 같게 하려면 `infer`를 사용한다.
+
+```ts {numberLines}
+type FuncA = () => string;
+type FuncB = () => number;
+
+type ReturnType<T> = T extends () => infer R ? R : never;
+
+type A = ReturnType<FuncA>; // string
+type B = ReturnType<FuncB>; // number
+type C = ReturnType<number>; // never
+```
+infer는 조건부 타입을 true라 결정하고, extends의 오른쪽의 타입을 추론한다.
+
+- T가 `() => string`이면 `T extends () => infer R ? R :never` 조건부 타입이 true라 정하면 R은 `string`으로 추론된다.
+- T가 `() => number`이면 `T extends () => infer R ? R :never` 조건부 타입이 true라 정하면 R은 `number`으로 추론된다.
+- T가 `number`이면 `T extends () => infer R ? R :never` 조건부 타입이 true라 정하더라도 타입과 리턴타입이 다르기 때문에 추론이 불가 하기 때문에 `never`타입이 된다.
 
 
+#### Promise의 resolve 타입을 infer를 이용해 추출하는 예
+```ts {numberLines}
+type PromiseUnpack<T> = T extends Promise<infer R> ? R : never;
+// 1. T는 프로미스 타입이어야 한다.
+// 2. 프로미스 타입의 결과값 타입을 반환해야 한다.
+
+type PromiseA = PromiseUnpack<Promise<number>>;
+// number
+
+type PromiseB = PromiseUnpack<Promise<string>>;
+// string
+```
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
