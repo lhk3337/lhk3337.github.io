@@ -12,17 +12,24 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-76QDE9WJTY", // Google Analytics / GA
+        ],
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+        },
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `post`,
         path: `${__dirname}/blog-post/`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-gtag`,
-      options: {
-        trackingId: `G-76QDE9WJTY`,
-        head: true,
       },
     },
     {
