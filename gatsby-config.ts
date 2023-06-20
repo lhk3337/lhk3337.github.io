@@ -19,6 +19,13 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `G-76QDE9WJTY`,
+        head: true,
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
