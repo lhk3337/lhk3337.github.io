@@ -1,6 +1,6 @@
 ---
 slug: "/typescript/utilitytypes"
-date: "2023-06-18"
+date: "2023-06-21"
 title: "유틸리티 타입"
 categories: ["Typescript"]
 desc: "타입스크립트가 제공하는 특수 타입"
@@ -284,7 +284,114 @@ type Thumbnail = Record<"large" | "medium" | "small" | "watch", { url: string }>
 ```
 
 ## 4. Exclude, Extract, ReturnType
+### Exclude
+`Exclude<T, U>`
 
+타입변수 T로부터 타입변수 U를 제거하는 타입
+
+```ts {numberLines}
+type A = Exclude<string | boolean, boolean>; 
+// type A는 string 타입으로 리턴 된다.
+```
+
+
+#### type alias로 Exclude 구현해보기
+
+```ts {numberLines}
+type A = Exclude<string | boolean, boolean>;
+
+type Exclude<T, U> = T extends U ? never : T;
+```
+Exclude를 풀어보면 아래와 같은 순서로 타입이 결정된다.
+
+1. 1단계 
+```ts
+Exclude<string, boolean>
+Exclude<boolean, boolean>
+```
+2. 2단계
+```ts
+string |
+never
+```
+result 
+```ts
+string | never -> string // 합집합에서 공집합(never)은 사라짐
+```
+
+
+### Extract
+`Extract<T, U>`
+
+타입변수 T로부터 타입변수 U를 추출하는 타입
+
+```ts {numberLines}
+type B = Extract<string | boolean, boolean>;
+// type B는 boolean 타입으로 리턴 된다.
+```
+
+#### type alias로 Extract 구현해보기
+
+```ts {numberLines}
+type B = Extract<string | boolean, boolean>;
+// boolean 타입 리턴
+
+type Extract<T, U> = T extends U ? T : never;
+```
+
+Extract를 풀어보면 아래와 같은 순서로 타입이 결정된다.
+
+1. 1단계 
+```ts
+Extract<string, boolean>
+Extract<boolean, boolean>
+```
+2. 2단계
+```ts
+never |
+boolean
+```
+result 
+```ts
+never | boolean -> boolean // 합집합에서 공집합(never)은 사라짐
+```
+
+### ReturnType
+`ReturnType<T>`
+
+함수의 반환값 타입을 추출하는 타입
+
+```ts {numberLines}
+function funcA() {
+  return "hello";
+}
+
+function funcB() {
+  return 10;
+}
+
+type ReturnA = ReturnType<typeof funcA>; // type ReturnA은 funcA의 리턴타입인 string 타입으로 리턴
+type ReturnB = ReturnType<typeof funcB>; // type ReturnB는 funcB의 리턴타입인 number 타입으로 리턴
+```
+
+#### type alias로 ReturnType 구현해보기
+
+```ts {numberLines}
+function funcA() {
+  return "hello";
+}
+
+function funcB() {
+  return 10;
+}
+
+type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : never;
+
+type ReturnA = ReturnType<typeof funcA>;
+type ReturnB = ReturnType<typeof funcB>;
+```
+- `typeof funcA`가 `T`이면  `T`는 `() => string`가 된다.
+- `T extends (...args: any) => infer R`에 의해 T가 R의 서브타입일때 추론을 해보면 R은 string타입이라 `type ReturnType은 string`으로 리턴
 
 ## referance
 
