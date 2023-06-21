@@ -10,6 +10,7 @@ thumbnail: "../thumbnail.png"
 
 # React에서 다양한 hooks들
 
+## 1. useState
 prevState
 
 ```jsx
@@ -21,9 +22,10 @@ setState({ ...state, loading: true });
 setState((prevState) => ({ ...prevState, loading: true }));
 ```
 
-[[Legacy][React] state, setState, useState 란 무엇일까?](https://codiving.kr/21)
+[[Legacy][React] state, setState, useState 란 무엇일까?](https://codiving.kr/21)   
+<br />
 
-# useRef
+## 2. useRef
 
 변화는 감지 하지만, 그 변화가 랜더링이 발생시키면 안되는 어떤 값을 다룰때 사용한다. (리랜더링이 일어나지 않는다.)
 
@@ -92,3 +94,6 @@ export default function App() {
 </p>
 
 <figcaption><b>Dom 요소 접근</b></figcaption>
+
+## reference
+- [[Legacy][React] state, setState, useState 란 무엇일까?](https://codiving.kr/21)   
