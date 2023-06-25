@@ -8,6 +8,7 @@ topbg: "../topbg.png"
 thumbnail: "../thumbnail.png"
 ---
 
+타입스크립트가 class문법에서 타입을 어떻게 선언하는지 알아보자.
 
 ## Javascript에서 클래스란?
 
@@ -216,6 +217,98 @@ class ExecutiveOfficer extends Employee {
 }
 
 const executiveOfficer = new ExecutiveOfficer("own", 40, "ceo", 1);
+```
+
+## 접근 제어자
+접근 제어자(Access Modifier)는 클래스내에 특정 필드나 메서드를 접근할 수 있는 범위를 지정하는 것이다.
+
+- `private`를 선언하면 class내에서만 사용가능 하다.
+- `protected`를 선언하면 class와 상속받은 클래스만 사용 가능한다.
+- `public`을 선언하면 모든 곳에서 선언이 가능하다.
+
+```ts {numberLines}
+class Employee {
+  // 필드
+  private name: string; 
+  protected age: number;
+  public position: string;
+
+  // 생성자
+  constructor(name: string, age: number, position: string) {
+    this.name = name;
+    this.age = age;
+    this.position = position;
+  }
+
+  // 메서드
+  work() {
+    console.log(`${this.name}`);
+  }
+}
+
+const employee = new Employee("user1", 22, "developer");
+employee.work(); // ✅ user1 출력, work메서드는 클래스 내부에 있어서 name 접근할 수 있어서 에러가 발생하지 않는다.
+employee.name = "user2"; // ❌ 클래스 내에서만 엑세스할 수 있습니다.
+```
+
+age가 `protected`로 선언했기 때문에 상속받은 클래스에서 사용가능해서 에러가 발생하지 않는다.
+```ts P{numberLines}
+class ExecutiveOfficer extends Employee {
+  officeNumber: number;
+  constructor(name: string, age: number, position: string, officeNumber: number) {
+    super(name, age, position);
+    this.officeNumber = officeNumber;
+  }
+  func() {
+    this.age; // ✅ 부모 클래스에서 상속 받음
+    this.name; // ❌ private라 에러발생
+  }
+}
+```
+
+- constructor 함수의 매개변수에 접근 제어자를 선언하면 필드에 자동으로 프로퍼티가 자동적으로 선언된다.
+- constructor 함수에 this로 선언된 선언식을 생략해도 자동으로 매개변수가 프로퍼티로 값으로 전달된다.
+
+```ts {numberLines}
+class Employee {
+  // 필드
+  private name: string; 
+  protected age: number;
+  public position: string;
+  // 생성자
+  constructor(
+    private name: string, 
+    protected age: number, 
+    public position: string
+  ) {
+    this.name = name;
+    this.age = age;
+    this.position = position;
+  }
+
+  // 메서드
+  work() {
+    console.log(`${this.name}`);
+  }
+}
+```
+생략 후
+```ts {numberLines}
+class Employee {
+  // 필드
+
+  // 생성자
+  constructor(
+    private name: string, 
+    protected age: number, 
+    public position: string
+  ) {}
+
+  // 메서드
+  work() {
+    console.log(`${this.name}`);
+  }
+}
 ```
 
 ## referance
