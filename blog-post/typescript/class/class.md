@@ -311,6 +311,42 @@ class Employee {
 }
 ```
 
+## 인터페이스와 클래스
+
+클래스에서 interface를 사용하려면 `implements`를 사용한다. 그리고 인터페이스는 클래스의 필드와 메서드가 어디 위치에 있는지 정의 할 수 있다.
+```ts {numberLines}
+interface CharacterInterface {
+  name: string;
+  moveSpeed: number;
+  move(): void;
+}
+// implements 구현하다
+class Character implements CharacterInterface {
+  name: string;
+  moveSpeed: number;
+  constructor(name: string, moveSpeed: number) {
+    this.name = name;
+    this.moveSpeed = moveSpeed;
+  }
+  move(): void {
+    console.log(`${this.moveSpeed} speed`);
+  }
+}
+```
+
+- interface가 선언된 클래스에서 접근 제어자를 선언할 경우 public만 허용한다. 
+- private를 선언하려면 interface에 선언하지 말고 class 내부에서 선언해야 한다.
+
+```ts {numberLines}
+class Characters implements CharacterInterface {
+  constructor(public name: string, public moveSpeed: number, private power:string) {}
+  move(): void {
+    console.log(`${this.moveSpeed} speed`);
+  }
+}
+const characters = new Character("user1", 100);
+characters.move();
+```
 ## referance
 
 - [한입 타입스크립트 핸드북](https://ts.winterlood.com/)
