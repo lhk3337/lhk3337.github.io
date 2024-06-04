@@ -7,7 +7,7 @@ const AdComponent = () => {
       window.adsbygoogle.push({});
     }
     // 광고 스크립트를 실행하는 함수
-  });
+  }, []);
 
   return (
     <div className="h-[200px] text-center">
