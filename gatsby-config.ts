@@ -3,7 +3,7 @@ import type { GatsbyConfig } from "gatsby";
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `HOLIMBLOG`,
-    siteUrl: `https://lhk3337.github.io`,
+    siteUrl: `https://dev.holiminfo.com`,
     description: `개발공부 하면서 알게 되었던 지식들을 기록하고 공유하는 공간입니다.`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
@@ -23,6 +23,12 @@ const config: GatsbyConfig = {
           // Puts tracking script in the head instead of the body
           head: true,
         },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-8250617331358921`,
       },
     },
     {
@@ -90,7 +96,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-canonical-urls",
       options: {
-        siteUrl: "https://lhk3337.github.io",
+        siteUrl: "https://dev.holiminfo.com",
         stripQueryString: true,
       },
     },

@@ -30,12 +30,6 @@ export default function Seo({ title: pageTitle, desc }: Props) {
       <meta name="twitter:description" content={desc ? desc : description} />
       <meta name="twitter:creator" content="@author_handle" />
       <meta name="twitter:image" content={publicURL} />
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6684846724407111"
-        crossOrigin="anonymous"
-      ></script>
-      <meta name="google-site-verification" content="-bEp6qApLyHi109x85kjQCHSLAp15SRSlaTTqvRKm70" />
 
       <meta name="naver-site-verification" content="c78512d8a5b78f43ecd4ea7fa1ab32e00c938ab7" />
 

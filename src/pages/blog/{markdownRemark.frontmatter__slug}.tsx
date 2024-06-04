@@ -4,6 +4,7 @@ import Layout from "components/layout";
 import Seo from "components/Seo";
 import Comments from "components/comments";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import AdComponent from "components/adsense";
 interface Props {
   location: {
     pathname: string;
@@ -50,6 +51,7 @@ export default function BlogPostTemplate({
     <Layout location={location.pathname}>
       {/* example image */}
       <GatsbyImage className="mb-10 h-[24rem] w-full" alt="topbg" image={gatsbyImageData} />
+      <AdComponent />
       <div className="mx-auto mt-20 max-w-6xl space-y-10 px-6 pb-1 sm:px-14">
         <div className="space-y-10">
           <div className="flex h-10 items-center">

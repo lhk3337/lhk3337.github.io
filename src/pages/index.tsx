@@ -5,6 +5,7 @@ import Seo from "components/Seo";
 import { graphql, Link, PageProps } from "gatsby";
 import React from "react";
 import { IGatsbyImageData } from "gatsby-plugin-image";
+import AdComponent from "components/adsense";
 
 export interface mainProps {
   location: PageProps["location"];
@@ -44,6 +45,7 @@ export default function IndexPage({ location, data }: mainProps) {
       <div className="mx-auto mt-16 px-6 sm:px-14 md:max-w-5xl lg:max-w-7xl">
         <h1 className="mb-5 text-2xl font-bold">Category</h1>
         <CategoryMenu data={data} location={location} />
+        <AdComponent />
         <CategoryList data={data} selectedCategory={selectedCategory} />
       </div>
     </Layout>
