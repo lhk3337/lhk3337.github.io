@@ -10,7 +10,7 @@ const AdComponent = () => {
   }, []);
 
   return (
-    <div className="h-[200px] text-center">
+    <div className="mt-20 text-center">
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
