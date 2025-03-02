@@ -28,7 +28,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
-        publisherId: `ca-pub-8250617331358921`,
+        publisherId: `ca-pub-6684846724407111`,
       },
     },
     {

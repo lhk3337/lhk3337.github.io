@@ -14,8 +14,8 @@ const AdComponent = () => {
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-8250617331358921" // 구글 애드센스 코드의 data-ad-client 값으로 대체
-        data-ad-slot="8878719990" // 구글 애드센스 코드의 data-ad-slot 값으로 대체
+        data-ad-client="ca-pub-6684846724407111" // 구글 애드센스 코드의 data-ad-client 값으로 대체
+        data-ad-slot="8046162930" // 구글 애드센스 코드의 data-ad-slot 값으로 대체
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
